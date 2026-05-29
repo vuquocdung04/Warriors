@@ -79,7 +79,7 @@ public class MoreLivesBox : BaseBox<MoreLivesBox>
         SceneUtils.ExecuteInScene(SceneName.LOBBY_SCENE, () =>
         {
             Close();
-            NavController.Instance.NavigateTo(ENavType.Shop);
+            //NavController.Instance.NavigateTo(ENavType.Shop);
         });
 
         SceneUtils.ExecuteInScene(SceneName.GAME_PLAY, () =>

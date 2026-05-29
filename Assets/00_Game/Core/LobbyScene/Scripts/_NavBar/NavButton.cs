@@ -2,28 +2,27 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class NavButton : MonoBehaviour
 {
     public ENavType navType;
     [Space(5)] [SerializeField] private Button btnMain;
 
     [SerializeField] RectTransform icon;
-    
+
     [SerializeField] private Sprite sprUnSelected;
     [SerializeField] private Image imgMain;
     [SerializeField] private RectTransform rectMain;
 
     public void Init()
     {
-        UIUtils.FitToTargetHeight(icon.GetComponent<Image>(), 200f);
+        UIUtils.FitToTargetHeight(icon.GetComponent<Image>(), 130f);
     }
 
-    public void HandleSelected(bool isSelected, Sprite sprSelected, Vector2 targetSize, Vector2 defaultSize)
+    public void HandleSelected(bool isSelected, Sprite sprSelected, Vector2 size)
     {
-        rectMain.sizeDelta = isSelected ? targetSize : defaultSize;
+        rectMain.sizeDelta = size; // mọi nav cùng size
         imgMain.SetSprite(isSelected ? sprSelected : sprUnSelected);
-        
+
         if (isSelected)
         {
             icon.DOScale(Vector3.one * 1.3f, 0.15f);
@@ -41,7 +40,6 @@ public class NavButton : MonoBehaviour
         btnMain.OnClicked(() => callback?.Invoke());
     }
 
-
     public void InitSetup()
     {
         rectMain = GetComponent<RectTransform>();
@@ -53,7 +51,9 @@ public class NavButton : MonoBehaviour
 
 public enum ENavType
 {
-    Shop = 0,
-    Lobby = 1,
-    Rank = 2,
+    nav0 = 0,
+    nav1 = 1,
+    nav2 = 2,
+    nav3 = 3,
+    nav4 = 4,
 }

@@ -5,23 +5,11 @@ using UnityEngine.UI;
 public class LobbyScene : MonoBehaviour
 {
     public NavController navController;
-    public Button btnHeart;
-
-    public Button btnCoin;
     public async UniTask InitAsync()
     {
         navController.Init();
 
         await PreLoad();
-
-        btnHeart.OnClicked(delegate
-        {
-            HeartManager.Instance.TryShowHeartOffer(LobbyController.Instance.topCanvas);
-        });
-        btnCoin.OnClicked(delegate
-        {
-            navController.NavigateTo(ENavType.Shop);
-        });
     }
 
     private static async UniTask PreLoad()

@@ -8,8 +8,7 @@ public class NavController : MonoBehaviour
     public static NavController Instance { get; private set; }
     [SerializeField] private Sprite sprSelected;
     public List<NavButton> navButtons;
-    private Vector2 sizeSelected;
-    private Vector2 sizeUnselected;
+    private Vector2 navSize;
     private NavButton currentNavSelected;
 
     public void Init()
@@ -29,59 +28,55 @@ public class NavController : MonoBehaviour
         }
         InitAfterLayoutAsync().Forget();
     }
+
     private async UniTaskVoid InitAfterLayoutAsync()
     {
         await UniTask.WaitForEndOfFrame(this);
-        InitNavButtonStateWith(ENavType.Lobby);
+        InitNavButtonStateWith(ENavType.nav2);
     }
+
     private void InitSize()
     {
         int countNavBar = navButtons.Count;
-        float totalWidth = GetComponent<RectTransform>().rect.width;
-        float widthSelected = totalWidth * 0.45f;
+        if (countNavBar == 0) return;
 
+        float totalWidth = GetComponent<RectTransform>().rect.width;
         float height = 250;
-        sizeSelected = new Vector2(widthSelected, height);
-        if (countNavBar > 1)
-        {
-            float remainingPercent = 1.0f - 0.45f;
-            float widthUnselected = totalWidth * remainingPercent / (countNavBar - 1);
-            sizeUnselected = new Vector2(widthUnselected, height);
-        }
+        float width = totalWidth / countNavBar;
+        navSize = new Vector2(width, height);
     }
+
     public void NavigateTo(ENavType type)
     {
         var target = navButtons.Find(n => n.navType == type);
         if (target == null || target == currentNavSelected) return;
         UpdateNavButtonState(target);
     }
+
     private void InitNavButtonStateWith(ENavType type)
     {
         InitSize();
         foreach (var t in navButtons)
         {
-            if (t.navType == type)
-            {
-                currentNavSelected = t;
-                t.HandleSelected(true, sprSelected, sizeSelected, sizeUnselected);
-            }
-            else
-            {
-                t.HandleSelected(false, sprSelected, sizeSelected, sizeUnselected);
-            }
-
+            bool isSelected = t.navType == type;
+            if (isSelected) currentNavSelected = t;
+            t.HandleSelected(isSelected, sprSelected, navSize);
         }
     }
+
     private void UpdateNavButtonState(NavButton navButton)
     {
+        HandleScreenSliding(navButton); // tính hướng dựa trên currentNavSelected cũ
+
         foreach (var t in navButtons)
         {
-            t.HandleSelected(false, sprSelected, sizeSelected, sizeUnselected);
+            t.HandleSelected(false, sprSelected, navSize);
         }
-        HandleScreenSliding(navButton);
+
         currentNavSelected = navButton;
-        navButton.HandleSelected(true, sprSelected, sizeSelected, sizeUnselected);
+        navButton.HandleSelected(true, sprSelected, navSize);
     }
+
     private void HandleScreenSliding(NavButton clicked)
     {
         bool clickedIsRight = clicked.transform.localPosition.x > currentNavSelected.transform.localPosition.x;
@@ -92,33 +87,49 @@ public class NavController : MonoBehaviour
         ClosePrevBox(currentNavSelected.navType, outAnim);
         OpenCurrentBox(clicked.navType, inAnim);
     }
+
     private void OpenCurrentBox(ENavType type, IShowAnimation anim)
     {
         switch (type)
         {
-            case ENavType.Shop:
-                ShopBox.Instance.Show(anim);
+            case ENavType.nav0:
+                RankBox.Instance.Show(anim);
+                // dungeon
                 break;
-            case ENavType.Lobby:
+            case ENavType.nav1:
+                // TODO: tien hoa
+                break;
+            case ENavType.nav2:
                 LobbyBox.Instance.Show(anim);
                 break;
-            case ENavType.Rank:
-                RankBox.Instance.Show(anim);
+            case ENavType.nav3:
+                // card icon
+                break;
+            case ENavType.nav4:
+                ShopBox.Instance.Show(anim);
                 break;
         }
     }
+
     private void ClosePrevBox(ENavType type, IShowAnimation anim)
     {
         switch (type)
         {
-            case ENavType.Shop:
-                if (ShopBox.Instance != null) ShopBox.Instance.Close(anim);
+            case ENavType.nav0:
+                if (RankBox.Instance != null) RankBox.Instance.Close(anim);
+
                 break;
-            case ENavType.Lobby:
+            case ENavType.nav1:
+                break;
+            case ENavType.nav2:
                 if (LobbyBox.Instance != null) LobbyBox.Instance.Close(anim);
                 break;
-            case ENavType.Rank:
-                if (RankBox.Instance != null) RankBox.Instance.Close(anim);
+            case ENavType.nav3:
+                // TODO: gắn box cho nav3
+                break;
+            case ENavType.nav4:
+                if (ShopBox.Instance != null) ShopBox.Instance.Close(anim);
+                // TODO: gắn box cho nav4
                 break;
         }
     }
