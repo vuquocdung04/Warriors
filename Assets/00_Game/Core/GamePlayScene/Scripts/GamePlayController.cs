@@ -13,10 +13,20 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public GameFlow gameFlow;
     public InputController inputController;
 
+    [Header("We are warriors")]
+    public BattleGrid grid;
+    public BattleManager battle;
+    public UnitDatabase db;
+    public BattleSpawner spawner;
+
     protected override void OnAwake()
     {
         base.OnAwake();
-        Init().Forget();
+        //Init().Forget();
+        db.Init();
+        grid.Init();
+        battle.Init();
+        spawner.Init(grid, db, battle);
     }
 
     private async UniTaskVoid Init()
