@@ -4,6 +4,9 @@ public static class UseProfile
 {
     public static int DefaultBoosterAmount = 3;
     public static int DefaultStartingCoins = 500;
+    
+    public static readonly PrefVar<string> CurrentCiv = new(StringHelper.CURRENT_CIV, "stone");
+    public static readonly PrefVar<string> EnemyCiv = new(StringHelper.ENEMY_CIV, "stone");
 
     public static readonly PrefVar<int> Level = new(StringHelper.LEVEL, 1);
     public static readonly PrefVar<int> Booster0 = new(StringHelper.BOOSTER_0, DefaultBoosterAmount);
@@ -12,7 +15,6 @@ public static class UseProfile
     public static readonly PrefVar<int> Coin = new(StringHelper.COIN, DefaultStartingCoins);
 
     public static readonly PrefVar<int> AvatarId = new(StringHelper.AVATAR_ID, 0);
-
     // --- SETTINGS ---
     public static readonly PrefVar<bool> OnMusic = new(StringHelper.ONOFF_MUSIC, true);
     public static readonly PrefVar<bool> OnSound = new(StringHelper.ONOFF_SOUND, true);

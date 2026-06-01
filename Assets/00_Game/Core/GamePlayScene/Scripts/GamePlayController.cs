@@ -18,6 +18,9 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public BattleManager battle;
     public UnitDatabase db;
     public BattleSpawner spawner;
+    public EnemyAI enemyAI; 
+
+    public UnitCardBar cardBar;
 
     protected override void OnAwake()
     {
@@ -27,6 +30,8 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         grid.Init();
         battle.Init();
         spawner.Init(grid, db, battle);
+        enemyAI.Init(spawner);
+        cardBar.Init(spawner, db);
     }
 
     private async UniTaskVoid Init()

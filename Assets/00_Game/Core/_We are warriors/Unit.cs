@@ -5,7 +5,8 @@ public class Unit : MonoBehaviour, IDamageable
 {
     public string id;
     public Team team;
-
+    public Team Team => team;
+    public Transform Transform => transform;
     public Transform visual;
 
     [Header("Sorting / Movement")]
@@ -26,7 +27,7 @@ public class Unit : MonoBehaviour, IDamageable
     private bool _moving;
     private int _preferVertical = 1;
     private float _attackTimer;
-    private Unit _attackTarget;
+    private IDamageable _attackTarget;
     private IAttackStrategy _attackStrategy;
     private int ForwardX => team == Team.Ally ? +1 : -1;
     private float AttackRangeWorld =>
@@ -58,7 +59,7 @@ public class Unit : MonoBehaviour, IDamageable
         _hpBar = GetComponent<UnitHpBar>();
         _hpBar?.Set(1f);
     }
-
+    public float SqrDistanceTo(Vector3 p) => (transform.position - p).sqrMagnitude;
     public void Tick(float dt)
     {
         if (_state == UnitState.Dead) return;
@@ -77,19 +78,11 @@ public class Unit : MonoBehaviour, IDamageable
         if (_moving) { MoveStep(dt); return; }
 
         _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
-        if (_attackTarget != null) { _state = UnitState.Attacking; return; }
-
-        // luôn dồn về hàng của địch gần nhất
-        var nearest = BattleManager.Instance.FindNearestEnemyInRange(this, float.MaxValue);
-        if (nearest != null)
-        {
-            int targetY = _grid.WorldToCell(nearest.transform.position).y;
-            if (targetY > _cell.y) _preferVertical = 1;
-            else if (targetY < _cell.y) _preferVertical = -1;
-        }
-
+        if (IsValidTarget(_attackTarget)) { _state = UnitState.Attacking; return; }
+        _attackTarget = null;
         TryAdvance();
     }
+
     void MoveStep(float dt)
     {
         Vector3 dest = _grid.CellToWorld(_targetCell);
@@ -161,16 +154,22 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- ATTACKING ----
     void UpdateAttacking(float dt)
     {
-        if (_attackTarget == null || !_attackTarget.IsAlive || !InRange(_attackTarget))
-        { _state = UnitState.Moving; return; }
+        if (!IsValidTarget(_attackTarget) || !InRange(_attackTarget))
+        { _attackTarget = null; _state = UnitState.Moving; return; }
         TryAttack();
     }
-
-    bool InRange(Unit t)
+    static bool IsValidTarget(IDamageable t)
+    {
+        if (t == null) return false;
+        if (t is Object o && o == null) return false;
+        return t.IsAlive;
+    }
+    bool InRange(IDamageable t)
     {
         float r = AttackRangeWorld;
-        return (t.transform.position - transform.position).sqrMagnitude <= r * r;
+        return t.SqrDistanceTo(transform.position) <= r * r;
     }
+
 
     void TryAttack()
     {
@@ -178,7 +177,7 @@ public class Unit : MonoBehaviour, IDamageable
         _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
         _attackStrategy?.Attack(_attackTarget);
     }
-    public void DealDamage(Unit target)
+    public void DealDamage(IDamageable target)
     {
         if (target == null || !target.IsAlive) return;
         float dmg = _stats.atk;

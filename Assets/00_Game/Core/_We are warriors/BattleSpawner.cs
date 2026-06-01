@@ -1,54 +1,62 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class BattleSpawner : MonoBehaviour
 {
-    public string[] unitIds;       // [0]=archer, [1]=spartan... khớp key 1-4
+    public House allyHouse;
+    public House enemyHouse;
 
     private BattleGrid _grid;
     private UnitDatabase _db;
     private BattleManager _battle;
-    private int _selected;
 
     public void Init(BattleGrid grid, UnitDatabase db, BattleManager battle)
     {
         _grid = grid;
         _db = db;
         _battle = battle;
+        InitHouse(allyHouse, Team.Ally);
+        InitHouse(enemyHouse, Team.Enemy);
+    }
+    [Header("Độ trâu nhà địch")]
+    public float enemyHouseHpMultiplier = 3f;
+
+    void InitHouse(House house, Team team)
+    {
+        if (house == null) return;
+        string civ = team == Team.Ally ? UseProfile.CurrentCiv.Value : UseProfile.EnemyCiv.Value;
+        HouseData data = _db.GetHouseData(civ);
+        if (data == null) { Debug.LogError($"[Spawner] thiếu house data civ '{civ}'"); return; }
+
+        float mult = team == Team.Enemy ? enemyHouseHpMultiplier : 1f;
+        house.Init(data, team, _grid, OnHouseDestroyed, mult);
+    }
+    void OnHouseDestroyed(Team team)
+    {
+        _battle.EndBattle();
+
+        bool win = team == Team.Enemy;
+        Debug.Log($"[Battle] House {team} sập -> {(win ? "THẮNG" : "THUA")}");
+        // TODO: gọi GameFlow.ShowWin()/ShowLose()
     }
 
-    void Update()
+    // 3 nút UI gọi: SpawnAlly(0/1/2)
+    public void SpawnAlly(int index)
     {
-        var kb = Keyboard.current;
-        if (kb != null)
-        {
-            if (kb.digit1Key.wasPressedThisFrame) _selected = 0;
-            if (kb.digit2Key.wasPressedThisFrame) _selected = 1;
-            if (kb.digit3Key.wasPressedThisFrame) _selected = 2;
-            if (kb.digit4Key.wasPressedThisFrame) _selected = 3;
-        }
-
-        var pointer = Pointer.current;
-        if (pointer != null && pointer.press.wasPressedThisFrame)
-        {
-            float x = pointer.position.ReadValue().x;
-            Team team = x < Screen.width * 0.5f ? Team.Ally : Team.Enemy;
-            Spawn(team);
-        }
+        if (_battle != null && _battle.IsBattleOver) return;
+        Spawn(Team.Ally, UseProfile.CurrentCiv.Value, index);
     }
 
-    public void Spawn(Team team)
+    public void Spawn(Team team, string civId, int index)
     {
-        if (_db == null || unitIds == null || _selected >= unitIds.Length) return;
-        string id = unitIds[_selected];
+        if (_db == null) return;
 
-        UnitData data = _db.GetDataById(id);
-        Unit prefab = _db.GetUnitById(id);
-        if (data == null || prefab == null)
-        {
-            Debug.LogError($"[Spawner] id '{id}' -> data:{(data == null ? "NULL" : "ok")} prefab:{(prefab == null ? "NULL" : "ok")}");
-            return;
-        }
+        var units = _db.GetCivUnits(civId);
+        if (index < 0 || index >= units.Count)
+        { Debug.LogError($"[Spawner] civ '{civId}' không có lính index {index}"); return; }
+
+        UnitData data = units[index];
+        Unit prefab = _db.GetUnitById(data.id);
+        if (prefab == null) { Debug.LogError($"[Spawner] thiếu prefab '{data.id}'"); return; }
 
         Vector2Int anchor = GetSpawnCell(team);
         Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
@@ -60,6 +68,8 @@ public class BattleSpawner : MonoBehaviour
 
     Vector2Int GetSpawnCell(Team team)
     {
+        House house = team == Team.Ally ? allyHouse : enemyHouse;
+        if (house != null) return _grid.WorldToCell(house.GetSpawnPosition());
         int x = team == Team.Ally ? 0 : _grid.Width - 1;
         return new Vector2Int(x, _grid.Height / 2);
     }

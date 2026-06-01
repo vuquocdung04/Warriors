@@ -5,28 +5,46 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
 
-    private readonly List<Unit> _allies = new List<Unit>();
-    private readonly List<Unit> _enemies = new List<Unit>();
-
+    private readonly List<Unit> _allies = new();
+    private readonly List<Unit> _enemies = new();
+    private readonly List<IDamageable> _allyTargets = new();   // unit + house theo phe
+    private readonly List<IDamageable> _enemyTargets = new();
+    public bool IsBattleOver { get; private set; }
     public void Init()
     {
         Instance = this;
-        _allies.Clear();
-        _enemies.Clear();
+        IsBattleOver = false;
+        _allies.Clear(); _enemies.Clear();
+        _allyTargets.Clear(); _enemyTargets.Clear();
     }
-
-    public void Register(Unit u) => (u.team == Team.Ally ? _allies : _enemies).Add(u);
-    public List<Unit> GetEnemiesOf(Team team) => team == Team.Ally ? _enemies : _allies;
     void Update()
     {
+          if (IsBattleOver) return; 
         Tick(Time.deltaTime);
     }
-    public void Tick(float dt)   // gọi từ GameManager.Update của bạn
+    public void Register(Unit u)
+    {
+        (u.team == Team.Ally ? _allies : _enemies).Add(u);
+        (u.team == Team.Ally ? _allyTargets : _enemyTargets).Add(u);
+    }
+
+    public void RegisterHouse(House h)
+    {
+        (h.team == Team.Ally ? _allyTargets : _enemyTargets).Add(h);
+    }
+    public void EndBattle() 
+    {
+        IsBattleOver = true;
+    }
+
+    List<IDamageable> TargetsOf(Team team) => team == Team.Ally ? _enemyTargets : _allyTargets;
+
+    public void Tick(float dt)
     {
         TickList(_allies, dt);
         TickList(_enemies, dt);
-        Cleanup(_allies);
-        Cleanup(_enemies);
+        Cleanup(_allies); Cleanup(_enemies);
+        CleanupTargets(_allyTargets); CleanupTargets(_enemyTargets);
     }
 
     void TickList(List<Unit> list, float dt)
@@ -41,19 +59,26 @@ public class BattleManager : MonoBehaviour
             if (list[i] == null || !list[i].IsAlive) list.RemoveAt(i);
     }
 
-    public Unit FindNearestEnemyInRange(Unit self, float range)
+    void CleanupTargets(List<IDamageable> list)
     {
-        List<Unit> enemies = GetEnemiesOf(self.team);
+        for (int i = list.Count - 1; i >= 0; i--)
+            if (list[i] == null || !list[i].IsAlive) list.RemoveAt(i);
+    }
+
+    public IDamageable FindNearestEnemyInRange(Unit self, float range)
+    {
+        var targets = TargetsOf(self.team);
         float rangeSqr = range * range;
         Vector3 p = self.transform.position;
-        Unit best = null;
+
+        IDamageable best = null;
         float bestSqr = float.MaxValue;
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < targets.Count; i++)
         {
-            Unit e = enemies[i];
-            if (e == null || !e.IsAlive) continue;
-            float d = (e.transform.position - p).sqrMagnitude;
-            if (d <= rangeSqr && d < bestSqr) { bestSqr = d; best = e; }
+            var t = targets[i];
+            if (t == null || (t is Object o && o == null) || !t.IsAlive) continue;
+            float d = t.SqrDistanceTo(p);
+            if (d <= rangeSqr && d < bestSqr) { bestSqr = d; best = t; }
         }
         return best;
     }

@@ -1,0 +1,44 @@
+[
+  {
+    "civId": "stone",
+    "civName": "Stone Age",
+    "order": 1,
+    "unlockCost": 0,
+    "houseHp": 2.0
+  },
+  {
+    "civId": "farm",
+    "civName": "Farm Age",
+    "order": 2,
+    "unlockCost": 0,
+    "houseHp": 6.0
+  },
+  {
+    "civId": "spartan",
+    "civName": "Spartan Age",
+    "order": 3,
+    "unlockCost": 20000,
+    "houseHp": 18.0
+  },
+  {
+    "civId": "renai",
+    "civName": "Renaissance",
+    "order": 4,
+    "unlockCost": 170000,
+    "houseHp": 54.0
+  },
+  {
+    "civId": "modern",
+    "civName": "Mordern Age",
+    "order": 5,
+    "unlockCost": 1300000,
+    "houseHp": 162.0
+  },
+  {
+    "civId": "space",
+    "civName": "Space Age",
+    "order": 6,
+    "unlockCost": 13000000,
+    "houseHp": 486.0
+  }
+]

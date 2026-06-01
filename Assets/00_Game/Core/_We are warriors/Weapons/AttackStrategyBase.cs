@@ -8,9 +8,9 @@ public abstract class AttackStrategyBase : MonoBehaviour, IAttackStrategy
 
     public void Init(Unit o) => owner = o;
 
-    public abstract void Attack(Unit target);
+    public abstract void Attack(IDamageable target);
 
-    protected void Hit(Unit target) 
+    protected void Hit(IDamageable target)
     {
         if (target != null && target.IsAlive) owner.DealDamage(target);
     }
