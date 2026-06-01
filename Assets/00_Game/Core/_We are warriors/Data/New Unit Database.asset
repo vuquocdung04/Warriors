@@ -15,3 +15,4 @@ MonoBehaviour:
   json: {fileID: 4900000, guid: d0a88ba2aebe16d4fac1cd7d502ff0bc, type: 3}
   prefabs:
   - {fileID: 7431140889614962571, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+  - {fileID: 8975481377770183721, guid: ab0304e463c4b574e9cc29fff0689f6c, type: 3}
