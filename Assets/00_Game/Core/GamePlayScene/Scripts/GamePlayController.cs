@@ -18,8 +18,8 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public BattleManager battle;
     public UnitDatabase db;
     public BattleSpawner spawner;
-    public EnemyAI enemyAI; 
-
+    public EnemyAI enemyAI;
+    public FoodManager foodManager;
     public UnitCardBar cardBar;
 
     protected override void OnAwake()
@@ -32,6 +32,11 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         spawner.Init(db);
         enemyAI.Init(spawner);
         cardBar.Init(spawner, db);
+
+        // food bắt đầu = cost lính đầu tiên - 2 ; gọi sau cardBar để card đã đăng ký FOOD_CHANGED
+        var allyUnits = db.GetCivUnits(UseProfile.CurrentCiv.Value);
+        int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
+        foodManager.Init(startFood);
     }
 
     private async UniTaskVoid Init()

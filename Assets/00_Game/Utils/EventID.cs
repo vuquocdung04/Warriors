@@ -22,5 +22,6 @@
     // WE ARE WARRIORS
     HOUSE_DESTROYED = 206,   // param: Team (phe nhà bị sập) -> BattleManager nghe để EndBattle
     UNIT_DIED = 207,         // param: Unit (vừa chết) -> UnitDrop sẽ nghe để rơi phần thưởng
+    FOOD_CHANGED = 208,      // param: int (food hiện tại) -> UnitCard nghe để đổi màu/bật-tắt nút
 
 }
