@@ -24,4 +24,7 @@
     UNIT_DIED = 207,         // param: Unit (vừa chết) -> UnitDrop sẽ nghe để rơi phần thưởng
     FOOD_CHANGED = 208,      // param: int (food hiện tại) -> UnitCard nghe để đổi màu/bật-tắt nút
 
+    APPLY_EFFECT_ALL_ALLIES = 300,   // buff toàn phe ta (button bấm)
+    APPLY_EFFECT_ALL_ENEMIES = 301,  // debuff toàn phe địch
+
 }

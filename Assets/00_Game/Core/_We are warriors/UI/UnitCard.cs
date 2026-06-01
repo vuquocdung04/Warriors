@@ -12,6 +12,11 @@ public class UnitCard : MonoBehaviour
     public Color enoughColor = Color.white;
     public Color notEnoughColor = Color.red;
 
+    [Header("Màu nút theo food")]
+    public Image buttonImage;
+    public Color btnEnoughColor = new Color(1f / 255f, 163f / 255f, 255f / 255f);   // #01A3FF
+    public Color btnNotEnoughColor = new Color(60f / 255f, 66f / 255f, 90f / 255f); // #3C425A
+
     public int foodCost { get; private set; }
 
     private int _index;
@@ -40,6 +45,7 @@ public class UnitCard : MonoBehaviour
     {
         bool enough = currentFood >= foodCost;
         if (foodCostText != null) foodCostText.color = enough ? enoughColor : notEnoughColor;
-        if (button != null) button.interactable = enough;
+        if (buttonImage != null) buttonImage.color = enough ? btnEnoughColor : btnNotEnoughColor;
+        // nút vẫn bấm được; thiếu food thì SpawnAlly log rồi return
     }
 }

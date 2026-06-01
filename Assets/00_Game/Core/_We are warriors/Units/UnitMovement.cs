@@ -83,8 +83,8 @@ public class UnitMovement
             Unit u = _grid.GetOccupant(c);
             if (u == null) return c;
             if (u.team != _owner.team) return null;                        // địch -> chặn
-            if (u.FrontPriority >= _owner.FrontPriority) return null;       // ngang/cao (melee) -> không xuyên
-            // đồng minh thấp hơn (ranged) -> cho qua
+            if (u.FrontPriority > _owner.FrontPriority) return null;        // chỉ chặn đồng minh ưu tiên CAO hơn
+            // đồng minh ngang/thấp hơn -> cho lách qua tìm ô trống
         }
         return null;
     }

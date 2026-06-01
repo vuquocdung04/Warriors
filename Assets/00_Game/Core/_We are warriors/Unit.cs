@@ -16,7 +16,8 @@ public class Unit : MonoBehaviour, IDamageable
 
     public bool IsAlive => _state != UnitState.Dead;
     public int FrontPriority => _stats != null ? _stats.frontPriority : 0;
-    public UnitData Data => _data;   
+    public UnitData Data => _data;
+    public UnitEffects Effects { get; } = new();   // buff/debuff: slow, độc, choáng, +sát thương...
 
     private UnitHpBar _hpBar;
     private UnitData _data;
@@ -76,6 +77,11 @@ public class Unit : MonoBehaviour, IDamageable
     public void Tick(float dt)
     {
         if (_state == UnitState.Dead) return;
+
+        Effects.Tick(this, dt);                  // độc trừ máu, đếm giờ, hết hạn tự gỡ
+        if (_state == UnitState.Dead) return;    // bị DoT giết
+        if (Effects.IsControlled) return;        // đóng băng / choáng -> đứng im
+
         if (_attackTimer > 0f) _attackTimer -= dt;
 
         switch (_state)
@@ -88,7 +94,7 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- MOVING ----
     void UpdateMoving(float dt)
     {
-        if (_movement.IsMoving) { _movement.Step(dt, _stats.moveSpeed); return; }
+        if (_movement.IsMoving) { _movement.Step(dt, _stats.moveSpeed * Effects.MoveMul); return; }
 
         _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
         if (IsValidTarget(_attackTarget)) { _state = UnitState.Attacking; return; }
@@ -99,7 +105,8 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- ATTACKING ----
     void UpdateAttacking(float dt)
     {
-        if (!IsValidTarget(_attackTarget) || !InRange(_attackTarget))
+        // đã engage thì giữ đánh tới khi địch ra NGOÀI tầm + đệm 15% (chống rung khi địch đứng đúng mép tầm)
+        if (!IsValidTarget(_attackTarget) || !InRange(_attackTarget, 1.15f))
         { _attackTarget = null; _state = UnitState.Moving; return; }
         TryAttack();
     }
@@ -111,23 +118,23 @@ public class Unit : MonoBehaviour, IDamageable
         return t.IsAlive;
     }
 
-    bool InRange(IDamageable t)
+    bool InRange(IDamageable t, float mult = 1f)
     {
-        float r = AttackRangeWorld;
+        float r = AttackRangeWorld * mult;
         return t.SqrDistanceTo(transform.position) <= r * r;
     }
 
     void TryAttack()
     {
         if (_attackTimer > 0f) return;
-        _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
+        _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed * Effects.AtkSpeedMul);
         _attackStrategy?.Attack(_attackTarget);
     }
 
     public void DealDamage(IDamageable target)
     {
         if (target == null || !target.IsAlive) return;
-        float dmg = _stats.atk;
+        float dmg = _stats.atk * Effects.AtkMul;
         if (Random.value < _stats.criticalChance) dmg *= 2f;
         target.TakeDamage(dmg);
         if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);

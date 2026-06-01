@@ -15,12 +15,30 @@ public class BattleManager : StaffSingleton<BattleManager>
         _allies.Clear(); _enemies.Clear();
         _allyTargets.Clear(); _enemyTargets.Clear();
         this.RegisterListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
+        this.RegisterListener(EventID.APPLY_EFFECT_ALL_ALLIES, OnEffectAllAllies);
+        this.RegisterListener(EventID.APPLY_EFFECT_ALL_ENEMIES, OnEffectAllEnemies);
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
         this.RemoveListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
+        this.RemoveListener(EventID.APPLY_EFFECT_ALL_ALLIES, OnEffectAllAllies);
+        this.RemoveListener(EventID.APPLY_EFFECT_ALL_ENEMIES, OnEffectAllEnemies);
+    }
+
+    // param: Func<IStatusEffect> -> tạo effect MỚI cho từng unit (mỗi con đếm giờ riêng)
+    void OnEffectAllAllies(object param) => ApplyToAll(_allies, param);
+    void OnEffectAllEnemies(object param) => ApplyToAll(_enemies, param);
+
+    void ApplyToAll(List<Unit> list, object param)
+    {
+        if (param is not System.Func<IStatusEffect> factory) return;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var u = list[i];
+            if (u != null && u.IsAlive) u.Effects.Add(u, factory());
+        }
     }
 
     void OnHouseDestroyed(object param)

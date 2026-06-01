@@ -38,7 +38,11 @@ public class BattleSpawner : MonoBehaviour
 
         UnitData data = units[index];
         var food = FoodManager.Instance;
-        if (food != null && !food.CanAfford(data.foodCost)) return;   // không đủ -> thôi
+        if (food != null && !food.CanAfford(data.foodCost))
+        {
+            Debug.Log($"[Spawn] không đủ food cho '{data.id}' (cần {data.foodCost}, có {food.Food})");
+            return;
+        }
 
         Unit u = SpawnUnit(Team.Ally, data);
         if (u != null && food != null) food.Spend(data.foodCost);     // ra lính rồi mới trừ
