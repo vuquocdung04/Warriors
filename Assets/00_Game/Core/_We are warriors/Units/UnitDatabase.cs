@@ -53,4 +53,13 @@ public class UnitDatabase : ScriptableObject
     public Unit GetUnitById(string id) => _prefab != null && _prefab.TryGetValue(id, out var p) ? p : null;
     public HouseData GetHouseData(string civId)
         => _houses != null && _houses.TryGetValue(civId, out var h) ? h : null;
+
+    public List<HouseData> GetCivsByOrder()
+    {
+        var list = new List<HouseData>(_houses.Values);
+        list.Sort((a, b) => a.order.CompareTo(b.order));
+        return list;
+    }
+    public int GetCivOrder(string civId)
+        => _houses != null && _houses.TryGetValue(civId, out var h) ? h.order : 1;
 }
