@@ -17,4 +17,8 @@ MonoBehaviour:
   - {fileID: 7431140889614962571, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
   - {fileID: 44696951141833288, guid: f1e5666cef89843dcbe59ae9cf967014, type: 3}
   - {fileID: 8975481377770183721, guid: ab0304e463c4b574e9cc29fff0689f6c, type: 3}
+  displays:
+  - {fileID: 320962329872440312, guid: e4b6131c1b24c4543b66416644dcbbb4, type: 3}
+  - {fileID: 3395131183020598716, guid: 029d90c68015cb74f9924608fb24f216, type: 3}
+  - {fileID: 8842852288910154525, guid: 35e639636068be3459863d88538160ed, type: 3}
   houseJson: {fileID: 4900000, guid: 2d01f85a0929d4a84b8a0cf482c8adf8, type: 3}

@@ -7,14 +7,13 @@ using TMPro;
 public class FoodManager : StaffSingleton<FoodManager>
 {
     [Header("UI")]
-    public TMP_Text foodText;          // số food hiện tại
-    public Image fillProgress;         // fill tiến trình hồi miếng tiếp theo
+    public TMP_Text foodText;
+    public Image fillProgress;
 
-    [Header("Hồi food")]
-    public float refillRate = 0.2f;    // food/giây (0.2 = 5s/miếng)
+    private float refillRate;
 
     private int _food;
-    private int _startFood;            // = foodCost lính đầu - 2 (GamePlayController truyền vào)
+    private int _startFood;
     private Tween _fillTween;
 
     public int Food => _food;
@@ -22,6 +21,7 @@ public class FoodManager : StaffSingleton<FoodManager>
     // startFood do GamePlayController tính theo lính đầu tiên rồi truyền vào.
     public void Init(int startFood)
     {
+        refillRate = UseProfile.FoodRate.Value;
         _startFood = startFood;
         Init();
     }

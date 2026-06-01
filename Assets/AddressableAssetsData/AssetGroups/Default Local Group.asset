@@ -65,6 +65,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9006e934176173b4d99753ffa96f49db
+    m_Address: UpgradesBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c86585c7c2c14403be009ded636b510
     m_Address: ShopBox
     m_ReadOnly: 0

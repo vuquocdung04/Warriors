@@ -13,6 +13,6 @@ public class DataRepo : MonoBehaviour
     {
         Instance = this;
         unitDatabase.Init();
-        UseProfile.CurrentCiv.Value = "modern";
+        UseProfile.CurrentCiv.Value = "stone";
     }
 }

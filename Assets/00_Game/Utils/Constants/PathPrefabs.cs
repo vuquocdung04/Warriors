@@ -15,5 +15,6 @@ public class PathPrefabs
     public const string SETTING_GAME_BOX = "SettingGameBox";
     public const string SETTING_LOBBY_BOX = "SettingLobbyBox";
     public const string SHOP_BOX = "ShopBox";
+    public const string UPGRADES_BOX = "UpgradesBox";
     public const string WIN_BOX = "WinBox";
 }

@@ -17,12 +17,15 @@ public class LobbyScene : MonoBehaviour
         var lobbyTcs = new UniTaskCompletionSource();
         var shopTcs = new UniTaskCompletionSource();
         var rankTcs = new UniTaskCompletionSource();
+        var upgradesTcs = new UniTaskCompletionSource();
         var holder = LobbyController.Instance.botCanvas;
         _ = LobbyBox.Setup(holder, box =>
         {
             box.Show();
             lobbyTcs.TrySetResult();
         });
+
+        _ = UpgradesBox.Setup(holder, _ => upgradesTcs.TrySetResult());
 
         _ = ShopBox.Setup(holder, _ => shopTcs.TrySetResult());
 

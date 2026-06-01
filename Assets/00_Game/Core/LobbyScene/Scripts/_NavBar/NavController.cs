@@ -97,7 +97,7 @@ public class NavController : MonoBehaviour
                 // dungeon
                 break;
             case ENavType.nav1:
-                // TODO: tien hoa
+                UpgradesBox.Instance.Show(anim);
                 break;
             case ENavType.nav2:
                 LobbyBox.Instance.Show(anim);
@@ -120,6 +120,7 @@ public class NavController : MonoBehaviour
 
                 break;
             case ENavType.nav1:
+                if (UpgradesBox.Instance != null) UpgradesBox.Instance.Close(anim);
                 break;
             case ENavType.nav2:
                 if (LobbyBox.Instance != null) LobbyBox.Instance.Close(anim);

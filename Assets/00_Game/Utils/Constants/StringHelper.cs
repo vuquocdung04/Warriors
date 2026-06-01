@@ -11,6 +11,11 @@ public class StringHelper
 
     public const string CURRENT_CIV = "CURRENT_CIV";
     public const string ENEMY_CIV = "ENEMY_CIV";
+    public const string WON_FINAL_CIV = "WON_FINAL_CIV";
+    public const string UNIT2_UNLOCK = "UNIT2_UNLOCK";
+    public const string UNIT3_UNLOCK = "UNIT3_UNLOCK";
+    public const string FOOD_RATE = "FOOD_RATE";
+    
 
     public const string AVATAR_ID = "AVATAR_ID";
 

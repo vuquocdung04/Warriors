@@ -14,10 +14,8 @@ public class LobbyBox : BaseBox<LobbyBox>
     [Header("6 GameObject civ (index 0..5 theo order)")]
     public List<GameObject> civObjects;
 
-    [Header("House images")]
-    public Image enemyHouseImage;
-    public Image allyHouseImage;
-    public List<Sprite> houseSprites;
+    [Header("Ally house theo civ sở hữu (index 0..5)")]
+    public List<GameObject> allyHouseObjects;
 
     private List<HouseData> _civs;
     private int _viewIndex;
@@ -50,21 +48,14 @@ public class LobbyBox : BaseBox<LobbyBox>
         for (int i = 0; i < civObjects.Count; i++)
             civObjects[i].SetActive(i == index);
 
-        if (enemyHouseImage != null && index < houseSprites.Count)
-            enemyHouseImage.sprite = houseSprites[index];
-
-        enemyHouseImage.FitToTargetWidth(130);
-
         RefreshNavButtons();
     }
 
     void RefreshAllyHouse()
     {
         int ownIndex = IndexOfCiv(UseProfile.CurrentCiv.Value);
-        if (allyHouseImage != null && ownIndex < houseSprites.Count)
-            allyHouseImage.sprite = houseSprites[ownIndex];
-
-        allyHouseImage.FitToTargetWidth(130);
+        for (int i = 0; i < allyHouseObjects.Count; i++)
+            allyHouseObjects[i].SetActive(i == ownIndex);
     }
 
     void RefreshNavButtons()

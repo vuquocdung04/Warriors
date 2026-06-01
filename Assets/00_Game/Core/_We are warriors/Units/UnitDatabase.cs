@@ -7,10 +7,13 @@ public class UnitDatabase : ScriptableObject
 {
     public TextAsset json;
     public List<Unit> prefabs;
+    public List<UnitDisplay> displays;          // prefab UI hiển thị lính
     public TextAsset houseJson;
+
     private Dictionary<string, HouseData> _houses;
     private Dictionary<string, UnitData> _data;
     private Dictionary<string, Unit> _prefab;
+    private Dictionary<string, UnitDisplay> _display;
 
     public void Init()
     {
@@ -28,8 +31,14 @@ public class UnitDatabase : ScriptableObject
         foreach (var p in prefabs)
         {
             if (p == null) { Debug.LogWarning("[DB] prefab null trong list"); continue; }
-            Debug.Log($"[DB] prefab id = '{p.id}'");
             if (!string.IsNullOrEmpty(p.id)) _prefab[p.id] = p;
+        }
+
+        _display = new Dictionary<string, UnitDisplay>();
+        foreach (var d in displays)
+        {
+            if (d == null) { Debug.LogWarning("[DB] display null trong list"); continue; }
+            if (!string.IsNullOrEmpty(d.id)) _display[d.id] = d;
         }
 
         _houses = new Dictionary<string, HouseData>();
@@ -41,6 +50,7 @@ public class UnitDatabase : ScriptableObject
                     if (!string.IsNullOrEmpty(h.civId)) _houses[h.civId] = h;
         }
     }
+
     public List<UnitData> GetCivUnits(string civId)
     {
         var result = new List<UnitData>();
@@ -50,7 +60,9 @@ public class UnitDatabase : ScriptableObject
         result.Sort((a, b) => string.Compare(a.id, b.id));
         return result;
     }
+
     public Unit GetUnitById(string id) => _prefab != null && _prefab.TryGetValue(id, out var p) ? p : null;
+    public UnitDisplay GetDisplayById(string id) => _display != null && _display.TryGetValue(id, out var d) ? d : null;
     public HouseData GetHouseData(string civId)
         => _houses != null && _houses.TryGetValue(civId, out var h) ? h : null;
 

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp-Editor::FolderColorData
   entries:
   - color: {r: 0.2980392, g: 1, b: 0.98042655, a: 1}
-    folder: {fileID: 102900000, guid: bf39f322a82a1004f8029c5b0df07f3e, type: 3}
-    folderGuid: bf39f322a82a1004f8029c5b0df07f3e
+    folder: {fileID: 102900000, guid: 3cd1f782c16b84241b2bee78cb97d24d, type: 3}
+    folderGuid: 3cd1f782c16b84241b2bee78cb97d24d
   - color: {r: 1, g: 0.03836772, b: 0, a: 0.6156863}
     folder: {fileID: 102900000, guid: 594c7ffa899584c15b0e47d8f3ea48bf, type: 3}
     folderGuid: 594c7ffa899584c15b0e47d8f3ea48bf
