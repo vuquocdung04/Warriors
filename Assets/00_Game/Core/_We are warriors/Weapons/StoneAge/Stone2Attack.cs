@@ -33,6 +33,9 @@ public class Stone2Attack : AttackStrategyBase
     {
         weapon.gameObject.SetActive(false);
 
+        // target có thể đã chết/destroy trong lúc vung tay -> bỏ ném (weapon vẫn được bật lại ở cuối seq)
+        if (target == null || !target.IsAlive) return;
+
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.Transform.position + Vector3.up;   // .Transform (interface), không phải .transform
 

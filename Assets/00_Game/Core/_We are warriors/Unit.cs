@@ -1,3 +1,4 @@
+using DG.Tweening;
 using EventDispatcher;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     public bool IsAlive => _state != UnitState.Dead;
     public int FrontPriority => _stats != null ? _stats.frontPriority : 0;
-    public UnitData Data => _data;          // cho UnitDrop biết loại lính khi chết
+    public UnitData Data => _data;   
 
     private UnitHpBar _hpBar;
     private UnitData _data;
@@ -27,6 +28,13 @@ public class Unit : MonoBehaviour, IDamageable
     private float _attackTimer;
     private IDamageable _attackTarget;
     private IAttackStrategy _attackStrategy;
+
+    [Header("Hit Feedback")]
+    public Color hitFlashColor = Color.white;
+    public float hitFlashTime = 0.06f;
+
+    private SpriteRenderer[] _sprites;
+    private Color[] _spriteBaseColors;
 
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
@@ -51,6 +59,16 @@ public class Unit : MonoBehaviour, IDamageable
 
         _hpBar = GetComponent<UnitHpBar>();
         _hpBar?.Set(1f);
+
+        CacheVisualForFeedback();
+    }
+
+    void CacheVisualForFeedback()
+    {
+        _sprites = visual != null ? visual.GetComponentsInChildren<SpriteRenderer>(true)
+                                  : System.Array.Empty<SpriteRenderer>();
+        _spriteBaseColors = new Color[_sprites.Length];
+        for (int i = 0; i < _sprites.Length; i++) _spriteBaseColors[i] = _sprites[i].color;
     }
 
     public float SqrDistanceTo(Vector3 p) => (transform.position - p).sqrMagnitude;
@@ -127,7 +145,23 @@ public class Unit : MonoBehaviour, IDamageable
         if (_state == UnitState.Dead) return;
         _stats.hp -= dmg;
         _hpBar?.Set(_stats.hp / _stats.maxHp);
-        if (_stats.hp <= 0f) Die();
+        if (_stats.hp <= 0f) { Die(); return; }
+        PlayHitFeedback();
+    }
+
+    // Phản hồi khi trúng đòn: nháy sáng sprite rồi trả về màu gốc (DOTween tự huỷ khi destroy nhờ SetLink).
+    void PlayHitFeedback()
+    {
+        if (_sprites.Length == 0) return;
+        for (int i = 0; i < _sprites.Length; i++)
+            if (_sprites[i] != null) _sprites[i].color = hitFlashColor;
+        DOVirtual.DelayedCall(hitFlashTime, RestoreSpriteColors).SetLink(gameObject);
+    }
+
+    void RestoreSpriteColors()
+    {
+        for (int i = 0; i < _sprites.Length; i++)
+            if (_sprites[i] != null) _sprites[i].color = _spriteBaseColors[i];
     }
 
     void Die()

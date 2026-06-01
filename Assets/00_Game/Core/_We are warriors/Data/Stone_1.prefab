@@ -54,6 +54,8 @@ MonoBehaviour:
   visual: {fileID: 2344066977685227256}
   depthScale: 100
   maxPassRange: 4
+  hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  hitFlashTime: 0.06
 --- !u!114 &2891694645805788026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +179,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 2
   m_Sprite: {fileID: -839751578, guid: 4324d47b022e1754a8c8acc5bbad398b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9843137, g: 0.7176471, b: 0.5294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -660,7 +662,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 2
   m_Sprite: {fileID: -2009388694, guid: 4324d47b022e1754a8c8acc5bbad398b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.74509805, g: 0.41568628, b: 0.20784314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
