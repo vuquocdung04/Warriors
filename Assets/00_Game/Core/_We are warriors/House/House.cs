@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EventDispatcher;
 using UnityEngine;
 
 public class House : MonoBehaviour, IDamageable
@@ -16,15 +17,14 @@ public class House : MonoBehaviour, IDamageable
     public UnitHpBar hpBar;
 
     private float _maxHp, _hp;
-    private System.Action<Team> _onDestroyed;
 
     public bool IsAlive => _hp > 0f;
 
-    public void Init(HouseData data, Team team, BattleGrid grid, System.Action<Team> onDestroyed, float hpMultiplier = 1f)
+    public void Init(HouseData data, Team team, float hpMultiplier = 1f)
     {
         _maxHp = _hp = data.houseHp * hpMultiplier;
         this.team = team;
-        _onDestroyed = onDestroyed;
+        var grid = BattleGrid.Instance;
         halfHeight = grid.Height * grid.cellSize / 2f;
 
         hpBar?.Set(1f);
@@ -53,7 +53,7 @@ public class House : MonoBehaviour, IDamageable
     void Die()
     {
         _hp = 0f;
-        _onDestroyed?.Invoke(team);
+        this.PostEvent(EventID.HOUSE_DESTROYED, team);
     }
     void OnDrawGizmos()
     {

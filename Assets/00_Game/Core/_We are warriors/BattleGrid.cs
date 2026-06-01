@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BattleGrid : MonoBehaviour
+public class BattleGrid : StaffSingleton<BattleGrid>
 {
     public int width = 30;
     public int height = 6;
@@ -11,7 +11,7 @@ public class BattleGrid : MonoBehaviour
     public int Width => width;
     public int Height => height;
 
-    public void Init() => _cells = new Unit[width, height];
+    public override void Init() => _cells = new Unit[width, height];
 
     public bool IsInside(int x, int y) => x >= 0 && x < width && y >= 0 && y < height;
     public bool IsInside(Vector2Int c) => IsInside(c.x, c.y);

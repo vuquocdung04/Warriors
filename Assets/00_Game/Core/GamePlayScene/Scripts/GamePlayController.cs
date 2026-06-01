@@ -29,7 +29,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         db.Init();
         grid.Init();
         battle.Init();
-        spawner.Init(grid, db, battle);
+        spawner.Init(db);
         enemyAI.Init(spawner);
         cardBar.Init(spawner, db);
     }

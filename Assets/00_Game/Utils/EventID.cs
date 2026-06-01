@@ -19,4 +19,8 @@
     CONVEYOR_NOT_ENOUGH_SLOT = 204,
     BOOSTER_DEACTIVATE_REQUEST = 205,
 
+    // WE ARE WARRIORS
+    HOUSE_DESTROYED = 206,   // param: Team (phe nhà bị sập) -> BattleManager nghe để EndBattle
+    UNIT_DIED = 207,         // param: Unit (vừa chết) -> UnitDrop sẽ nghe để rơi phần thưởng
+
 }

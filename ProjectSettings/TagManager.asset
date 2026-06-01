@@ -44,8 +44,14 @@ TagManager:
   - name: UI
     uniqueID: 178439135
     locked: 0
+  - name: House
+    uniqueID: 1867113691
+    locked: 0
   - name: Unit
     uniqueID: 2333318189
+    locked: 0
+  - name: Proejctile
+    uniqueID: 2873188125
     locked: 0
   m_RenderingLayers:
   - Default

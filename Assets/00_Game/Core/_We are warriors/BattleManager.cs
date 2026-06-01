@@ -1,25 +1,42 @@
 using System.Collections.Generic;
+using EventDispatcher;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : StaffSingleton<BattleManager>
 {
-    public static BattleManager Instance { get; private set; }
-
     private readonly List<Unit> _allies = new();
     private readonly List<Unit> _enemies = new();
     private readonly List<IDamageable> _allyTargets = new();   // unit + house theo phe
     private readonly List<IDamageable> _enemyTargets = new();
     public bool IsBattleOver { get; private set; }
-    public void Init()
+    public override void Init()
     {
-        Instance = this;
         IsBattleOver = false;
         _allies.Clear(); _enemies.Clear();
         _allyTargets.Clear(); _enemyTargets.Clear();
+        this.RegisterListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        this.RemoveListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
+    }
+
+    void OnHouseDestroyed(object param)
+    {
+        if (IsBattleOver) return;
+        var loserTeam = (Team)param;
+        EndBattle();
+
+        bool allyWin = loserTeam == Team.Enemy;
+        Debug.Log($"[Battle] House {loserTeam} sập -> {(allyWin ? "THẮNG" : "THUA")}");
+        // TODO (khi bật GameFlow.Init): GameFlow nghe event này để show popup Win/Lose
+    }
+
     void Update()
     {
-          if (IsBattleOver) return; 
+          if (IsBattleOver) return;
         Tick(Time.deltaTime);
     }
     public void Register(Unit u)
