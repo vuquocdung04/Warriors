@@ -1135,6 +1135,7 @@ MonoBehaviour:
   audioData: {fileID: 11400000, guid: 5f74a99ad3c90864a83b736ffb298fef, type: 2}
   avatarData: {fileID: 11400000, guid: cd11aad89e6d048fba020977c6af6966, type: 2}
   unitDatabase: {fileID: 11400000, guid: 6a7babf19417aeb41bae13f3df939fc4, type: 2}
+  equipmentDatabase: {fileID: 11400000, guid: 9fccbf91fa84daf418614e0859a0406c, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,15 @@ public class StringHelper
     public const string UNIT2_UNLOCK = "UNIT2_UNLOCK";
     public const string UNIT3_UNLOCK = "UNIT3_UNLOCK";
     public const string FOOD_RATE = "FOOD_RATE";
-    
+
+    // Equipment
+    public const string EQUIPPED_MELEE = "EQUIPPED_MELEE";
+    public const string EQUIPPED_RANGE = "EQUIPPED_RANGE";
+    public const string EQUIPPED_SHIELD = "EQUIPPED_SHIELD";
+    public const string GACHA_LEVEL = "GACHA_LEVEL";
+    public const string GACHA_SPIN = "GACHA_SPIN";
+
+
 
     public const string AVATAR_ID = "AVATAR_ID";
 

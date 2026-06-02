@@ -12,6 +12,16 @@ public static class UseProfile
     public static readonly PrefVar<bool> Unit3Unlock = new(StringHelper.UNIT3_UNLOCK, false);
     public static readonly PrefVar<float> FoodRate = new(StringHelper.FOOD_RATE, 0.18f);
 
+
+// Equipment
+    public static readonly PrefVar<string> EquippedMelee = new(StringHelper.EQUIPPED_MELEE, "");
+    public static readonly PrefVar<string> EquippedRange = new(StringHelper.EQUIPPED_RANGE, "");
+    public static readonly PrefVar<string> EquippedShield = new(StringHelper.EQUIPPED_SHIELD, "");
+    public static readonly PrefVar<int> GachaLevel = new(StringHelper.GACHA_LEVEL, 1);
+    public static readonly PrefVar<int> GachaSpin = new(StringHelper.GACHA_SPIN, 0);
+
+
+
     public static readonly PrefVar<int> Level = new(StringHelper.LEVEL, 1);
     public static readonly PrefVar<int> Booster0 = new(StringHelper.BOOSTER_0, DefaultBoosterAmount);
     public static readonly PrefVar<int> Booster1 = new(StringHelper.BOOSTER_1, DefaultBoosterAmount);
