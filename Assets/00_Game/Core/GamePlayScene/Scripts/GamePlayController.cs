@@ -16,7 +16,6 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     [Header("We are warriors")]
     public BattleGrid grid;
     public BattleManager battle;
-    public UnitDatabase db;
     public BattleSpawner spawner;
     public EnemyAI enemyAI;
     public FoodManager foodManager;
@@ -25,20 +24,22 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     protected override void OnAwake()
     {
         base.OnAwake();
-        //Init().Forget();
-        db.Init();
+
+        var db = DataRepo.Instance.unitDatabase;
+
         grid.Init();
         battle.Init();
         spawner.Init(db);
         enemyAI.Init(spawner);
         cardBar.Init(spawner, db);
 
-        // food bắt đầu = cost lính đầu tiên - 2 ; gọi sau cardBar để card đã đăng ký FOOD_CHANGED
         var allyUnits = db.GetCivUnits(UseProfile.CurrentCiv.Value);
         int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
         foodManager.Init(startFood);
-    }
 
+        FXManager.Instance.isNextSceneReady = true;
+
+    }
     private async UniTaskVoid Init()
     {
         gameScene.Init();

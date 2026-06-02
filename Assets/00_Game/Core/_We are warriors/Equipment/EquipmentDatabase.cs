@@ -87,35 +87,42 @@ public class EquipmentDatabase : ScriptableObject
     // thêm vào EquipmentDatabase
 
     // 3 unit của civ -> 3 stat đã cộng equipment đang đeo
-    public List<UnitCombatStats> BuildStats(string civId)
+    public List<UnitStats> BuildStats(string civId)
     {
-        var units = DataRepo.Instance.unitDatabase.GetCivUnits(civId);   // [0]=melee [1]=range [2]=shield
-        var result = new List<UnitCombatStats>();
+        var units = DataRepo.Instance.unitDatabase.GetCivUnits(civId);
+        var result = new List<UnitStats>();
 
-        string[] equippedIds =
-        {
-        UseProfile.EquippedMelee.Value,
-        UseProfile.EquippedRange.Value,
-        UseProfile.EquippedShield.Value,
-    };
         EquipmentData[] equips =
         {
-        GetMelee(equippedIds[0]),
-        GetRange(equippedIds[1]),
-        GetShield(equippedIds[2]),
+        GetMelee(UseProfile.EquippedMelee.Value),
+        GetRange(UseProfile.EquippedRange.Value),
+        GetShield(UseProfile.EquippedShield.Value),
     };
 
         for (int i = 0; i < units.Count; i++)
         {
-            var stats = new UnitCombatStats(units[i]);
-            if (i < equips.Length && equips[i] != null)
-                ApplyEquipment(stats, equips[i]);
+            var stats = new UnitStats(units[i]);
+            if (i < equips.Length && equips[i] != null) ApplyEquipment(stats, equips[i]);
+            stats.maxHp = stats.hp;
             result.Add(stats);
         }
         return result;
     }
 
-    void ApplyEquipment(UnitCombatStats stats, EquipmentData equip)
+    public List<UnitStats> BuildBaseStats(string civId)
+    {
+        var units = DataRepo.Instance.unitDatabase.GetCivUnits(civId);
+        var result = new List<UnitStats>();
+        foreach (var u in units)
+        {
+            var s = new UnitStats(u);
+            s.maxHp = s.hp;
+            result.Add(s);
+        }
+        return result;
+    }
+
+    void ApplyEquipment(UnitStats stats, EquipmentData equip)
     {
         int level = EquipmentSave.Get(equip.id).level;   // level món hiện tại
 
@@ -163,7 +170,7 @@ public class EquipmentDatabase : ScriptableObject
         return (baseVal + f) * (1f + p / 100f);   // percent dạng 50 = +50%
     }
 
-    void AddRate(UnitCombatStats stats, string statType, float value)
+    void AddRate(UnitStats stats, string statType, float value)
     {
         switch (statType)
         {

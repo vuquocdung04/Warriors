@@ -5,6 +5,7 @@ public class UnitStats
     public float maxHp, hp;
     public float atk, attackSpeed, moveSpeed, attackRangeInCells;
     public float criticalChance, lifeSteal;
+    public float pushChance, poisonChance, burnChance, freezeChance;   // thêm
 
     public UnitStats(UnitData d)
     {
@@ -18,4 +19,6 @@ public class UnitStats
         criticalChance = d.criticalChance;
         lifeSteal = d.lifeSteal;
     }
+
+    public UnitStats Clone() => (UnitStats)MemberwiseClone();   // thêm: mỗi unit 1 bản riêng
 }

@@ -6258,7 +6258,6 @@ MonoBehaviour:
   inputController: {fileID: 0}
   grid: {fileID: 38622069}
   battle: {fileID: 1316276022}
-  db: {fileID: 11400000, guid: 6a7babf19417aeb41bae13f3df939fc4, type: 2}
   spawner: {fileID: 1316276021}
   enemyAI: {fileID: 1316276023}
   foodManager: {fileID: 1316276024}
@@ -6315,10 +6314,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   civId: stone
-  spawnInterval: 2
+  spawnInterval: 3
   weightUnit1: 0
-  weightUnit2: 7
-  weightUnit3: 0
+  weightUnit2: 0
+  weightUnit3: 7
 --- !u!114 &1316276024
 MonoBehaviour:
   m_ObjectHideFlags: 0

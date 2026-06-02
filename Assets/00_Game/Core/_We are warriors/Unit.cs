@@ -40,30 +40,22 @@ public class Unit : MonoBehaviour, IDamageable
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
 
-    public void Init(UnitData data, Team team, Vector2Int startCell)
+    public void Init(UnitData data, UnitStats stats, Team team, Vector2Int startCell)
     {
         _data = data;
-        _stats = new UnitStats(data);
+        _stats = stats;              // dùng stat đã cộng equipment
         this.team = team;
         _grid = BattleGrid.Instance;
-
         _movement = new UnitMovement(this, _grid, startCell, depthScale, maxPassRange);
-
         _attackStrategy = GetComponentInChildren<IAttackStrategy>();
         _attackStrategy?.Init(this);
-
         visual.localRotation = Quaternion.Euler(0f, team == Team.Enemy ? 180f : 0f, 0f);
         _state = UnitState.Moving;
-
         if (BattleManager.Instance != null) BattleManager.Instance.Register(this);
-        else Debug.LogError("[Unit] Thiếu BattleManager trong scene!");
-
         _hpBar = GetComponent<UnitHpBar>();
         _hpBar?.Set(1f);
-
         CacheVisualForFeedback();
     }
-
     void CacheVisualForFeedback()
     {
         _sprites = visual != null ? visual.GetComponentsInChildren<SpriteRenderer>(true)

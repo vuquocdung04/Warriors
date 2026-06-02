@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSpawner : MonoBehaviour
@@ -9,11 +10,31 @@ public class BattleSpawner : MonoBehaviour
     [Header("Độ trâu nhà địch")]
     public float enemyHouseHpMultiplier = 3f;
 
+    private Dictionary<string, UnitStats> _allyStats;
+    private Dictionary<string, UnitStats> _enemyStats;
+
     public void Init(UnitDatabase db)
     {
         _db = db;
+
+        _allyStats  = BuildStatsDict(UseProfile.CurrentCiv.Value, withEquipment: true);
+        _enemyStats = BuildStatsDict(UseProfile.EnemyCiv.Value, withEquipment: false);
+
         InitHouse(allyHouse, Team.Ally);
         InitHouse(enemyHouse, Team.Enemy);
+    }
+
+    Dictionary<string, UnitStats> BuildStatsDict(string civId, bool withEquipment)
+    {
+        var dict = new Dictionary<string, UnitStats>();
+        var statsList = withEquipment
+            ? DataRepo.Instance.equipmentDatabase.BuildStats(civId)
+            : DataRepo.Instance.equipmentDatabase.BuildBaseStats(civId);
+
+        var units = _db.GetCivUnits(civId);
+        for (int i = 0; i < units.Count && i < statsList.Count; i++)
+            dict[units[i].id] = statsList[i];
+        return dict;
     }
 
     void InitHouse(House house, Team team)
@@ -27,7 +48,6 @@ public class BattleSpawner : MonoBehaviour
         house.Init(data, team, mult);
     }
 
-    // 3 nút UI gọi: SpawnAlly(0/1/2)
     public void SpawnAlly(int index)
     {
         if (BattleManager.Instance != null && BattleManager.Instance.IsBattleOver) return;
@@ -45,7 +65,7 @@ public class BattleSpawner : MonoBehaviour
         }
 
         Unit u = SpawnUnit(Team.Ally, data);
-        if (u != null && food != null) food.Spend(data.foodCost);     // ra lính rồi mới trừ
+        if (u != null && food != null) food.Spend(data.foodCost);
     }
 
     public Unit Spawn(Team team, string civId, int index)
@@ -64,12 +84,16 @@ public class BattleSpawner : MonoBehaviour
         Unit prefab = _db.GetUnitById(data.id);
         if (prefab == null) { Debug.LogError($"[Spawner] thiếu prefab '{data.id}'"); return null; }
 
+        var statsDict = team == Team.Ally ? _allyStats : _enemyStats;
+        if (!statsDict.TryGetValue(data.id, out var template))
+        { Debug.LogError($"[Spawner] thiếu stats '{data.id}'"); return null; }
+
         Vector2Int anchor = GetSpawnCell(team);
         Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
-        if (cell == null) return null;   // hết ô -> không spawn (food chưa bị trừ)
+        if (cell == null) return null;
 
         Unit u = Instantiate(prefab);
-        u.Init(data, team, cell.Value);
+        u.Init(data, template.Clone(), team, cell.Value);   // clone: máu riêng từng con
         return u;
     }
 
