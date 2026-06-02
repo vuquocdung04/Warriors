@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EventDispatcher;
 using UnityEngine;
 
 public class UpgradeBar : MonoBehaviour
@@ -19,6 +20,7 @@ public class UpgradeBar : MonoBehaviour
             }
             else items[i].gameObject.SetActive(false);
         }
+        this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
     bool IsUnlocked(int index)
     {
@@ -36,5 +38,27 @@ public class UpgradeBar : MonoBehaviour
         if (item.Index == 1) UseProfile.Unit2Unlock.Value = true;
         else if (item.Index == 2) UseProfile.Unit3Unlock.Value = true;
         item.SetUnlocked(true);
+    }
+
+    void OnCivChanged(object param)
+    {
+        Build(UseProfile.CurrentCiv.Value);
+    }
+    void Build(string civId)
+    {
+        var units = DataRepo.Instance.unitDatabase.GetCivUnits(civId);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i < units.Count)
+            {
+                items[i].gameObject.SetActive(true);
+                items[i].Setup(units[i], IsUnlocked(i), OnBuy, i);
+            }
+            else items[i].gameObject.SetActive(false);
+        }
+    }
+    void OnDestroy()
+    {
+        this.RemoveListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
 }

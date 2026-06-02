@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using EventDispatcher;
 
 public class EvolutionBar : MonoBehaviour
 {
@@ -90,7 +91,7 @@ public class EvolutionBar : MonoBehaviour
 
         bool enough = UseProfile.Coin.Value >= cost;
         btnEvolveImage.color = enough ? enoughColor : notEnoughColor;
-        costText.color = enough ? enoughColor : notEnoughColor;
+        costText.color = enough ? Color.white : Color.red;
         btnEvolve.interactable = enough;
     }
     void RefreshMax(int maxOrder)
@@ -122,6 +123,7 @@ public class EvolutionBar : MonoBehaviour
         UseProfile.Unit2Unlock.Value = false;
         UseProfile.Unit3Unlock.Value = false;
         Refresh();
+        this.PostEvent(EventID.ON_CIV_CHANGED);
     }
 
     void OnTravel() => Debug.Log("[Evolution] Travel clicked");

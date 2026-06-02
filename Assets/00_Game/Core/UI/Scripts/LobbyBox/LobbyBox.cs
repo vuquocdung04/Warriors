@@ -31,18 +31,28 @@ public class LobbyBox : BaseBox<LobbyBox>
 
         _civs = DataRepo.Instance.unitDatabase.GetCivsByOrder();
 
-        _viewIndex = IndexOfCiv(UseProfile.CurrentCiv.Value);
-        RefreshAllyHouse();
-        ShowCiv(_viewIndex);
+        RefreshForCurrentCiv();
+
+        this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
 
     protected override void InitState()
     {
     }
-
+    void OnCivChanged(object param)
+    {
+        RefreshForCurrentCiv();
+    }
+    void RefreshForCurrentCiv()
+    {
+        _viewIndex = IndexOfCiv(UseProfile.CurrentCiv.Value);
+        RefreshAllyHouse();
+        ShowCiv(_viewIndex);
+    }
     void ShowCiv(int index)
     {
-        index = Mathf.Clamp(index, 0, civObjects.Count - 1);
+        int maxIndex = UnlockedCount() - 1;
+        index = Mathf.Clamp(index, 0, maxIndex);
         _viewIndex = index;
 
         for (int i = 0; i < civObjects.Count; i++)
@@ -50,7 +60,6 @@ public class LobbyBox : BaseBox<LobbyBox>
 
         RefreshNavButtons();
     }
-
     void RefreshAllyHouse()
     {
         int ownIndex = IndexOfCiv(UseProfile.CurrentCiv.Value);
@@ -60,8 +69,11 @@ public class LobbyBox : BaseBox<LobbyBox>
 
     void RefreshNavButtons()
     {
-        bool showNav = UnlockedCount() > 1;
-        btnNext.gameObject.SetActive(showNav && _viewIndex < civObjects.Count - 1);
+        int unlocked = UnlockedCount();
+        int maxIndex = unlocked - 1;
+
+        bool showNav = unlocked > 1;
+        btnNext.gameObject.SetActive(showNav && _viewIndex < maxIndex);
         btnPrev.gameObject.SetActive(showNav && _viewIndex > 0);
     }
 
@@ -80,5 +92,6 @@ public class LobbyBox : BaseBox<LobbyBox>
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        this.RemoveListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
 }

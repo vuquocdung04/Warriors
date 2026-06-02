@@ -8,9 +8,8 @@ public class UpgradesBox : BaseBox<UpgradesBox>
     public Button btnUpgrade;
 
     [Header("Tab content")]
-    public GameObject tabEvolutionBar;
-    public GameObject tabUpgradeBar;
-
+    public CanvasGroup tabEvolutionBar;
+    public CanvasGroup tabUpgradeBar;
     [Header("Bars")]
     public EvolutionBar evolutionBar;
     public UpgradeBar upgradeBar;
@@ -36,16 +35,17 @@ public class UpgradesBox : BaseBox<UpgradesBox>
 
     void ShowEvolve()
     {
-        tabEvolutionBar.SetActive(true);
-        tabUpgradeBar.SetActive(false);
+        tabEvolutionBar.SetCanvasState(true, 1f);
+        tabUpgradeBar.SetCanvasState(false, 0f);
+
         evolveButtonParent.SetActive(false);
         upgradeButtonParent.SetActive(true);
     }
-
     void ShowUpgrade()
     {
-        tabEvolutionBar.SetActive(false);
-        tabUpgradeBar.SetActive(true);
+        tabEvolutionBar.SetCanvasState(false, 0f);
+        tabUpgradeBar.SetCanvasState(true, 1f);
+
         evolveButtonParent.SetActive(true);
         upgradeButtonParent.SetActive(false);
     }

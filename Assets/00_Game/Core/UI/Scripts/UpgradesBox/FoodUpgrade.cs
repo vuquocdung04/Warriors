@@ -15,8 +15,7 @@ public class FoodUpgrade : MonoBehaviour
 
     void Start()
     {
-        upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(OnUpgrade);
+        upgradeButton.OnClicked(OnUpgrade);
         RefreshUI();
     }
 

@@ -27,6 +27,11 @@ public class UpgradeUnitItem : MonoBehaviour
     public UnitData Data => _data;
     public int Index { get; private set; }
 
+    void Start()
+    {
+        buyButton.OnClicked(() => _onBuy?.Invoke(this)); 
+    }
+
     public void Setup(UnitData data, bool unlocked, System.Action<UpgradeUnitItem> onBuy, int index)
     {
         _data = data;
@@ -47,9 +52,6 @@ public class UpgradeUnitItem : MonoBehaviour
         _ = attackText.CountTo(data.atk, 0f);
         _ = hpText.CountTo(data.hp, 0f);
         _ = buyPriceText.CountTo(data.buyPrice, 0f);
-
-        buyButton.onClick.RemoveAllListeners();
-        buyButton.onClick.AddListener(() => _onBuy?.Invoke(this));
 
         SetUnlocked(unlocked);
     }
