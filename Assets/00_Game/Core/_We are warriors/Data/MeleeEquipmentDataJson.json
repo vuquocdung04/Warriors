@@ -27,7 +27,7 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
         "levels": [
           5.0,

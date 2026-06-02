@@ -16,11 +16,11 @@ public class DataRepo : MonoBehaviour
         unitDatabase.Init();
         equipmentDatabase.Init();
 
-        var st = EquipmentSave.Get("1");
-        Debug.Log($"[EquipSave] món 1: level={st.level} card={st.card}");   // mong: level=3 card=7
+        UseProfile.EquippedMelee.Value = "2";        // món atk_percent
+        EquipmentSave.SetLevel("2", 1);
 
-        UseProfile.EquippedMelee.Value = "1";
-        Debug.Log($"[EquipSave] đang đeo melee={UseProfile.EquippedMelee.Value}");
+        var stats = DataRepo.Instance.equipmentDatabase.BuildStats("stone");
+        Debug.Log($"[BuildStats] stone melee atk={stats[0].atk}  (base * (1 + percent/100)?)");
 
         UseProfile.Coin.Value = 100000000;
     }
