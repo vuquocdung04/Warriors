@@ -9,10 +9,12 @@ public class DataRepo : MonoBehaviour
     public AudioDataBase audioData;
     public AvatarDataBase avatarData;
     public UnitDatabase unitDatabase;
+    public EquipmentDatabase equipmentDatabase;
     public void Init()
     {
         Instance = this;
         unitDatabase.Init();
+        equipmentDatabase.Init();
         UseProfile.Coin.Value = 100000000;
     }
 }
