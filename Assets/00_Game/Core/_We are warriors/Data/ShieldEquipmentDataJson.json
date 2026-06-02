@@ -1,0 +1,610 @@
+[
+  {
+    "id": "1",
+    "name": "Tribesman Shield",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Ragnar's Shield",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Clubman's Shield",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Achilles's Shield",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Ivar's Buckler",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Troops Helmet",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Peace Shield",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Arthur's Bulwark",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Ballistic Breacher",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          1.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Mayan Mask",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "name": "Lancelot's Crest",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "name": "Dragon Shield",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "name": "Captain's Shield",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "name": "Shield14",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "Shield15",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "Henry's Armet",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  }
+]

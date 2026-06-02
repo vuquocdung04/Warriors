@@ -1,0 +1,67 @@
+[
+  {
+    "id": "atk",
+    "displayName": "Damage",
+    "calcType": "flat"
+  },
+  {
+    "id": "hp",
+    "displayName": "Health",
+    "calcType": "flat"
+  },
+  {
+    "id": "atk_percent",
+    "displayName": "Damage",
+    "calcType": "percent"
+  },
+  {
+    "id": "hp_percent",
+    "displayName": "Health",
+    "calcType": "percent"
+  },
+  {
+    "id": "move_speed_percent",
+    "displayName": "Move Speed",
+    "calcType": "percent"
+  },
+  {
+    "id": "attack_speed_percent",
+    "displayName": "Attack Speed",
+    "calcType": "percent"
+  },
+  {
+    "id": "life_steal",
+    "displayName": "Life Steal",
+    "calcType": "rate"
+  },
+  {
+    "id": "critical_chance",
+    "displayName": "Crit Chance",
+    "calcType": "rate"
+  },
+  {
+    "id": "attack_range",
+    "displayName": "Attack Range",
+    "calcType": "flat"
+  },
+  {
+    "id": "push_chance",
+    "displayName": "Push Chance",
+    "calcType": "rate"
+  },
+  {
+    "id": "poison_chance",
+    "displayName": "Poison Chance",
+    "calcType": "rate"
+  },
+  {
+    "id": "burn_chance",
+    "displayName": "Burn Chance",
+    "calcType": "rate"
+  },
+  {
+    "id": "freeze_chance",
+    "displayName": "Freeze Chance",
+    "calcType": "rate"
+  }
+]

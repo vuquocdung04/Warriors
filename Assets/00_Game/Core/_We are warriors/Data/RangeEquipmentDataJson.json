@@ -1,0 +1,610 @@
+[
+  {
+    "id": "1",
+    "name": "David's Slingshot",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Assasin's Kunai",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Silver Bullet",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "CompoundBow",
+    "rank": "common",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Liberator's Pistol",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Wing-tipped Arrow",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Tribesmman Bow",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Valkyrien Ballista",
+    "rank": "rare",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 2,
+        "levels": [
+          5.0,
+          5.0,
+          5.0,
+          5.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Kid's Colt",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          1.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Rambo's Rocket",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "name": "Napoleonic Cannon",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "name": "Emperor's Kunai",
+    "rank": "epic",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 3,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "name": "Range13",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "name": "Range14",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "Range15",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "Range16",
+    "rank": "legend",
+    "levelMax": 5,
+    "stats": [
+      {
+        "slot": 1,
+        "statType": "atk",
+        "levelUnlock": 1,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 2,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 3,
+        "statType": "atk",
+        "levelUnlock": 4,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      {
+        "slot": 4,
+        "statType": "atk",
+        "levelUnlock": 5,
+        "levels": [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      }
+    ]
+  }
+]

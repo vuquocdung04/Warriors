@@ -1,0 +1,26 @@
+[
+  {
+    "rank": "common",
+    "statCount": 1,
+    "cardPerLevel": 5,
+    "cardMultiplier": 2.0
+  },
+  {
+    "rank": "rare",
+    "statCount": 2,
+    "cardPerLevel": 8,
+    "cardMultiplier": 2.0
+  },
+  {
+    "rank": "epic",
+    "statCount": 3,
+    "cardPerLevel": 12,
+    "cardMultiplier": 2.2
+  },
+  {
+    "rank": "legend",
+    "statCount": 4,
+    "cardPerLevel": 20,
+    "cardMultiplier": 2.5
+  }
+]

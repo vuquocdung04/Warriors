@@ -18,10 +18,15 @@ public class SheetImporterWindow : OdinEditorWindow
     static readonly ISheetImporter[] Importers =
     {
         new UnitImporter(),
-        new HouseImporter(),
-        // sau thêm: new WeaponImporter(), new CardImporter(), new SkillImporter(),
+    new HouseImporter(),
+    new EquipmentImporter("MeleeEquipment"),
+    new EquipmentImporter("RangeEquipment"),
+    new EquipmentImporter("ShieldEquipment"),
+    new RankImporter(),
+    new StatImporter(),
+    new GachaLevelImporter(),
+    new GachaRateImporter(),
     };
-
     [MenuItem("Tools/We Are Warriors/Sheet Importer")]
     static void Open() => GetWindow<SheetImporterWindow>("Sheet Importer");
 
