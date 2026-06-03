@@ -271,4 +271,12 @@ public class EquipmentDatabase : ScriptableObject
     public Sprite GetStatIcon(string statType)
     => _statIcon != null && _statIcon.TryGetValue(statType, out var s) ? s : null;
 
+    public int GetMaxGachaLevel()
+    {
+        int max = 1;
+        foreach (var lv in _gachaLevels.Keys)
+            if (lv > max) max = lv;
+        return max;
+    }
+
 }

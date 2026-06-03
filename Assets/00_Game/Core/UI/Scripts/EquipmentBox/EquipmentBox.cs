@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EquipmentBox : BaseBox<EquipmentBox>
 {
+    public CraftRelicsTab craftTab;
     public List<UnitEquipTab> unitTabs;
     public Button btnClose;
     [Header("Nav buttons (Craft, Unit1, Unit2, Unit3)")]
@@ -41,9 +42,9 @@ public class EquipmentBox : BaseBox<EquipmentBox>
         }
 
         btnClose.OnClicked(Close);
-
-        unitTabs[0].Init(0);   
-        unitTabs[1].Init(1);   
+        craftTab.Init();
+        unitTabs[0].Init(0);
+        unitTabs[1].Init(1);
         unitTabs[2].Init(2);
     }
     protected override void InitState()
@@ -52,6 +53,11 @@ public class EquipmentBox : BaseBox<EquipmentBox>
 
     void SelectTab(int index)
     {
+        if (!IsUnitTabUnlocked(index))
+        {
+            Debug.Log($"[EquipmentBox] nav {index} bị khóa - unit chưa mở khóa");
+            return;
+        }
         if (index == _current) return;
         _current = index;
 
@@ -60,6 +66,15 @@ public class EquipmentBox : BaseBox<EquipmentBox>
 
         for (int i = 0; i < tabs.Count; i++)
             tabs[i].SetCanvasState(i == index, i == index ? 1f : 0f);
+    }
+    bool IsUnitTabUnlocked(int navIndex)
+    {
+        switch (navIndex)
+        {
+            case 2: return UseProfile.Unit2Unlock.Value;
+            case 3: return UseProfile.Unit3Unlock.Value;
+            default: return true;
+        }
     }
     public void ShowAtTab(int tabIndex)
     {

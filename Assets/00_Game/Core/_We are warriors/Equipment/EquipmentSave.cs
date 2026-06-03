@@ -7,6 +7,7 @@ public class EquipmentState
     public string key;        // "Melee_1" — duy nhất toàn cục
     public int level = 1;
     public int card = 0;
+    public bool owned = false;
 }
 
 public static class EquipmentSave
@@ -49,7 +50,10 @@ public static class EquipmentSave
         var list = new List<EquipmentState>(_cache.Values);
         GamePrefs.Set(SAVE_KEY, JsonConvert.SerializeObject(list));
     }
-
-    public static void SetLevel(EquipType type, string id, int level) { Get(type, id).level = level; Save(); }
+    public static void ClearAll()
+    {
+        _cache = null;                     
+        GamePrefs.DeleteKey(SAVE_KEY);      
+    }
     public static void AddCard(EquipType type, string id, int amount) { Get(type, id).card += amount; Save(); }
 }

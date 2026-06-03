@@ -57,7 +57,8 @@ public partial class DevTool : OdinEditorWindow
         GamePrefs.ClearAll();
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
-
+        EquipmentSave.ClearAll();
+        
         if (Application.isPlaying)
         {
             var current = SceneManager.GetActiveScene().name;

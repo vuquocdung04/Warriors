@@ -28,6 +28,8 @@ public class UpgradeBar : MonoBehaviour
         if (item.Index == 1) UseProfile.Unit2Unlock.Value = true;
         else if (item.Index == 2) UseProfile.Unit3Unlock.Value = true;
         item.SetUnlocked(true);
+
+        this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
     }
 
     void OnCivChanged(object param)

@@ -198,6 +198,7 @@ MonoBehaviour:
   levelText: {fileID: 942458808129136482}
   cardText: {fileID: 7085681444817601423}
   fillProgress: {fileID: 7092238847958505344}
+  arrow: {fileID: 2208864868384851304}
   button: {fileID: 261100546292805463}
 --- !u!1 &1608868520936036617
 GameObject:

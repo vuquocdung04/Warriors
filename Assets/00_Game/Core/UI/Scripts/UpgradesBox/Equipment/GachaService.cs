@@ -22,11 +22,17 @@ public static class GachaService
         var (equip, type) = RandomEquipOfRank(db, rank);
         if (equip == null) return null;
 
-        bool firstOwn = EquipmentSave.Get(type, equip.id).card <= 0;
-        EquipmentSave.AddCard(type, equip.id, 1);
+        var state = EquipmentSave.Get(type, equip.id);
+        bool firstOwn = !state.owned;
+
+        if (firstOwn)
+            state.owned = true;          // lần đầu: chỉ mở khóa, KHÔNG +card
+        else
+            state.card += 1;             // lần sau: +1 card để nâng
+
+        EquipmentSave.Save();
 
         bool leveled = AdvanceGacha(db);
-
         return new GachaResult { equip = equip, type = type, rank = rank, isFirstOwn = firstOwn, leveledUpGacha = leveled };
     }
 
@@ -45,8 +51,8 @@ public static class GachaService
     static (EquipmentData, EquipType) RandomEquipOfRank(EquipmentDatabase db, string rank)
     {
         var pool = new List<(EquipmentData, EquipType)>();
-        foreach (var e in db.AllMelee())  if (e.rank == rank) pool.Add((e, EquipType.Melee));
-        foreach (var e in db.AllRange())  if (e.rank == rank) pool.Add((e, EquipType.Range));
+        foreach (var e in db.AllMelee()) if (e.rank == rank) pool.Add((e, EquipType.Melee));
+        foreach (var e in db.AllRange()) if (e.rank == rank) pool.Add((e, EquipType.Range));
         foreach (var e in db.AllShield()) if (e.rank == rank) pool.Add((e, EquipType.Shield));
 
         if (pool.Count == 0) return (null, EquipType.Melee);

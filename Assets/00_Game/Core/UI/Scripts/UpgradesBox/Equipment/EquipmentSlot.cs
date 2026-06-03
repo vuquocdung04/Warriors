@@ -36,6 +36,12 @@ public class EquipmentSlot : MonoBehaviour
 
     public void Refresh()
     {
+        if (!IsUnitUnlocked())
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        gameObject.SetActive(true);
         int civOrder = DataRepo.Instance.unitDatabase.GetCivOrder(UseProfile.CurrentCiv.Value);
 
         if (civOrder < unlockCivOrder)
@@ -63,7 +69,15 @@ public class EquipmentSlot : MonoBehaviour
             ShowItem(equippedId);
         }
     }
-
+    bool IsUnitUnlocked()
+    {
+        switch (_slotIndex)
+        {
+            case 0: return true;
+            case 1: return UseProfile.Unit2Unlock.Value;
+            default: return UseProfile.Unit3Unlock.Value;
+        }
+    }
     void ShowItem(string equipId)
     {
         var data = GetEquipData(equipId);

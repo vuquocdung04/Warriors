@@ -131,7 +131,7 @@ public class UnitEquipTab : MonoBehaviour
         int idx = 0;
         foreach (var data in all)
         {
-            if (EquipmentSave.Get(SlotType, data.id).card <= 0) continue;
+            if (!EquipmentSave.Get(SlotType, data.id).owned) continue;
 
             EquipmentItem item = idx < _owned.Count ? _owned[idx] : null;
             if (item == null)

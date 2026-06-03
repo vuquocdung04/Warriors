@@ -17,7 +17,7 @@ public class EquipmentItem : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text cardText;
     public Image fillProgress;
-
+    public GameObject arrow;
     [Header("Button")]
     public Button button;
 
@@ -52,6 +52,8 @@ public class EquipmentItem : MonoBehaviour
 
         fillProgress.fillAmount = maxed ? 1f
             : (need > 0 ? Mathf.Clamp01((float)state.card / need) : 0f);
+
+        arrow.SetActive(EquipmentUpgrade.CanUpgrade(_type, _data));
     }
 
     public void SetNew(bool on)
