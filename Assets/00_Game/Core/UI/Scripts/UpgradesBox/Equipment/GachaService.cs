@@ -6,7 +6,9 @@ public static class GachaService
     public class GachaResult
     {
         public EquipmentData equip;
+        public EquipType type;
         public string rank;
+        public bool isFirstOwn;
         public bool leveledUpGacha;
     }
 
@@ -15,20 +17,17 @@ public static class GachaService
         var db = DataRepo.Instance.equipmentDatabase;
         int gLevel = UseProfile.GachaLevel.Value;
 
-        // 1. roll rank theo tỉ lệ của level gacha hiện tại
         string rank = RollRank(db.GetGachaRate(gLevel));
 
-        // 2. random 1 món trong rank đó (gộp cả 3 loại)
-        EquipmentData equip = RandomEquipOfRank(db, rank);
+        var (equip, type) = RandomEquipOfRank(db, rank);
         if (equip == null) return null;
 
-        // 3. +1 card cho món
-        EquipmentSave.AddCard(equip.id, 1);
+        bool firstOwn = EquipmentSave.Get(type, equip.id).card <= 0;
+        EquipmentSave.AddCard(type, equip.id, 1);
 
-        // 4. tăng spin, đủ ngưỡng -> lên level gacha (dừng ở max)
         bool leveled = AdvanceGacha(db);
 
-        return new GachaResult { equip = equip, rank = rank, leveledUpGacha = leveled };
+        return new GachaResult { equip = equip, type = type, rank = rank, isFirstOwn = firstOwn, leveledUpGacha = leveled };
     }
 
     static string RollRank(GachaRateData rate)
@@ -43,14 +42,14 @@ public static class GachaService
         return "common";
     }
 
-    static EquipmentData RandomEquipOfRank(EquipmentDatabase db, string rank)
+    static (EquipmentData, EquipType) RandomEquipOfRank(EquipmentDatabase db, string rank)
     {
-        var pool = new List<EquipmentData>();
-        foreach (var e in db.AllMelee())  if (e.rank == rank) pool.Add(e);
-        foreach (var e in db.AllRange())  if (e.rank == rank) pool.Add(e);
-        foreach (var e in db.AllShield()) if (e.rank == rank) pool.Add(e);
+        var pool = new List<(EquipmentData, EquipType)>();
+        foreach (var e in db.AllMelee())  if (e.rank == rank) pool.Add((e, EquipType.Melee));
+        foreach (var e in db.AllRange())  if (e.rank == rank) pool.Add((e, EquipType.Range));
+        foreach (var e in db.AllShield()) if (e.rank == rank) pool.Add((e, EquipType.Shield));
 
-        if (pool.Count == 0) return null;
+        if (pool.Count == 0) return (null, EquipType.Melee);
         return pool[Random.Range(0, pool.Count)];
     }
 
@@ -58,7 +57,7 @@ public static class GachaService
     {
         int level = UseProfile.GachaLevel.Value;
         var cfg = db.GetGachaLevel(level);
-        if (cfg == null || cfg.spinNeeded <= 0) return false;   // max level -> ngừng đếm
+        if (cfg == null || cfg.spinNeeded <= 0) return false;
 
         int spin = UseProfile.GachaSpin.Value + 1;
         if (spin >= cfg.spinNeeded)

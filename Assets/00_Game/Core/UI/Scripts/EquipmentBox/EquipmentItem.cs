@@ -5,7 +5,9 @@ using TMPro;
 public class EquipmentItem : MonoBehaviour
 {
     public string id;
-
+    [Header("Icon")]
+    public Image imageIcon;
+    public Image bgCard;
     [Header("State objects (mặc định tắt hết)")]
     public GameObject newObject;
     public GameObject equippedObject;
@@ -23,22 +25,25 @@ public class EquipmentItem : MonoBehaviour
     private System.Action<EquipmentItem> _onClick;
 
     public EquipmentData Data => _data;
-
-    public void Init(EquipmentData data, System.Action<EquipmentItem> onClick)
+    private EquipType _type;
+    public void Init(EquipmentData data, EquipType type, Sprite icon, System.Action<EquipmentItem> onClick)
     {
         _data = data;
+        _type = type;
         id = data.id;
         _onClick = onClick;
+
+        imageIcon.sprite = icon;
+        bgCard.color = DataRepo.Instance.equipmentDatabase.GetRankColor(data.rank);
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => _onClick?.Invoke(this));
     }
-
     public void Refresh()
     {
-        var state = EquipmentSave.Get(_data.id);
+        var state = EquipmentSave.Get(_type, _data.id);
 
-        if (levelText != null) levelText.text = state.level.ToString();
+        levelText.text = "Level " + state.level.ToString();
 
         bool maxed = state.level >= _data.levelMax;
         int need = EquipmentUpgrade.CardNeeded(_data, state.level);
@@ -62,5 +67,9 @@ public class EquipmentItem : MonoBehaviour
     public void SetViewProgress(bool on)
     {
         viewProgress.SetActive(on);
+    }
+    public void SetButtonEnabled(bool on)
+    {
+        button.enabled = on;
     }
 }

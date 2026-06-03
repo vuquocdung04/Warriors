@@ -10,20 +10,18 @@ public static class EquipmentUpgrade
         return Mathf.RoundToInt(rank.cardPerLevel * Mathf.Pow(rank.cardMultiplier, level - 1));
     }
 
-    public static bool CanUpgrade(EquipmentData equip)
+    public static bool CanUpgrade(EquipType type, EquipmentData equip)
     {
-        var state = EquipmentSave.Get(equip.id);
-        if (state.level >= equip.levelMax) return false;       // đã max
+        var state = EquipmentSave.Get(type, equip.id);
+        if (state.level >= equip.levelMax) return false;
         return state.card >= CardNeeded(equip, state.level);
     }
 
-    public static bool TryUpgrade(EquipmentData equip)
+    public static bool TryUpgrade(EquipType type, EquipmentData equip)
     {
-        if (!CanUpgrade(equip)) return false;
-        var state = EquipmentSave.Get(equip.id);
-        int need = CardNeeded(equip, state.level);
-
-        state.card -= need;
+        if (!CanUpgrade(type, equip)) return false;
+        var state = EquipmentSave.Get(type, equip.id);
+        state.card -= CardNeeded(equip, state.level);
         state.level += 1;
         EquipmentSave.Save();
         return true;

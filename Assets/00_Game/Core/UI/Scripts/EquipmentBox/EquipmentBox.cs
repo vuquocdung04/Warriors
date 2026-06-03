@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EquipmentBox : BaseBox<EquipmentBox>
 {
+    public List<UnitEquipTab> unitTabs;
     public Button btnClose;
     [Header("Nav buttons (Craft, Unit1, Unit2, Unit3)")]
     public List<EquipmentNavButton> navButtons;
@@ -40,6 +41,10 @@ public class EquipmentBox : BaseBox<EquipmentBox>
         }
 
         btnClose.OnClicked(Close);
+
+        unitTabs[0].Init(0);   
+        unitTabs[1].Init(1);   
+        unitTabs[2].Init(2);
     }
     protected override void InitState()
     {
@@ -58,7 +63,7 @@ public class EquipmentBox : BaseBox<EquipmentBox>
     }
     public void ShowAtTab(int tabIndex)
     {
-        Show();             
+        Show();
         SelectTab(tabIndex);
     }
     protected override void OnDestroy()

@@ -17,22 +17,31 @@ public class DataRepo : MonoBehaviour
         unitDatabase.Init();
         equipmentDatabase.Init();
 
-        var rankCount = new Dictionary<string, int>();
-        for (int i = 0; i < 200; i++)
-        {
-            var res = GachaService.Spin();
-            if (res == null) continue;
-            rankCount[res.rank] = rankCount.TryGetValue(res.rank, out var c) ? c + 1 : 1;
-        }
-        foreach (var kv in rankCount) Debug.Log($"[Gacha] {kv.Key}: {kv.Value}/200");
-        Debug.Log($"[Gacha] level={UseProfile.GachaLevel.Value} spin={UseProfile.GachaSpin.Value}");
-
-        // test nâng level món
-        var raph = equipmentDatabase.GetMelee("1");
-        Debug.Log($"[Up] raph card={EquipmentSave.Get("1").card} cần={EquipmentUpgrade.CardNeeded(raph, EquipmentSave.Get("1").level)} canUp={EquipmentUpgrade.CanUpgrade(raph)}");
-        if (EquipmentUpgrade.TryUpgrade(raph))
-            Debug.Log($"[Up] raph lên level {EquipmentSave.Get("1").level}");
+        SetupTestData();
 
         UseProfile.Coin.Value = 100000000;
     }
+    void SetupTestData()
+    {
+        // --- ĐEO THỬ ---
+        EquipmentSave.Get(EquipType.Melee, "1").level = 2;     // melee common -> level 2
+        UseProfile.EquippedMelee.Value = "1";
+
+        UseProfile.EquippedRange.Value = "5";                   // range rare
+        UseProfile.EquippedShield.Value = "13";                 // shield legend
+
+        // --- MỞ KHÓA (sở hữu: card > 0) ---
+        Own(EquipType.Melee, "1", "2", "3", "4");               // unit1: 4 món melee
+        Own(EquipType.Range, "5");                              // unit2: 1 món range
+        Own(EquipType.Shield, "1", "2", "3", "4", "5", "6", "7", "8", "9");  // unit3: 9 món shield
+
+        EquipmentSave.Save();
+    }
+
+    void Own(EquipType type, params string[] ids)
+    {
+        foreach (var id in ids)
+            EquipmentSave.Get(type, id).card = 1;
+    }
+
 }

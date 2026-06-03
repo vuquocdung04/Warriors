@@ -27,7 +27,10 @@ public class EquipmentSlot : MonoBehaviour
         _slotIndex = slotIndex;
         _onClick = onClick;
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => _onClick?.Invoke(_slotIndex));
+        button.onClick.AddListener(() =>
+        {
+            _onClick?.Invoke(_slotIndex);
+        });
         Refresh();
     }
 
@@ -41,12 +44,12 @@ public class EquipmentSlot : MonoBehaviour
             unlockObject.SetActive(false);
             HideItem();
             if (lockText != null) lockText.text = $"Civ {unlockCivOrder}";
-            button.interactable = false;          
+            button.interactable = false;
             return;
         }
 
         lockObject.SetActive(false);
-        button.interactable = true;              
+        button.interactable = true;
 
         string equippedId = GetEquippedId();
         if (string.IsNullOrEmpty(equippedId))
@@ -66,26 +69,44 @@ public class EquipmentSlot : MonoBehaviour
         var data = GetEquipData(equipId);
         if (data == null) { HideItem(); return; }
 
-        if (_item != null && _item.id != equipId)
-        {
-            Destroy(_item.gameObject);
-            _item = null;
-        }
-
         if (_item == null)
         {
-            var prefab = GetItemPrefab(equipId);
+            var prefab = GetItemPrefab();          // 1 prefab/loại, không theo id
             if (prefab == null) { HideItem(); return; }
             _item = Instantiate(prefab, itemParent);
         }
 
         _item.gameObject.SetActive(true);
-        _item.Init(data, null);
+        _item.Init(data, SlotType, GetIcon(equipId), null);
         _item.SetNew(false);
         _item.SetEquipped(false);
         _item.SetViewProgress(false);
+        _item.SetButtonEnabled(false);
+    }
+    EquipType SlotType =>
+        _slotIndex == 0 ? EquipType.Melee :
+        _slotIndex == 1 ? EquipType.Range : EquipType.Shield;
+    EquipmentItem GetItemPrefab()
+    {
+        var db = DataRepo.Instance.equipmentDatabase;
+        switch (_slotIndex)
+        {
+            case 0: return db.GetMeleeItemPrefab();
+            case 1: return db.GetRangeItemPrefab();
+            default: return db.GetShieldItemPrefab();
+        }
     }
 
+    Sprite GetIcon(string id)
+    {
+        var db = DataRepo.Instance.equipmentDatabase;
+        switch (_slotIndex)
+        {
+            case 0: return db.GetMeleeIcon(id);
+            case 1: return db.GetRangeIcon(id);
+            default: return db.GetShieldIcon(id);
+        }
+    }
     void HideItem()
     {
         if (_item != null) _item.gameObject.SetActive(false);
@@ -112,14 +133,4 @@ public class EquipmentSlot : MonoBehaviour
         }
     }
 
-    EquipmentItem GetItemPrefab(string id)
-    {
-        var db = DataRepo.Instance.equipmentDatabase;
-        switch (_slotIndex)
-        {
-            case 0: return db.GetMeleeItemPrefab(id);
-            case 1: return db.GetRangeItemPrefab(id);
-            default: return db.GetShieldItemPrefab(id);
-        }
-    }
 }

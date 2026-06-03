@@ -19,3 +19,136 @@ MonoBehaviour:
   rankJson: {fileID: 4900000, guid: bf863f829eda2b94683dd718abeffb63, type: 3}
   gachaLevelJson: {fileID: 4900000, guid: 9228dc7ecf0819348993eae8ebf76aa6, type: 3}
   gachaRateJson: {fileID: 4900000, guid: 8b7b1129ad6bd044fac13e66e6bee806, type: 3}
+  meleeItemPrefab: {fileID: 1325716683803751293, guid: 41943fc48a4ab4064a45b37026b845ba, type: 3}
+  rangeItemPrefab: {fileID: 1325716683803751293, guid: e402061bfeec24e7fb67a401e4956dd6, type: 3}
+  shieldItemPrefab: {fileID: 1325716683803751293, guid: b6fd4cd4164704ab69a6b5da0d1e7324, type: 3}
+  meleeIcons:
+  - id: 1
+    sprite: {fileID: -326185682, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 2
+    sprite: {fileID: 277258945, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 3
+    sprite: {fileID: 30019151, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 4
+    sprite: {fileID: -1914736207, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 5
+    sprite: {fileID: -346233909, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 6
+    sprite: {fileID: 249837765, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 7
+    sprite: {fileID: -199261823, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 8
+    sprite: {fileID: -310650714, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 9
+    sprite: {fileID: 423575824, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 10
+    sprite: {fileID: 1207291102, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 11
+    sprite: {fileID: -946133029, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 12
+    sprite: {fileID: -1309954812, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 13
+    sprite: {fileID: 2042735575, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 14
+    sprite: {fileID: -851437570, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 15
+    sprite: {fileID: 1828735041, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  - id: 16
+    sprite: {fileID: 909448243, guid: 14ead4a5960921e4abce8d00e48bcb76, type: 3}
+  rangeIcons:
+  - id: 1
+    sprite: {fileID: -1691870602, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 2
+    sprite: {fileID: -1799409854, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 3
+    sprite: {fileID: 345684420, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 4
+    sprite: {fileID: -1369480492, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 5
+    sprite: {fileID: 645998907, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 6
+    sprite: {fileID: -1199749322, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 7
+    sprite: {fileID: 1290279864, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 8
+    sprite: {fileID: 1018353018, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 9
+    sprite: {fileID: -2009334744, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 10
+    sprite: {fileID: -1209779787, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 11
+    sprite: {fileID: 1020948728, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 12
+    sprite: {fileID: -569502525, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 13
+    sprite: {fileID: 1689264644, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 14
+    sprite: {fileID: 936639896, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 15
+    sprite: {fileID: 2046520740, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  - id: 16
+    sprite: {fileID: -1194073484, guid: 61e6920c819e0c04fbdd82ab8ea54ebf, type: 3}
+  shieldIcons:
+  - id: 1
+    sprite: {fileID: 454830309, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 2
+    sprite: {fileID: 24445374, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 3
+    sprite: {fileID: -1867793457, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 4
+    sprite: {fileID: -1772424601, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 5
+    sprite: {fileID: 1565476778, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 6
+    sprite: {fileID: 1987580964, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 7
+    sprite: {fileID: -769084716, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 8
+    sprite: {fileID: -1990009046, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 9
+    sprite: {fileID: 2066372818, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 10
+    sprite: {fileID: 448461806, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 11
+    sprite: {fileID: 74549119, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 12
+    sprite: {fileID: -2138873224, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 13
+    sprite: {fileID: -523953173, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 14
+    sprite: {fileID: 1955688388, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 15
+    sprite: {fileID: 1777958354, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  - id: 16
+    sprite: {fileID: -1414955675, guid: 55addee0e09a3ce488da6eea1ce97376, type: 3}
+  commonColor: {r: 0.7411765, g: 0.7411765, b: 0.7411765, a: 1}
+  rareColor: {r: 0, g: 0.6392157, b: 0.99215686, a: 1}
+  epicColor: {r: 0.6392157, g: 0.38039216, b: 0.99215686, a: 1}
+  legendColor: {r: 1, g: 0.78431374, b: 0.011764706, a: 1}
+  statIcons:
+  - statType: atk
+    sprite: {fileID: 1392838447, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: hp
+    sprite: {fileID: 122910072, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: atk_percent
+    sprite: {fileID: 1392838447, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: hp_percent
+    sprite: {fileID: 122910072, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: move_speed_percent
+    sprite: {fileID: -110889929, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: attack_speed_percent
+    sprite: {fileID: -224036495, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: life_steal
+    sprite: {fileID: -36134854, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: critical_chance
+    sprite: {fileID: 1067875979, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: attack_range
+    sprite: {fileID: 1738682010, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
+  - statType: push_chance
+    sprite: {fileID: -2112485523, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}
+  - statType: poison_chance
+    sprite: {fileID: -917227039, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}
+  - statType: burn_chance
+    sprite: {fileID: -1773079710, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}
+  - statType: freeze_chance
+    sprite: {fileID: -1812219667, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}

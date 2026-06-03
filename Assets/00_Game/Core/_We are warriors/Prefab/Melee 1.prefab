@@ -190,6 +190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   id: 1
+  imageIcon: {fileID: 6789647296511129547}
+  bgCard: {fileID: 6634835739530963022}
   newObject: {fileID: 4905054916519038948}
   equippedObject: {fileID: 6720910172563315770}
   viewProgress: {fileID: 5059907455548997354}

@@ -1,6 +1,22 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine;
+
+[System.Serializable]
+public class EquipmentIcon
+{
+    public string id;
+    [PreviewField(50, ObjectFieldAlignment.Left)]
+    public Sprite sprite;
+}
+[System.Serializable]
+public class StatIcon
+{
+    public string statType;
+    [PreviewField(50, ObjectFieldAlignment.Left)]
+    public Sprite sprite;
+}
 
 [CreateAssetMenu(menuName = "Game/Equipment Database")]
 public class EquipmentDatabase : ScriptableObject
@@ -16,14 +32,30 @@ public class EquipmentDatabase : ScriptableObject
     public TextAsset gachaLevelJson;
     public TextAsset gachaRateJson;
 
-    [Header("Item prefabs (UI)")]
-    public List<EquipmentItem> meleeItemPrefabs;
-    public List<EquipmentItem> rangeItemPrefabs;
-    public List<EquipmentItem> shieldItemPrefabs;
+    [Header("Prefab item (1 prefab / loại)")]
+    public EquipmentItem meleeItemPrefab;
+    public EquipmentItem rangeItemPrefab;
+    public EquipmentItem shieldItemPrefab;
 
-    private Dictionary<string, EquipmentItem> _meleeItem;
-    private Dictionary<string, EquipmentItem> _rangeItem;
-    private Dictionary<string, EquipmentItem> _shieldItem;
+    [Header("Icon theo id (mỗi loại 1 list)")]
+    [TableList] public List<EquipmentIcon> meleeIcons;
+    [TableList] public List<EquipmentIcon> rangeIcons;
+    [TableList] public List<EquipmentIcon> shieldIcons;
+
+
+    [Header("Màu nền theo rank")]
+    public Color commonColor = Color.white;
+    public Color rareColor = Color.blue;
+    public Color epicColor = Color.magenta;
+    public Color legendColor = Color.yellow;
+
+
+    [TableList] public List<StatIcon> statIcons;
+    private Dictionary<string, Sprite> _statIcon;
+
+    private Dictionary<string, Sprite> _meleeIcon;
+    private Dictionary<string, Sprite> _rangeIcon;
+    private Dictionary<string, Sprite> _shieldIcon;
 
     private Dictionary<string, EquipmentData> _melee;
     private Dictionary<string, EquipmentData> _range;
@@ -55,19 +87,21 @@ public class EquipmentDatabase : ScriptableObject
         foreach (var g in Load<GachaRateData>(gachaRateJson))
             _gachaRates[g.level] = g;
 
-        _meleeItem = BuildItemDict(meleeItemPrefabs);
-        _rangeItem = BuildItemDict(rangeItemPrefabs);
-        _shieldItem = BuildItemDict(shieldItemPrefabs);
+        _meleeIcon = BuildIconDict(meleeIcons);
+        _rangeIcon = BuildIconDict(rangeIcons);
+        _shieldIcon = BuildIconDict(shieldIcons);
+
+        _statIcon = new Dictionary<string, Sprite>();
+        foreach (var e in statIcons)
+            if (e != null && !string.IsNullOrEmpty(e.statType)) _statIcon[e.statType] = e.sprite;
+
 
     }
-    Dictionary<string, EquipmentItem> BuildItemDict(List<EquipmentItem> prefabs)
+    Dictionary<string, Sprite> BuildIconDict(List<EquipmentIcon> list)
     {
-        var dict = new Dictionary<string, EquipmentItem>();
-        foreach (var p in prefabs)
-        {
-            if (p == null) continue;
-            if (!string.IsNullOrEmpty(p.id)) dict[p.id] = p;
-        }
+        var dict = new Dictionary<string, Sprite>();
+        foreach (var e in list)
+            if (e != null && !string.IsNullOrEmpty(e.id)) dict[e.id] = e.sprite;
         return dict;
     }
     Dictionary<string, EquipmentData> LoadEquip(TextAsset json)
@@ -121,11 +155,12 @@ public class EquipmentDatabase : ScriptableObject
         GetRange(UseProfile.EquippedRange.Value),
         GetShield(UseProfile.EquippedShield.Value),
     };
+        EquipType[] types = { EquipType.Melee, EquipType.Range, EquipType.Shield };
 
         for (int i = 0; i < units.Count; i++)
         {
             var stats = new UnitStats(units[i]);
-            if (i < equips.Length && equips[i] != null) ApplyEquipment(stats, equips[i]);
+            if (i < equips.Length && equips[i] != null) ApplyEquipment(stats, equips[i], types[i]);
             stats.maxHp = stats.hp;
             result.Add(stats);
         }
@@ -145,9 +180,10 @@ public class EquipmentDatabase : ScriptableObject
         return result;
     }
 
-    void ApplyEquipment(UnitStats stats, EquipmentData equip)
+
+    void ApplyEquipment(UnitStats stats, EquipmentData equip, EquipType type)
     {
-        int level = EquipmentSave.Get(equip.id).level;
+        int level = EquipmentSave.Get(type, equip.id).level;
 
         var flat = new Dictionary<string, float>();
         var percent = new Dictionary<string, float>();
@@ -191,28 +227,48 @@ public class EquipmentDatabase : ScriptableObject
 
     void AddRate(UnitStats stats, string statType, float value)
     {
+        float v = value / 100f;
         switch (statType)
         {
-            case "critical_chance": stats.criticalChance += value; break;
-            case "life_steal": stats.lifeSteal += value; break;
-            case "push_chance": stats.pushChance += value; break;
-            case "poison_chance": stats.poisonChance += value; break;
-            case "burn_chance": stats.burnChance += value; break;
-            case "freeze_chance": stats.freezeChance += value; break;
+            case "critical_chance": stats.criticalChance += v; break;
+            case "life_steal": stats.lifeSteal += v; break;
+            case "push_chance": stats.pushChance += v; break;
+            case "poison_chance": stats.poisonChance += v; break;
+            case "burn_chance": stats.burnChance += v; break;
+            case "freeze_chance": stats.freezeChance += v; break;
         }
     }
-
     static string StripSuffix(string statType)   // atk_percent -> atk, hp_percent -> hp
     {
         if (statType.EndsWith("_percent")) return statType.Substring(0, statType.Length - "_percent".Length);
         return statType;
     }
-    public EquipmentItem GetMeleeItemPrefab(string id) => Get(_meleeItem, id);
-    public EquipmentItem GetRangeItemPrefab(string id) => Get(_rangeItem, id);
-    public EquipmentItem GetShieldItemPrefab(string id) => Get(_shieldItem, id);
+    public Sprite GetMeleeIcon(string id) => GetIcon(_meleeIcon, id);
+    public Sprite GetRangeIcon(string id) => GetIcon(_rangeIcon, id);
+    public Sprite GetShieldIcon(string id) => GetIcon(_shieldIcon, id);
 
-    static EquipmentItem Get(Dictionary<string, EquipmentItem> d, string id)
-        => d != null && d.TryGetValue(id, out var p) ? p : null;
+    static Sprite GetIcon(Dictionary<string, Sprite> d, string id)
+        => d != null && d.TryGetValue(id, out var s) ? s : null;
 
+    // getter prefab item 1/loại
+    public EquipmentItem GetMeleeItemPrefab() => meleeItemPrefab;
+    public EquipmentItem GetRangeItemPrefab() => rangeItemPrefab;
+    public EquipmentItem GetShieldItemPrefab() => shieldItemPrefab;
+
+
+
+    public Color GetRankColor(string rank)
+    {
+        switch (rank)
+        {
+            case "rare": return rareColor;
+            case "epic": return epicColor;
+            case "legend": return legendColor;
+            default: return commonColor;   // common
+        }
+    }
+
+    public Sprite GetStatIcon(string statType)
+    => _statIcon != null && _statIcon.TryGetValue(statType, out var s) ? s : null;
 
 }
