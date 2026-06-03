@@ -4,17 +4,16 @@ using System.Collections.Generic;
 public class EquipmentStat
 {
     public int slot;
-    public string statType;          // khớp id trong tab Stat (atk, atk_percent...)
+    public string statType;
     public int levelUnlock;
-    public List<float> levels;       // lv1..lv5
+    public float value;          // giá trị cố định (thay lv1..lv5)
 }
-
 [System.Serializable]
 public class EquipmentData
 {
     public string id;
     public string name;
-    public string rank;              // common/rare/epic/legend
+    public string rank;
     public int levelMax;
     public List<EquipmentStat> stats;
 }

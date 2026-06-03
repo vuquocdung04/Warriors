@@ -13,6 +13,7 @@ public class UpgradesBox : BaseBox<UpgradesBox>
     [Header("Bars")]
     public EvolutionBar evolutionBar;
     public UpgradeBar upgradeBar;
+    public EquipmentBar equipmentBar;
 
     [Header("Button parents")]
     public GameObject evolveButtonParent;
@@ -25,7 +26,7 @@ public class UpgradesBox : BaseBox<UpgradesBox>
 
         evolutionBar.Init();
         upgradeBar.Init(UseProfile.CurrentCiv.Value);
-
+        equipmentBar.Init();
         ShowUpgrade();
     }
 

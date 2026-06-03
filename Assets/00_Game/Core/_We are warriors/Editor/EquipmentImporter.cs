@@ -17,7 +17,7 @@ public class EquipmentImporter : ISheetImporter
         int Col(string n) => header.FindIndex(h => h.Trim().ToLower() == n);
         int cId = Col("id"), cName = Col("name"), cRank = Col("rank"), cMax = Col("level_max"),
             cSlot = Col("stat_slot"), cType = Col("stat_type"), cUnlock = Col("level_unlock"),
-            cL1 = Col("lv1"), cL2 = Col("lv2"), cL3 = Col("lv3"), cL4 = Col("lv4"), cL5 = Col("lv5");
+            cValue = Col("value");
 
         EquipmentData current = null;
         for (int r = 1; r < rows.Count; r++)
@@ -48,11 +48,7 @@ public class EquipmentImporter : ISheetImporter
                 slot = (int)PFloat(Get(cSlot)),
                 statType = statType,
                 levelUnlock = (int)PFloat(Get(cUnlock)),
-                levels = new List<float>
-                {
-                    PFloat(Get(cL1)), PFloat(Get(cL2)), PFloat(Get(cL3)),
-                    PFloat(Get(cL4)), PFloat(Get(cL5))
-                }
+                value = PFloat(Get(cValue))
             });
         }
         return list;

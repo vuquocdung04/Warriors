@@ -16,6 +16,15 @@ public class EquipmentDatabase : ScriptableObject
     public TextAsset gachaLevelJson;
     public TextAsset gachaRateJson;
 
+    [Header("Item prefabs (UI)")]
+    public List<EquipmentItem> meleeItemPrefabs;
+    public List<EquipmentItem> rangeItemPrefabs;
+    public List<EquipmentItem> shieldItemPrefabs;
+
+    private Dictionary<string, EquipmentItem> _meleeItem;
+    private Dictionary<string, EquipmentItem> _rangeItem;
+    private Dictionary<string, EquipmentItem> _shieldItem;
+
     private Dictionary<string, EquipmentData> _melee;
     private Dictionary<string, EquipmentData> _range;
     private Dictionary<string, EquipmentData> _shield;
@@ -45,8 +54,22 @@ public class EquipmentDatabase : ScriptableObject
         _gachaRates = new Dictionary<int, GachaRateData>();
         foreach (var g in Load<GachaRateData>(gachaRateJson))
             _gachaRates[g.level] = g;
-    }
 
+        _meleeItem = BuildItemDict(meleeItemPrefabs);
+        _rangeItem = BuildItemDict(rangeItemPrefabs);
+        _shieldItem = BuildItemDict(shieldItemPrefabs);
+
+    }
+    Dictionary<string, EquipmentItem> BuildItemDict(List<EquipmentItem> prefabs)
+    {
+        var dict = new Dictionary<string, EquipmentItem>();
+        foreach (var p in prefabs)
+        {
+            if (p == null) continue;
+            if (!string.IsNullOrEmpty(p.id)) dict[p.id] = p;
+        }
+        return dict;
+    }
     Dictionary<string, EquipmentData> LoadEquip(TextAsset json)
     {
         var dict = new Dictionary<string, EquipmentData>();
@@ -124,9 +147,8 @@ public class EquipmentDatabase : ScriptableObject
 
     void ApplyEquipment(UnitStats stats, EquipmentData equip)
     {
-        int level = EquipmentSave.Get(equip.id).level;   // level món hiện tại
+        int level = EquipmentSave.Get(equip.id).level;
 
-        // gom flat & percent theo stat id
         var flat = new Dictionary<string, float>();
         var percent = new Dictionary<string, float>();
 
@@ -134,12 +156,10 @@ public class EquipmentDatabase : ScriptableObject
         {
             if (level < s.levelUnlock) continue;          // stat chưa mở theo level
 
-            int idx = Mathf.Clamp(level - 1, 0, s.levels.Count - 1);
-            float value = s.levels[idx];                  // giá trị stat ở level hiện tại
-
+            float value = s.value;                         // cố định, không theo level nữa
             StatData def = GetStat(s.statType);
             string calc = def != null ? def.calcType : "flat";
-            string baseStat = StripSuffix(s.statType);    // atk_percent -> atk
+            string baseStat = StripSuffix(s.statType);
 
             switch (calc)
             {
@@ -147,15 +167,14 @@ public class EquipmentDatabase : ScriptableObject
                     percent[baseStat] = (percent.TryGetValue(baseStat, out var p) ? p : 0f) + value;
                     break;
                 case "rate":
-                    AddRate(stats, s.statType, value);     // cộng thẳng vào tỉ lệ
+                    AddRate(stats, s.statType, value);
                     break;
-                default: // flat
+                default:
                     flat[baseStat] = (flat.TryGetValue(baseStat, out var f) ? f : 0f) + value;
                     break;
             }
         }
 
-        // áp flat + percent: final = (base + flat) * (1 + percent)
         stats.atk = Combine(stats.atk, flat, percent, "atk");
         stats.hp = Combine(stats.hp, flat, percent, "hp");
         stats.moveSpeed = Combine(stats.moveSpeed, flat, percent, "move_speed");
@@ -188,5 +207,12 @@ public class EquipmentDatabase : ScriptableObject
         if (statType.EndsWith("_percent")) return statType.Substring(0, statType.Length - "_percent".Length);
         return statType;
     }
+    public EquipmentItem GetMeleeItemPrefab(string id) => Get(_meleeItem, id);
+    public EquipmentItem GetRangeItemPrefab(string id) => Get(_rangeItem, id);
+    public EquipmentItem GetShieldItemPrefab(string id) => Get(_shieldItem, id);
+
+    static EquipmentItem Get(Dictionary<string, EquipmentItem> d, string id)
+        => d != null && d.TryGetValue(id, out var p) ? p : null;
+
 
 }
