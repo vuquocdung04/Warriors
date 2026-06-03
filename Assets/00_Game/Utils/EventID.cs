@@ -25,5 +25,6 @@
 
 
     ON_CIV_CHANGED = 400,
+    ON_EQUIPMENT_CHANGED = 401
 
 }

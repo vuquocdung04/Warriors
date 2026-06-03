@@ -9,17 +9,7 @@ public class UpgradeBar : MonoBehaviour
 
     public void Init(string civId)
     {
-        var units = DataRepo.Instance.unitDatabase.GetCivUnits(civId);
-
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (i < units.Count)
-            {
-                items[i].gameObject.SetActive(true);
-                items[i].Setup(units[i], IsUnlocked(i), OnBuy, i);
-            }
-            else items[i].gameObject.SetActive(false);
-        }
+        Build(civId);
         this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
     bool IsUnlocked(int index)

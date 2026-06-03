@@ -11,6 +11,7 @@ public class EquipmentBar : MonoBehaviour
     public void Init()
     {
         this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
+        this.RegisterListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
         Build();
     }
 
@@ -31,6 +32,10 @@ public class EquipmentBar : MonoBehaviour
         Build();
     }
 
+    void OnEquipChanged(object param)
+    {
+        Refresh();
+    }
     public void Refresh()
     {
         foreach (var s in slots) s.Refresh();
@@ -45,5 +50,6 @@ public class EquipmentBar : MonoBehaviour
     void OnDestroy()
     {
         this.RemoveListener(EventID.ON_CIV_CHANGED, OnCivChanged);
+        this.RemoveListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
     }
 }

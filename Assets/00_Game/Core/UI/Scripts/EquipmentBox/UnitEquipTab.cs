@@ -1,86 +1,54 @@
 using System.Collections.Generic;
+using EventDispatcher;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class UnitEquipTab : MonoBehaviour
 {
-    public int slotIndex;   // 0=melee(unit1) 1=range(unit2) 2=shield(unit3)
+    public int slotIndex;
 
     [Header("TOP - Unit display")]
-    public Transform cardUnitHolder;     // sinh UnitDisplay vào đây
+    public Transform cardUnitHolder;
 
     [Header("TOP - trạng thái trang bị")]
-    public GameObject emptyEquipment;    // chưa đeo
-    public GameObject notEmptyEquipment; // đã đeo
+    public GameObject emptyEquipment;
+    public GameObject notEmptyEquipment;
 
     [Header("TOP - NotEmpty content")]
-    public Transform slotEquip;          // parent sinh EquipmentItem (món đang đeo)
-    public TMP_Text txtName;             // tên trang bị
-    public TMP_Text txtRank;             // rank (đổi màu)
-    public Transform statsHolder;        // parent sinh StatItem
+    public Transform slotEquip;
+    public TMP_Text txtName;
+    public TMP_Text txtRank;
+    public Transform statsHolder;
     public StatItem statItemPrefab;
 
     [Header("BOTTOM - list món sở hữu")]
-    public Transform ownedHolder;        // (làm sau)
-    public EquipmentItem ownedItemPrefab;
-    private readonly List<EquipmentItem> _owned = new();
+    public Transform ownedHolder;
 
     private UnitDisplay _display;
     private EquipmentItem _equipItem;
     private readonly List<StatItem> _stats = new();
+    private readonly List<EquipmentItem> _owned = new();
+
+    EquipType SlotType =>
+        slotIndex == 0 ? EquipType.Melee :
+        slotIndex == 1 ? EquipType.Range : EquipType.Shield;
 
     public void Init(int index)
     {
         slotIndex = index;
+        this.RegisterListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
         BuildUnitDisplay();
         RefreshEquip();
+        BuildOwned();
     }
 
-    EquipType SlotType =>
-    slotIndex == 0 ? EquipType.Melee :
-    slotIndex == 1 ? EquipType.Range : EquipType.Shield;
-    void BuildOwned()
+    void OnEquipChanged(object param)
     {
-        var all = GetAllOfType();             // tất cả món của loại tab
-        string equippedId = GetEquippedId();
-
-        // ẩn item cũ
-        foreach (var it in _owned) it.gameObject.SetActive(false);
-
-        int idx = 0;
-        foreach (var data in all)
-        {
-            if (EquipmentSave.Get(SlotType, data.id).card <= 0) continue;   // chỉ món đã sở hữu
-
-            EquipmentItem item = idx < _owned.Count ? _owned[idx] : null;
-            if (item == null)
-            {
-                item = Instantiate(GetItemPrefab(), ownedHolder);
-                _owned.Add(item);
-            }
-
-            item.gameObject.SetActive(true);
-            item.Init(data, SlotType, GetIcon(data.id), null);
-            item.SetNew(false);
-            item.SetViewProgress(true);
-            item.SetEquipped(data.id == equippedId);
-            item.Refresh();
-            idx++;
-        }
+        RefreshEquip();
+        BuildOwned();
     }
 
-    List<EquipmentData> GetAllOfType()
-    {
-        var db = DataRepo.Instance.equipmentDatabase;
-        switch (slotIndex)
-        {
-            case 0: return db.AllMelee();
-            case 1: return db.AllRange();
-            default: return db.AllShield();
-        }
-    }
-    // sinh prefab UI lính của unit tương ứng (theo civ hiện tại)
     void BuildUnitDisplay()
     {
         var units = DataRepo.Instance.unitDatabase.GetCivUnits(UseProfile.CurrentCiv.Value);
@@ -98,11 +66,10 @@ public class UnitEquipTab : MonoBehaviour
     public void RefreshEquip()
     {
         string equipId = GetEquippedId();
-
         bool hasEquip = !string.IsNullOrEmpty(equipId);
+
         emptyEquipment.SetActive(!hasEquip);
         notEmptyEquipment.SetActive(hasEquip);
-
         if (!hasEquip) return;
 
         EquipmentData data = GetEquipData(equipId);
@@ -111,8 +78,6 @@ public class UnitEquipTab : MonoBehaviour
         ShowEquipItem(data, equipId);
         ShowEquipInfo(data);
         ShowStats(data);
-
-        BuildOwned();
     }
 
     void ShowEquipItem(EquipmentData data, string equipId)
@@ -124,10 +89,10 @@ public class UnitEquipTab : MonoBehaviour
             _equipItem = Instantiate(prefab, slotEquip);
         }
         _equipItem.gameObject.SetActive(true);
-        _equipItem.Init(data, SlotType, GetIcon(equipId), null);
+        _equipItem.Init(data, SlotType, GetIcon(equipId), OnEquippedClicked);   // top: bấm được -> mở detail (Remove)
         _equipItem.SetNew(false);
         _equipItem.SetEquipped(false);
-        _equipItem.SetViewProgress(true);   // trong slot top: hiện progress (tuỳ bạn)
+        _equipItem.SetViewProgress(true);
         _equipItem.Refresh();
     }
 
@@ -135,17 +100,12 @@ public class UnitEquipTab : MonoBehaviour
     {
         var db = DataRepo.Instance.equipmentDatabase;
         if (txtName != null) txtName.text = data.name;
-        if (txtRank != null)
-        {
-            txtRank.text = data.rank;
-            txtRank.color = db.GetRankColor(data.rank);
-        }
+        if (txtRank != null) { txtRank.text = data.rank; txtRank.color = db.GetRankColor(data.rank); }
     }
 
     void ShowStats(EquipmentData data)
     {
         int level = EquipmentSave.Get(SlotType, data.id).level;
-
         foreach (var s in _stats) s.gameObject.SetActive(false);
 
         for (int i = 0; i < data.stats.Count; i++)
@@ -161,7 +121,49 @@ public class UnitEquipTab : MonoBehaviour
         }
     }
 
-    // ---- map theo slot ----
+    void BuildOwned()
+    {
+        var all = GetAllOfType();
+        string equippedId = GetEquippedId();
+
+        foreach (var it in _owned) it.gameObject.SetActive(false);
+
+        int idx = 0;
+        foreach (var data in all)
+        {
+            if (EquipmentSave.Get(SlotType, data.id).card <= 0) continue;
+
+            EquipmentItem item = idx < _owned.Count ? _owned[idx] : null;
+            if (item == null)
+            {
+                item = Instantiate(GetItemPrefab(), ownedHolder);
+                _owned.Add(item);
+            }
+
+            item.gameObject.SetActive(true);
+            item.Init(data, SlotType, GetIcon(data.id), OnOwnedClicked);   // bottom: bấm -> mở detail (Equip)
+            item.SetNew(false);
+            item.SetViewProgress(true);
+            item.SetEquipped(data.id == equippedId);
+            item.Refresh();
+            idx++;
+        }
+    }
+
+    // bấm món bottom -> detail với Equip
+    void OnOwnedClicked(EquipmentItem clicked)
+    {
+        var holder = LobbyController.Instance.topCanvas;
+        _ = DetailEquipBox.Setup(holder, box => { box.Show(); box.SetData(clicked.Data, SlotType, false); });
+    }
+
+    // bấm món top (đang đeo) -> detail với Remove
+    void OnEquippedClicked(EquipmentItem clicked)
+    {
+        var holder = LobbyController.Instance.topCanvas;
+        _ = DetailEquipBox.Setup(holder, box => { box.Show(); box.SetData(clicked.Data, SlotType, true); });
+    }
+
     string GetEquippedId()
     {
         switch (slotIndex)
@@ -180,6 +182,17 @@ public class UnitEquipTab : MonoBehaviour
             case 0: return db.GetMelee(id);
             case 1: return db.GetRange(id);
             default: return db.GetShield(id);
+        }
+    }
+
+    List<EquipmentData> GetAllOfType()
+    {
+        var db = DataRepo.Instance.equipmentDatabase;
+        switch (slotIndex)
+        {
+            case 0: return db.AllMelee();
+            case 1: return db.AllRange();
+            default: return db.AllShield();
         }
     }
 
@@ -203,5 +216,10 @@ public class UnitEquipTab : MonoBehaviour
             case 1: return db.GetRangeIcon(id);
             default: return db.GetShieldIcon(id);
         }
+    }
+
+    void OnDestroy()
+    {
+        this.RemoveListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
     }
 }

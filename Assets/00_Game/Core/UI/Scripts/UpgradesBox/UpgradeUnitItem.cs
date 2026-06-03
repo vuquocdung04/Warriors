@@ -1,3 +1,4 @@
+using EventDispatcher;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -23,14 +24,10 @@ public class UpgradeUnitItem : MonoBehaviour
     private UnitData _data;
     private UnitDisplay _display;
     private System.Action<UpgradeUnitItem> _onBuy;
+    private bool _listenerReady;
 
     public UnitData Data => _data;
     public int Index { get; private set; }
-
-    void Start()
-    {
-        buyButton.OnClicked(() => _onBuy?.Invoke(this)); 
-    }
 
     public void Setup(UnitData data, bool unlocked, System.Action<UpgradeUnitItem> onBuy, int index)
     {
@@ -38,22 +35,40 @@ public class UpgradeUnitItem : MonoBehaviour
         _onBuy = onBuy;
         Index = index;
 
+        if (!_listenerReady)   // gắn 1 lần
+        {
+            buyButton.OnClicked(() => _onBuy?.Invoke(this));
+            this.RegisterListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
+            _listenerReady = true;
+        }
+
         if (_display != null) Destroy(_display.gameObject);
         var prefab = DataRepo.Instance.unitDatabase.GetDisplayById(data.id);
         if (prefab != null)
         {
             _display = Instantiate(prefab, displayParent);
-            
             var rt = _display.transform as RectTransform;
-            rt.anchoredPosition = Vector2.zero; 
+            rt.anchoredPosition = Vector2.zero;
         }
 
         nameText.text = data.displayName;
-        _ = attackText.CountTo(data.atk, 0f);
-        _ = hpText.CountTo(data.hp, 0f);
         _ = buyPriceText.CountTo(data.buyPrice, 0f);
 
+        RefreshStats();
         SetUnlocked(unlocked);
+    }
+
+    void OnEquipChanged(object param) => RefreshStats();
+
+    void RefreshStats()
+    {
+        var statsList = DataRepo.Instance.equipmentDatabase.BuildStats(UseProfile.CurrentCiv.Value);
+        if (Index >= 0 && Index < statsList.Count)
+        {
+            var s = statsList[Index];
+            _ = attackText.CountTo(s.atk, 0f);
+            _ = hpText.CountTo(s.maxHp, 0f);
+        }
     }
 
     public void SetUnlocked(bool unlocked)
@@ -61,5 +76,10 @@ public class UpgradeUnitItem : MonoBehaviour
         unlockObject.SetActive(unlocked);
         lockObject.SetActive(!unlocked);
         _display.SetBlind(!unlocked);
+    }
+
+    void OnDestroy()
+    {
+        this.RemoveListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
     }
 }
