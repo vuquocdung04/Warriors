@@ -28,8 +28,8 @@ public class BattleSpawner : MonoBehaviour
     {
         var dict = new Dictionary<string, UnitStats>();
         var statsList = withEquipment
-            ? DataRepo.Instance.equipmentDatabase.BuildStats(civId)
-            : DataRepo.Instance.equipmentDatabase.BuildBaseStats(civId);
+            ? EquipmentStatCalculator.BuildStats(civId)
+            : EquipmentStatCalculator.BuildBaseStats(civId);
 
         var units = _db.GetCivUnits(civId);
         for (int i = 0; i < units.Count && i < statsList.Count; i++)

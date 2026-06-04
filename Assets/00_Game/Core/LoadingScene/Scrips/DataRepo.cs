@@ -11,11 +11,13 @@ public class DataRepo : MonoBehaviour
     public AvatarDataBase avatarData;
     public UnitDatabase unitDatabase;
     public EquipmentDatabase equipmentDatabase;
+    public GachaDatabase gachaDatabase;
     public void Init()
     {
         Instance = this;
         unitDatabase.Init();
         equipmentDatabase.Init();
+        gachaDatabase.Init();
 
         UseProfile.Coin.Value = 100000000;
     }

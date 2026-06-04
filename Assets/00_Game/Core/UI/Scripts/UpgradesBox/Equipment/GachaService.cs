@@ -15,9 +15,10 @@ public static class GachaService
     public static GachaResult Spin()
     {
         var db = DataRepo.Instance.equipmentDatabase;
+        var gdb = DataRepo.Instance.gachaDatabase;
         int gLevel = UseProfile.GachaLevel.Value;
 
-        string rank = RollRank(db.GetGachaRate(gLevel));
+        string rank = RollRank(gdb.GetGachaRate(gLevel));
 
         var (equip, type) = RandomEquipOfRank(db, rank);
         if (equip == null) return null;
@@ -32,7 +33,7 @@ public static class GachaService
 
         EquipmentSave.Save();
 
-        bool leveled = AdvanceGacha(db);
+        bool leveled = AdvanceGacha(gdb);
         return new GachaResult { equip = equip, type = type, rank = rank, isFirstOwn = firstOwn, leveledUpGacha = leveled };
     }
 
@@ -59,10 +60,10 @@ public static class GachaService
         return pool[Random.Range(0, pool.Count)];
     }
 
-    static bool AdvanceGacha(EquipmentDatabase db)
+    static bool AdvanceGacha(GachaDatabase gdb)
     {
         int level = UseProfile.GachaLevel.Value;
-        var cfg = db.GetGachaLevel(level);
+        var cfg = gdb.GetGachaLevel(level);
         if (cfg == null || cfg.spinNeeded <= 0) return false;
 
         int spin = UseProfile.GachaSpin.Value + 1;

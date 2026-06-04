@@ -17,8 +17,6 @@ MonoBehaviour:
   shieldJson: {fileID: 4900000, guid: 912099dac9d5cc649861181431dbcec4, type: 3}
   statJson: {fileID: 4900000, guid: bcea839ebdc24b34a803560ce038550c, type: 3}
   rankJson: {fileID: 4900000, guid: bf863f829eda2b94683dd718abeffb63, type: 3}
-  gachaLevelJson: {fileID: 4900000, guid: 9228dc7ecf0819348993eae8ebf76aa6, type: 3}
-  gachaRateJson: {fileID: 4900000, guid: 8b7b1129ad6bd044fac13e66e6bee806, type: 3}
   meleeItemPrefab: {fileID: 1325716683803751293, guid: 41943fc48a4ab4064a45b37026b845ba, type: 3}
   rangeItemPrefab: {fileID: 1325716683803751293, guid: e402061bfeec24e7fb67a401e4956dd6, type: 3}
   shieldItemPrefab: {fileID: 1325716683803751293, guid: b6fd4cd4164704ab69a6b5da0d1e7324, type: 3}

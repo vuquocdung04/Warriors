@@ -62,7 +62,7 @@ public class UpgradeUnitItem : MonoBehaviour
 
     void RefreshStats()
     {
-        var statsList = DataRepo.Instance.equipmentDatabase.BuildStats(UseProfile.CurrentCiv.Value);
+        var statsList = EquipmentStatCalculator.BuildStats(UseProfile.CurrentCiv.Value);
         if (Index >= 0 && Index < statsList.Count)
         {
             var s = statsList[Index];

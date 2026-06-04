@@ -39,7 +39,7 @@ public class CraftRelicsTab : MonoBehaviour
     void Refresh()
     {
         int level = UseProfile.GachaLevel.Value;
-        var cfg = DataRepo.Instance.equipmentDatabase.GetGachaLevel(level);
+        var cfg = DataRepo.Instance.gachaDatabase.GetGachaLevel(level);
 
         if (levelGachaText != null) levelGachaText.text = level.ToString();
 

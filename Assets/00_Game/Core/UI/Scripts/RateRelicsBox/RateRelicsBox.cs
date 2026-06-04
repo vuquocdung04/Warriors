@@ -25,7 +25,7 @@ public class RateRelicsBox : BaseBox<RateRelicsBox>
         btnNext.OnClicked(delegate { ShowLevel(_viewLevel + 1); });
         btnPrev.OnClicked(delegate { ShowLevel(_viewLevel - 1); });
 
-        _maxLevel = DataRepo.Instance.equipmentDatabase.GetMaxGachaLevel();
+        _maxLevel = DataRepo.Instance.gachaDatabase.GetMaxGachaLevel();
         ShowLevel(UseProfile.GachaLevel.Value);
     }
 
@@ -35,7 +35,7 @@ public class RateRelicsBox : BaseBox<RateRelicsBox>
     {
         _viewLevel = Mathf.Clamp(level, 1, _maxLevel);
 
-        var rate = DataRepo.Instance.equipmentDatabase.GetGachaRate(_viewLevel);
+        var rate = DataRepo.Instance.gachaDatabase.GetGachaRate(_viewLevel);
         txtLevel.text = "Level " + _viewLevel.ToString();
         if (rate != null)
         {
