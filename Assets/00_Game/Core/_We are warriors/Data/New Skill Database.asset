@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cdf58eb971671489765ba9d8e2c792, type: 3}
+  m_Name: New Skill Database
+  m_EditorClassIdentifier: Assembly-CSharp::SkillDatabase
+  skillJson: {fileID: 4900000, guid: 06e93e359a95f1d45a1b389f7728f25f, type: 3}
+  icons:
+  - id: 1
+    sprite: {fileID: -598357937, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
+  - id: 2
+    sprite: {fileID: -1562059562, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
+  - id: 3
+    sprite: {fileID: -1850449242, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
+  - id: 4
+    sprite: {fileID: 352982727, guid: 9c313339916bc4b4388ec39090885701, type: 3}
+  - id: 5
+    sprite: {fileID: -1887335050, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}

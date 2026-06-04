@@ -26,6 +26,7 @@ public class SheetImporterWindow : OdinEditorWindow
     new StatImporter(),
     new GachaLevelImporter(),
     new GachaRateImporter(),
+    new SkillImporter(),
     };
     [MenuItem("Tools/We Are Warriors/Sheet Importer")]
     static void Open() => GetWindow<SheetImporterWindow>("Sheet Importer");

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Freeze",
+    "levelMax": 10,
+    "baseValue": 0.5,
+    "valuePerLevel": 0.5,
+    "description": "Freeze all enemy units for {value}s"
+  },
+  {
+    "id": "2",
+    "name": "Buff",
+    "levelMax": 10,
+    "baseValue": 50.0,
+    "valuePerLevel": 8.0,
+    "description": "The next unit you spawn is bigger, increasing their damage and health by {value}%"
+  },
+  {
+    "id": "3",
+    "name": "Push",
+    "levelMax": 10,
+    "baseValue": 70.0,
+    "valuePerLevel": 7.0,
+    "description": "Push back all enemy units, dealing {value}% of starting unit damage"
+  },
+  {
+    "id": "4",
+    "name": "Champion",
+    "levelMax": 10,
+    "baseValue": 110.0,
+    "valuePerLevel": 5.0,
+    "description": "Merge all units into one champion with +{value}% total hp and attack"
+  },
+  {
+    "id": "5",
+    "name": "Necromancy",
+    "levelMax": 10,
+    "baseValue": 4.0,
+    "valuePerLevel": 1.0,
+    "description": "Summon up to {value} zombies"
+  }
+]
