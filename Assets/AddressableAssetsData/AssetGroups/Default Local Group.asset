@@ -65,6 +65,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6faa509e74d104da98350b98152ace0d
+    m_Address: DungeonsBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7a1e31bbd706d47ad9356921f7f79543
     m_Address: KeepPlayingBox
     m_ReadOnly: 0
