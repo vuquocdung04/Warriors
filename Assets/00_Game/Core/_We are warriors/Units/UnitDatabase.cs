@@ -1,6 +1,14 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine;
+[System.Serializable]
+public class CivIcon
+{
+    public string id;          // civId: stone, farm...
+    [PreviewField(50, ObjectFieldAlignment.Left)]
+    public Sprite sprite;
+}
 
 [CreateAssetMenu(menuName = "Game/Unit Database")]
 public class UnitDatabase : ScriptableObject
@@ -9,6 +17,9 @@ public class UnitDatabase : ScriptableObject
     public List<Unit> prefabs;
     public List<UnitDisplay> displays;          // prefab UI hiển thị lính
     public TextAsset houseJson;
+
+    [TableList] public List<CivIcon> civIcons;
+    private Dictionary<string, Sprite> _civIcon;
 
     private Dictionary<string, HouseData> _houses;
     private Dictionary<string, UnitData> _data;
@@ -49,6 +60,11 @@ public class UnitDatabase : ScriptableObject
                 foreach (var h in list)
                     if (!string.IsNullOrEmpty(h.civId)) _houses[h.civId] = h;
         }
+        _civIcon = new Dictionary<string, Sprite>();
+        foreach (var e in civIcons)
+            if (e != null && !string.IsNullOrEmpty(e.id)) _civIcon[e.id] = e.sprite;
+
+
     }
 
     public List<UnitData> GetCivUnits(string civId)
@@ -74,4 +90,7 @@ public class UnitDatabase : ScriptableObject
     }
     public int GetCivOrder(string civId)
         => _houses != null && _houses.TryGetValue(civId, out var h) ? h.order : 1;
+    public Sprite GetCivIcon(string civId)
+        => _civIcon != null && _civIcon.TryGetValue(civId, out var s) ? s : null;
+
 }

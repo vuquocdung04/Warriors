@@ -14,7 +14,7 @@ public class HouseImporter : ISheetImporter
         var header = rows[0];
         int Col(string n) => header.FindIndex(h => h.Trim().ToLower() == n);
         int cCiv = Col("civ_id"), cName = Col("civ_name"), cOrder = Col("order"),
-            cCost = Col("unlock_cost"), cHp = Col("house_hp");
+            cCost = Col("unlock_cost"), cHp = Col("house_hp"), cYears = Col("era_years"), cDesc = Col("era_desc");
 
         for (int r = 1; r < rows.Count; r++)
         {
@@ -30,6 +30,8 @@ public class HouseImporter : ISheetImporter
                 order = (int)PFloat(Get(cOrder)),
                 unlockCost = PMoney(Get(cCost)),
                 houseHp = PFloat(Get(cHp)),
+                eraYears = Get(cYears),
+                eraDesc = Get(cDesc),
             });
         }
         return list;

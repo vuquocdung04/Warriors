@@ -6,4 +6,6 @@ public class HouseData
     public int order;
     public int unlockCost;
     public float houseHp;
+    public string eraYears;
+    public string eraDesc;
 }

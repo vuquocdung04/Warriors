@@ -9,6 +9,7 @@ public class StringHelper
     public const string COIN = "CoinsAmount";
     public const string LEVEL = "Level";
 
+
     public const string CURRENT_CIV = "CURRENT_CIV";
     public const string ENEMY_CIV = "ENEMY_CIV";
     public const string WON_FINAL_CIV = "WON_FINAL_CIV";

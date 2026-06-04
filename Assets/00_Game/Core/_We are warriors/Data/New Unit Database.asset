@@ -37,3 +37,16 @@ MonoBehaviour:
   - {fileID: 3395131183020598716, guid: 029d90c68015cb74f9924608fb24f216, type: 3}
   - {fileID: 8842852288910154525, guid: 35e639636068be3459863d88538160ed, type: 3}
   houseJson: {fileID: 4900000, guid: 2d01f85a0929d4a84b8a0cf482c8adf8, type: 3}
+  civIcons:
+  - id: stone
+    sprite: {fileID: 21300000, guid: e683291dc7760b64b88d3434cd58efa4, type: 3}
+  - id: farm
+    sprite: {fileID: 21300000, guid: aa86eafe79fec594083d31e680652e42, type: 3}
+  - id: spartan
+    sprite: {fileID: 21300000, guid: b9b2e3f70d5493b47a6b1f3fa332a466, type: 3}
+  - id: renai
+    sprite: {fileID: 21300000, guid: a197b6a83c4dd674cae88c63faa075b4, type: 3}
+  - id: modern
+    sprite: {fileID: 21300000, guid: 2cebd44d54bac8e4a8682648076367f8, type: 3}
+  - id: space
+    sprite: {fileID: 21300000, guid: 376afec69522b6a499d12151e8ef2fa5, type: 3}

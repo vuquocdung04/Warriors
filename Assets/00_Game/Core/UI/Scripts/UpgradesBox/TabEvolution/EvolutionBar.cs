@@ -29,6 +29,8 @@ public class EvolutionBar : MonoBehaviour
     [Header("Màu nút Evolve")]
     public Color enoughColor = Color.white;
     public Color notEnoughColor = Color.gray;
+    [Header("Xem timeline")]
+    public Button btnTimeline;
 
     [Header("MaxTimeline")]
     public Button btnTravel;
@@ -42,10 +44,21 @@ public class EvolutionBar : MonoBehaviour
     {
         _civs = DataRepo.Instance.unitDatabase.GetCivsByOrder();
 
-        btnEvolveFree.onClick.AddListener(OnEvolveFree);
-        btnEvolve.onClick.AddListener(OnEvolve);
-        btnTravel.onClick.AddListener(OnTravel);
+        btnEvolveFree.OnClicked(OnEvolveFree);
+        btnEvolve.OnClicked(OnEvolve);
+        btnTravel.OnClicked(OnTravel);
+        btnTimeline.OnClicked(OnShowTimeline);
 
+        this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
+        Refresh();
+    }
+    void OnShowTimeline()
+    {
+        var holder = LobbyController.Instance.topCanvas;
+        _ = AgesTimelineBox.Setup(holder, box => box.ShowStatic());
+    }
+    void OnCivChanged(object param)
+    {
         Refresh();
     }
     void Refresh()
@@ -119,13 +132,14 @@ public class EvolutionBar : MonoBehaviour
     void EvolveTo(HouseData next)
     {
         if (next == null) return;
+
         UseProfile.CurrentCiv.Value = next.civId;
         UseProfile.Unit2Unlock.Value = false;
         UseProfile.Unit3Unlock.Value = false;
-        Refresh();
-        this.PostEvent(EventID.ON_CIV_CHANGED);
-    }
 
+        var holder = LobbyController.Instance.topCanvas;
+        _ = AgesTimelineBox.Setup(holder, box => box.ShowAnimated());
+    }
     void OnTravel() => Debug.Log("[Evolution] Travel clicked");
 
     HouseData NextCiv()
@@ -139,5 +153,10 @@ public class EvolutionBar : MonoBehaviour
         foreach (var c in _civs)
             if (c.order == order) return c;
         return null;
+    }
+
+    void OnDestroy()
+    {
+        this.RemoveListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }
 }

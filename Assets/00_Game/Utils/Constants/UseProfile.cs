@@ -5,6 +5,7 @@ public static class UseProfile
     public static int DefaultBoosterAmount = 3;
     public static int DefaultStartingCoins = 500;
 
+
     public static readonly PrefVar<string> CurrentCiv = new(StringHelper.CURRENT_CIV, "stone");
     public static readonly PrefVar<string> EnemyCiv = new(StringHelper.ENEMY_CIV, "stone");
     public static readonly PrefVar<bool> WonFinalCiv = new(StringHelper.WON_FINAL_CIV, false);
