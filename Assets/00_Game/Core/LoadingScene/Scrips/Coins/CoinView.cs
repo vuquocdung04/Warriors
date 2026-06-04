@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CoinView : MonoBehaviour
 {
+    const string ICON = "<sprite=0> ";
+
     [SerializeField] private TextMeshProUGUI txtCoin;
 
     private int _displayed;
@@ -14,9 +16,8 @@ public class CoinView : MonoBehaviour
     private void OnEnable()
     {
         this.RegisterListener(EventID.CHANGE_COIN, OnCoinChanged);
-
         _displayed = CurrencyManager.Instance.Get(CurrencyType.Coin);
-        txtCoin.text = NumberFormatter.Format(_displayed); 
+        txtCoin.text = ICON + NumberFormatter.Format(_displayed);
     }
 
     private void OnDisable()
@@ -34,9 +35,9 @@ public class CoinView : MonoBehaviour
         _cts = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
 
         int from = _displayed;
-        _displayed = target;         
+        _displayed = target;
 
-        txtCoin.CountTo(target, from: from, format: NumberFormatter.Format, token: _cts.Token).Forget();
+        txtCoin.CountToWithIcon(target, ICON, from: from, token: _cts.Token).Forget();
     }
 
     private void CancelCurrent()

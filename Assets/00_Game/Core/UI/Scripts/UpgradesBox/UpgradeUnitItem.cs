@@ -52,7 +52,7 @@ public class UpgradeUnitItem : MonoBehaviour
         }
 
         nameText.text = data.displayName;
-        _ = buyPriceText.CountTo(data.buyPrice, 0f);
+        _ = buyPriceText.CountToWithIcon(data.buyPrice, "<sprite=0> ", duration: 0f);
 
         RefreshStats();
         SetUnlocked(unlocked);

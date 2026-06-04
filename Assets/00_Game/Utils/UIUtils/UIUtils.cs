@@ -125,7 +125,7 @@ public static partial class UIUtils
                 elapsed += Time.unscaledDeltaTime;
                 double current = start + (target - start) * (elapsed / duration);
                 string shown = format(current);
-                if (shown != lastShown) 
+                if (shown != lastShown)
                 {
                     lastShown = shown;
                     text.text = shown;
@@ -136,6 +136,44 @@ public static partial class UIUtils
         catch (OperationCanceledException) { return; }
 
         if (!token.IsCancellationRequested) text.text = format(target);
+    }
+    // CountTo có kèm sprite icon (sprite asset). prefix/suffix là chuỗi ghép trước/sau số.
+    // vd prefix = "<sprite=0> " -> "<sprite=0> 1.2K"
+    public static async UniTask CountToWithIcon(
+        this TMP_Text text, double target, string prefix = "", string suffix = "",
+        float duration = 0.5f, double? from = null, Func<double, string> format = null,
+        CancellationToken token = default)
+    {
+        format ??= NumberFormatter.Format;
+        double start = from ?? 0;   // không parse text vì text giờ có sprite tag, parse sẽ sai
+
+        if (duration <= 0f || System.Math.Abs(start - target) < 0.5)
+        {
+            text.text = prefix + format(target) + suffix;
+            return;
+        }
+
+        float elapsed = 0f;
+        string lastShown = null;
+
+        try
+        {
+            while (elapsed < duration && !token.IsCancellationRequested)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                double current = start + (target - start) * (elapsed / duration);
+                string shown = prefix + format(current) + suffix;
+                if (shown != lastShown)
+                {
+                    lastShown = shown;
+                    text.text = shown;
+                }
+                await UniTask.Yield();
+            }
+        }
+        catch (OperationCanceledException) { return; }
+
+        if (!token.IsCancellationRequested) text.text = prefix + format(target) + suffix;
     }
     // ============= CANVAS =============
     public static void SetCanvasState(this CanvasGroup cg, bool isInteractable, float alpha = -1f)

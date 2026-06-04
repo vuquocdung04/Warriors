@@ -98,7 +98,7 @@ public class EvolutionBar : MonoBehaviour
         btnEvolveFree.gameObject.SetActive(canFree);
         btnEvolve.gameObject.SetActive(!canFree);
 
-        _ = costText.CountTo(cost, 0f);
+        _ = costText.CountToWithIcon(cost, "<sprite=0> ", duration: 0f);
         desText.text = $"Or win battle {next.civName}";
         desText.gameObject.SetActive(!canFree);
 
