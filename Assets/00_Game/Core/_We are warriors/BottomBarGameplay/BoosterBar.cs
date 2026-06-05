@@ -9,20 +9,30 @@ public class BoosterBar : MonoBehaviour
     private readonly List<SkillItem> _skills = new();
     public void Init()
     {
+        var equipped = SkillSave.GetEquipped();
+        if (equipped.Count == 0)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+
         btnBooster.OnClicked(OnBooster);
-        BuildEquippedSkills();
+        BuildEquippedSkills(equipped);
     }
 
     void OnBooster()
     {
-        Debug.Log("[Booster] clicked");   // TODO
-        btnBooster.enabled = false;
+        var equipped = SkillSave.GetEquipped();
+        if (equipped.Count == 0) return;
+        SkillController.Instance.Activate(equipped[0].id);
+
+        btnBooster.interactable = false;
     }
 
-    void BuildEquippedSkills()
+    void BuildEquippedSkills(List<SkillState> equipped)
     {
         var db = DataRepo.Instance.skillDatabase;
-        var equipped = SkillSave.GetEquipped();
 
         foreach (var it in _skills) it.gameObject.SetActive(false);
 

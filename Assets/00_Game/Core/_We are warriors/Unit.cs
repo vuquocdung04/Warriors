@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     private SpriteRenderer[] _sprites;
     private Color[] _spriteBaseColors;
-
+    private UnitEffects _effects;
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
 
@@ -54,7 +54,18 @@ public class Unit : MonoBehaviour, IDamageable
         _hpBar = GetComponent<UnitHpBar>();
         _hpBar?.Set(1f);
         CacheVisualForFeedback();
+
+        InitInternal();
     }
+    void InitInternal()
+    {
+        _effects = new UnitEffects();
+        _effects.Init(this);
+    }
+
+    public void AddEffect(IStatusEffect e) => _effects.Add(e);
+
+
     void CacheVisualForFeedback()
     {
         _sprites = visual != null ? visual.GetComponentsInChildren<SpriteRenderer>(true)
@@ -69,7 +80,9 @@ public class Unit : MonoBehaviour, IDamageable
     {
         if (_state == UnitState.Dead) return;
 
-        if (_state == UnitState.Dead) return;    // bị DoT giết
+        _effects.Tick(dt);
+        if (_effects.IsControlled()) return;
+
         if (_attackTimer > 0f) _attackTimer -= dt;
 
         switch (_state)
@@ -82,7 +95,13 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- MOVING ----
     void UpdateMoving(float dt)
     {
-        if (_movement.IsMoving) { _movement.Step(dt, _stats.moveSpeed); return; }
+        if (_movement.IsMoving)
+        {
+            float speed = _stats.moveSpeed * _effects.MoveMul();
+            _movement.Step(dt, speed);
+            return;
+        }
+
         _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
         if (IsValidTarget(_attackTarget)) { _state = UnitState.Attacking; return; }
         _attackTarget = null;

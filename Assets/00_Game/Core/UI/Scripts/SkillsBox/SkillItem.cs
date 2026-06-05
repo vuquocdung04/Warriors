@@ -45,7 +45,7 @@ public class SkillItem : MonoBehaviour
     {
         var state = SkillSave.Get(_data.id);
 
-        if (levelText != null) levelText.text = state.level.ToString();
+        if (levelText != null) levelText.text = "Level " + state.level.ToString();
 
         bool maxed = state.level >= _data.levelMax;
         int need = SkillUpgrade.CardNeeded(state.level);

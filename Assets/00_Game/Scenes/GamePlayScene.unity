@@ -5795,6 +5795,7 @@ GameObject:
   - component: {fileID: 1316276021}
   - component: {fileID: 1316276023}
   - component: {fileID: 1316276024}
+  - component: {fileID: 1316276025}
   m_Layer: 0
   m_Name: GamePlayController
   m_TagString: Untagged
@@ -5840,6 +5841,7 @@ MonoBehaviour:
   spawner: {fileID: 1316276021}
   enemyAI: {fileID: 1316276023}
   bottomBar: {fileID: 1316276024}
+  skillController: {fileID: 1316276025}
 --- !u!114 &1316276021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5899,6 +5901,18 @@ MonoBehaviour:
   foodBar: {fileID: 1628573552}
   unitCardBar: {fileID: 1455881145}
   boosterBar: {fileID: 712681747}
+--- !u!114 &1316276025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa82dba4fba844450b031190efd9fc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillController
 --- !u!1 &1344781196
 GameObject:
   m_ObjectHideFlags: 0

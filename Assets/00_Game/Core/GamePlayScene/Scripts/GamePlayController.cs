@@ -16,6 +16,8 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public EnemyAI enemyAI;
     public BottomBar bottomBar;
 
+    public SkillController skillController;
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -30,6 +32,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
 
         bottomBar.Init(spawner, db, startFood);
+        skillController.Init();
 
         FXManager.Instance.isNextSceneReady = true;
 
