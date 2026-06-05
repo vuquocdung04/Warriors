@@ -26,8 +26,6 @@ public class BoosterBar : MonoBehaviour
         var equipped = SkillSave.GetEquipped();
         if (equipped.Count == 0) return;
         SkillController.Instance.Activate(equipped[0].id);
-
-        btnBooster.interactable = false;
     }
 
     void BuildEquippedSkills(List<SkillState> equipped)

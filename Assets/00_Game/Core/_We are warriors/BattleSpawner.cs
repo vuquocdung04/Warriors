@@ -1,17 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class SpawnModifier
+{
+    public System.Action<UnitStats> ModifyStats;
+    public System.Action<Unit> AfterSpawn;
+}
 public class BattleSpawner : MonoBehaviour
 {
     public House allyHouse;
     public House enemyHouse;
     private UnitDatabase _db;
 
-    [Header("Độ trâu nhà địch")]
     public float enemyHouseHpMultiplier = 3f;
-
     private Dictionary<string, UnitStats> _allyStats;
     private Dictionary<string, UnitStats> _enemyStats;
+    private readonly Queue<SpawnModifier> _pendingAllyMods = new();
+
 
     public void Init(UnitDatabase db)
     {
@@ -64,22 +70,21 @@ public class BattleSpawner : MonoBehaviour
             return;
         }
 
-        Unit u = SpawnUnit(Team.Ally, data);
+        SpawnModifier mod = _pendingAllyMods.Count > 0 ? _pendingAllyMods.Dequeue() : null;
+        Unit u = SpawnUnit(Team.Ally, data, mod);
         if (u != null && food != null) food.Spend(data.foodCost);
     }
-
+    public void EnqueueNextAllyModifier(SpawnModifier mod) => _pendingAllyMods.Enqueue(mod);
     public Unit Spawn(Team team, string civId, int index)
     {
         if (_db == null) return null;
-
         var units = _db.GetCivUnits(civId);
         if (index < 0 || index >= units.Count)
         { Debug.LogError($"[Spawner] civ '{civId}' không có lính index {index}"); return null; }
-
-        return SpawnUnit(team, units[index]);
+        return SpawnUnit(team, units[index]);   
     }
 
-    Unit SpawnUnit(Team team, UnitData data)
+    Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null)
     {
         Unit prefab = _db.GetUnitById(data.id);
         if (prefab == null) { Debug.LogError($"[Spawner] thiếu prefab '{data.id}'"); return null; }
@@ -92,8 +97,12 @@ public class BattleSpawner : MonoBehaviour
         Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
         if (cell == null) return null;
 
+        var stats = template.Clone();
+        mod?.ModifyStats?.Invoke(stats);
+
         Unit u = Instantiate(prefab);
-        u.Init(data, template.Clone(), team, cell.Value);   // clone: máu riêng từng con
+        u.Init(data, stats, team, cell.Value);
+        mod?.AfterSpawn?.Invoke(u);
         return u;
     }
 

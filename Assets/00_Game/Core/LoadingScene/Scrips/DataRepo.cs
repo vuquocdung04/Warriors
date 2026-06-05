@@ -21,7 +21,7 @@ public class DataRepo : MonoBehaviour
         gachaDatabase.Init();
         skillDatabase.Init();
 
-        
+        UseProfile.FoodRate.Value = 1f;
         UseProfile.Coin.Value = 100000000;
     }
 

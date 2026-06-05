@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-// Lo toàn bộ pathing trên lưới cho 1 Unit: tiến thẳng, xuyên đồng minh ưu tiên thấp, né chéo.
-// Tách khỏi Unit để Unit chỉ còn lo FSM + combat + máu (dễ đọc, dễ thêm hành vi sau).
 public class UnitMovement
 {
     readonly Unit _owner;
