@@ -17,7 +17,7 @@ public class BattleSpawner : MonoBehaviour
     {
         _db = db;
 
-        _allyStats  = BuildStatsDict(UseProfile.CurrentCiv.Value, withEquipment: true);
+        _allyStats = BuildStatsDict(UseProfile.CurrentCiv.Value, withEquipment: true);
         _enemyStats = BuildStatsDict(UseProfile.EnemyCiv.Value, withEquipment: false);
 
         InitHouse(allyHouse, Team.Ally);
@@ -57,7 +57,7 @@ public class BattleSpawner : MonoBehaviour
         if (index < 0 || index >= units.Count) return;
 
         UnitData data = units[index];
-        var food = FoodManager.Instance;
+        var food = BottomBar.Instance != null ? BottomBar.Instance.foodBar : null;
         if (food != null && !food.CanAfford(data.foodCost))
         {
             Debug.Log($"[Spawn] không đủ food cho '{data.id}' (cần {data.foodCost}, có {food.Food})");

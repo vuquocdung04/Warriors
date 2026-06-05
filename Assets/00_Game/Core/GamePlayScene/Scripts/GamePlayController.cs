@@ -5,20 +5,16 @@ using UnityEngine;
 
 public class GamePlayController : LeaderSingleton<GamePlayController>
 {
-    public Camera cameraUI;
     public Camera cameraGameplay;
     public GameScene gameScene;
-    public BoosterController boosterController;
-    public HandAnimation handAnimation;
     public GameFlow gameFlow;
-    public InputController inputController;
 
     [Header("We are warriors")]
     public BattleGrid grid;
     public BattleManager battle;
     public BattleSpawner spawner;
     public EnemyAI enemyAI;
-    public FoodManager foodManager;
+    public FoodBar foodManager;
     public UnitCardBar cardBar;
 
     protected override void OnAwake()
@@ -43,9 +39,6 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     private async UniTaskVoid Init()
     {
         gameScene.Init();
-        handAnimation.Init();
-        boosterController.Init();
-        inputController.Init();
         gameFlow.Init();
         gameFlow.RequestPause();
 

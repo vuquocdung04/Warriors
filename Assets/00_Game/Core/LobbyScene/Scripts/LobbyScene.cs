@@ -16,8 +16,10 @@ public class LobbyScene : MonoBehaviour
     {
         var lobbyTcs = new UniTaskCompletionSource();
         var shopTcs = new UniTaskCompletionSource();
-        var rankTcs = new UniTaskCompletionSource();
         var upgradesTcs = new UniTaskCompletionSource();
+        var dungeonsBox = new UniTaskCompletionSource();
+        var skillBox = new UniTaskCompletionSource();
+
         var holder = LobbyController.Instance.botCanvas;
         _ = LobbyBox.Setup(holder, box =>
         {
@@ -26,13 +28,11 @@ public class LobbyScene : MonoBehaviour
         });
 
         _ = UpgradesBox.Setup(holder, _ => upgradesTcs.TrySetResult());
-
         _ = ShopBox.Setup(holder, _ => shopTcs.TrySetResult());
+        _ = DungeonsBox.Setup(holder, _ => dungeonsBox.TrySetResult());
+        _ = SkillBox.Setup(holder, _ => skillBox.TrySetResult());
 
-        _ = DungeonsBox.Setup(holder, _ => rankTcs.TrySetResult());
-        _ = SkillBox.Setup(holder, _ => rankTcs.TrySetResult());
-
-        await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, rankTcs.Task);
+        await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, dungeonsBox.Task, skillBox.Task);
 
         FXManager.Instance.isNextSceneReady = true;
     }
