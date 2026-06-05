@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour, IDamageable
     private UnitEffects _effects;
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
-
+    public Vector2Int CurrentCell => _movement.Cell;
     public void Init(UnitData data, UnitStats stats, Team team, Vector2Int startCell)
     {
         _data = data;
@@ -107,7 +107,17 @@ public class Unit : MonoBehaviour, IDamageable
         _attackTarget = null;
         _movement.TryAdvance();
     }
+    public void PushBack(int cells, float slideSpeed)
+    {
+        int dir = team == Team.Ally ? -1 : +1;   
+        var tween = _movement.PushBy(new Vector2Int(dir * cells, 0), slideSpeed);
 
+        _attackTarget = null;                   
+        _state = UnitState.Moving;
+
+        float dur = tween != null ? tween.Duration() : 0f;
+        if (dur > 0f) AddEffect(new PushEffect(dur)); 
+    }
     // ---- ATTACKING ----
     void UpdateAttacking(float dt)
     {

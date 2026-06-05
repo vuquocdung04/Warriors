@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -100,7 +101,42 @@ public class UnitMovement
             _sortingGroup.sortingOrder = Mathf.RoundToInt(-_owner.transform.position.y * _depthScale);
     }
 
-    // Gọi khi unit chết: trả lại ô đang giữ.
+    public Tween PushBy(Vector2Int delta, float slideSpeed)
+    {
+        if (_moving)
+        {
+            _grid.Free(_targetCell);
+            _moving = false;
+        }
+
+        Vector2Int target = FindPushTarget(_cell + delta);
+        if (target == _cell) return null;
+
+        _grid.Free(_cell);
+        _cell = target;
+        _grid.Occupy(_cell, _owner);
+
+        Vector3 dest = _grid.CellToWorld(_cell);
+        float dur = slideSpeed > 0f ? Vector3.Distance(_owner.transform.position, dest) / slideSpeed : 0f;
+        return _owner.transform.DOMove(dest, dur).SetEase(Ease.OutQuad)
+            .OnUpdate(UpdateDepth).SetLink(_owner.gameObject);
+    }
+    Vector2Int FindPushTarget(Vector2Int wanted)
+    {
+        int dirX = wanted.x > _cell.x ? 1 : (wanted.x < _cell.x ? -1 : 0);
+        Vector2Int best = _cell;
+
+        Vector2Int c = _cell;
+        while (c != wanted)
+        {
+            Vector2Int next = new Vector2Int(c.x + dirX, c.y);
+            if (!_grid.IsInside(next)) break;       
+            if (!_grid.IsFree(next)) break;          
+            best = next;
+            c = next;
+        }
+        return best;
+    }
     public void Release()
     {
         _grid.Free(_cell);
