@@ -6,7 +6,7 @@ public class UnitStats
     public float atk, attackSpeed, moveSpeed, attackRangeInCells;
     public float criticalChance, lifeSteal;
     public float pushChance, poisonChance, burnChance, freezeChance;   // thêm
-
+    public UnitStats() { }
     public UnitStats(UnitData d)
     {
         atkType = d.AtkType;

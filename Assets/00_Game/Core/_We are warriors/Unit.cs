@@ -38,6 +38,9 @@ public class Unit : MonoBehaviour, IDamageable
     private UnitEffects _effects;
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
+
+    public float Atk => _stats != null ? _stats.atk : 0f;
+    public float MaxHp => _stats != null ? _stats.maxHp : 0f;
     public Vector2Int CurrentCell => _movement.Cell;
     public void Init(UnitData data, UnitStats stats, Team team, Vector2Int startCell)
     {
@@ -109,14 +112,14 @@ public class Unit : MonoBehaviour, IDamageable
     }
     public void PushBack(int cells, float slideSpeed)
     {
-        int dir = team == Team.Ally ? -1 : +1;   
+        int dir = team == Team.Ally ? -1 : +1;
         var tween = _movement.PushBy(new Vector2Int(dir * cells, 0), slideSpeed);
 
-        _attackTarget = null;                   
+        _attackTarget = null;
         _state = UnitState.Moving;
 
         float dur = tween != null ? tween.Duration() : 0f;
-        if (dur > 0f) AddEffect(new PushEffect(dur)); 
+        if (dur > 0f) AddEffect(new PushEffect(dur));
     }
     // ---- ATTACKING ----
     void UpdateAttacking(float dt)
@@ -186,12 +189,12 @@ public class Unit : MonoBehaviour, IDamageable
         for (int i = 0; i < _sprites.Length; i++)
             if (_sprites[i] != null) _sprites[i].color = _spriteBaseColors[i];
     }
-
-    void Die()
+    public void Kill(bool dropReward) => Die(dropReward);
+    void Die(bool drop = true)
     {
         _state = UnitState.Dead;
         _movement.Release();
-        this.PostEvent(EventID.UNIT_DIED, this);   // UnitDrop sẽ nghe để rơi phần thưởng
+        if (drop) this.PostEvent(EventID.UNIT_DIED, this);
         Destroy(gameObject);
     }
 

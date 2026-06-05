@@ -17,7 +17,7 @@ public class BattleSpawner : MonoBehaviour
     private Dictionary<string, UnitStats> _allyStats;
     private Dictionary<string, UnitStats> _enemyStats;
     private readonly Queue<SpawnModifier> _pendingAllyMods = new();
-
+    private readonly UnitData _championData = new UnitData { id = "champion" };
 
     public void Init(UnitDatabase db)
     {
@@ -81,7 +81,7 @@ public class BattleSpawner : MonoBehaviour
         var units = _db.GetCivUnits(civId);
         if (index < 0 || index >= units.Count)
         { Debug.LogError($"[Spawner] civ '{civId}' không có lính index {index}"); return null; }
-        return SpawnUnit(team, units[index]);   
+        return SpawnUnit(team, units[index]);
     }
 
     Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null)
@@ -125,5 +125,18 @@ public class BattleSpawner : MonoBehaviour
             if (grid.IsFree(x, y - d)) return new Vector2Int(x, y - d);
         }
         return null;
+    }
+
+    public Unit SpawnChampion(Unit prefab, UnitStats stats)
+    {
+        if (prefab == null) { Debug.LogError("[Spawner] thiếu champion prefab"); return null; }
+
+        Vector2Int anchor = GetSpawnCell(Team.Ally);
+        Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
+        if (cell == null) return null;
+
+        Unit u = Instantiate(prefab);
+        u.Init(_championData, stats, Team.Ally, cell.Value);
+        return u;
     }
 }
