@@ -59,7 +59,7 @@ public class FoodBar : MonoBehaviour
 
     void RefreshUI()
     {
-        if (foodText != null) foodText.text = _food.ToString();
+        _ = foodText.CountToWithIcon(_food, "<sprite=2>", duration: 0f);
         this.PostEvent(EventID.FOOD_CHANGED, _food);
     }
 }

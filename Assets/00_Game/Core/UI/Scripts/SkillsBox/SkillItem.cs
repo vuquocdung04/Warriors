@@ -8,6 +8,7 @@ public class SkillItem : MonoBehaviour
 
     [Header("Icon")]
     public Image imageIcon;
+    public Image bg;
 
     [Header("State objects (mặc định tắt hết)")]
     public GameObject newObject;
@@ -62,4 +63,5 @@ public class SkillItem : MonoBehaviour
     public void SetEquipped(bool on) { if (equippedObject != null) equippedObject.SetActive(on); }
     public void SetViewProgress(bool on) { if (viewProgress != null) viewProgress.SetActive(on); }
     public void SetButtonEnabled(bool on) { if (button != null) button.enabled = on; }
+    public void SetBg(bool on) { if (bg != null) bg.gameObject.SetActive(on);}
 }

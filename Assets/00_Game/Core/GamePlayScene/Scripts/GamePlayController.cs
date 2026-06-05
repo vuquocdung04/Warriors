@@ -14,8 +14,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public BattleManager battle;
     public BattleSpawner spawner;
     public EnemyAI enemyAI;
-    public FoodBar foodManager;
-    public UnitCardBar cardBar;
+    public BottomBar bottomBar;
 
     protected override void OnAwake()
     {
@@ -27,11 +26,10 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         battle.Init();
         spawner.Init(db);
         enemyAI.Init(spawner);
-        cardBar.Init(spawner, db);
-
         var allyUnits = db.GetCivUnits(UseProfile.CurrentCiv.Value);
         int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
-        foodManager.Init(startFood);
+
+        bottomBar.Init(spawner, db, startFood);
 
         FXManager.Instance.isNextSceneReady = true;
 
