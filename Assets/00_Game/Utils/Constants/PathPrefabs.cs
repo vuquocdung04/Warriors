@@ -7,6 +7,7 @@ public class PathPrefabs
     public const string BUY_BOOSTER_BOX = "BuyBoosterBox";
     public const string CHEAT_BOX = "CheatBox";
     public const string DETAIL_EQUIP_BOX = "DetailEquipBox";
+    public const string DETAIL_SKILL_BOX = "DetailSkillBox";
     public const string DUNGEONS_BOX = "DungeonsBox";
     public const string EQUIPMENT_BOX = "EquipmentBox";
     public const string GACHA_RESULT_BOX = "GachaResultBox";
@@ -21,6 +22,7 @@ public class PathPrefabs
     public const string SETTING_GAME_BOX = "SettingGameBox";
     public const string SETTING_LOBBY_BOX = "SettingLobbyBox";
     public const string SHOP_BOX = "ShopBox";
+    public const string SKILL_BOX = "SkillBox";
     public const string UPGRADES_BOX = "UpgradesBox";
     public const string WIN_BOX = "WinBox";
 }

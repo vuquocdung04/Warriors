@@ -93,7 +93,7 @@ public class NavController : MonoBehaviour
         switch (type)
         {
             case ENavType.nav0:
-                RankBox.Instance.Show(anim);
+                DungeonsBox.Instance.Show(anim);
                 // dungeon
                 break;
             case ENavType.nav1:
@@ -103,7 +103,7 @@ public class NavController : MonoBehaviour
                 LobbyBox.Instance.Show(anim);
                 break;
             case ENavType.nav3:
-                // card icon
+                SkillBox.Instance.Show(anim);
                 break;
             case ENavType.nav4:
                 ShopBox.Instance.Show(anim);
@@ -116,7 +116,7 @@ public class NavController : MonoBehaviour
         switch (type)
         {
             case ENavType.nav0:
-                if (RankBox.Instance != null) RankBox.Instance.Close(anim);
+                if (RankBox.Instance != null) DungeonsBox.Instance.Close(anim);
 
                 break;
             case ENavType.nav1:
@@ -127,6 +127,7 @@ public class NavController : MonoBehaviour
                 break;
             case ENavType.nav3:
                 // TODO: gắn box cho nav3
+                SkillBox.Instance.Close(anim);
                 break;
             case ENavType.nav4:
                 if (ShopBox.Instance != null) ShopBox.Instance.Close(anim);

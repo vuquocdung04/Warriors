@@ -24,7 +24,7 @@ public class StringHelper
     public const string GACHA_LEVEL = "GACHA_LEVEL";
     public const string GACHA_SPIN = "GACHA_SPIN";
 
-
+    // Skill
 
     public const string AVATAR_ID = "AVATAR_ID";
 

@@ -14,6 +14,7 @@ public class SkillIcon
 [CreateAssetMenu(menuName = "Game/Skill Database")]
 public class SkillDatabase : ScriptableObject
 {
+    public SkillItem itemPrefab;
     public TextAsset skillJson;
 
     [TableList] public List<SkillIcon> icons;

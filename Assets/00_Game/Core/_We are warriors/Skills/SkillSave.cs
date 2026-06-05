@@ -8,10 +8,12 @@ public class SkillState
     public int level = 1;
     public int card = 0;
     public bool owned = false;
+    public bool equipped = false;
 }
 
 public static class SkillSave
 {
+    public const int MaxEquipped = 1;
     const string SAVE_KEY = "SKILL_SAVE";
     private static Dictionary<string, SkillState> _cache;
 
@@ -29,7 +31,35 @@ public static class SkillSave
                     if (!string.IsNullOrEmpty(s.id)) _cache[s.id] = s;
         }
     }
+    public static List<SkillState> GetEquipped()
+    {
+        Load();
+        var list = new List<SkillState>();
+        foreach (var s in _cache.Values)
+            if (s.equipped) list.Add(s);
+        return list;
+    }
+    public static void Equip(string id)
+    {
+        Load();
+        var equipped = GetEquipped();
 
+        if (Get(id).equipped) return;
+
+        while (equipped.Count >= MaxEquipped && equipped.Count > 0)
+        {
+            equipped[0].equipped = false;
+            equipped.RemoveAt(0);
+        }
+
+        Get(id).equipped = true;
+        Save();
+    }
+    public static void Unequip(string id)
+    {
+        Get(id).equipped = false;
+        Save();
+    }
     public static SkillState Get(string id)
     {
         Load();

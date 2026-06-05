@@ -58,21 +58,18 @@ public class CraftRelicsTab : MonoBehaviour
         if (costText1 != null) _ = costText1.CountTo(costX1, 0f);
         if (costText10 != null) _ = costText10.CountTo(costX10, 0f);
     }
-
     void OnSpin(int count)
     {
-        var results = new List<GachaService.GachaResult>();
+        var entries = new List<IGachaResultEntry>();
         for (int i = 0; i < count; i++)
         {
             var r = GachaService.Spin();
-            if (r != null) results.Add(r);
+            if (r != null) entries.Add(new EquipmentGachaEntry(r));
         }
-
-        Refresh();
         this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
 
         var holder = LobbyController.Instance.topCanvas;
-        _ = GachaResultBox.Setup(holder, box => box.ShowResult(results));
+        _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries));
     }
 
     void OnShowRate()

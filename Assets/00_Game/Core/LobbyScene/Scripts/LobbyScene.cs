@@ -29,7 +29,8 @@ public class LobbyScene : MonoBehaviour
 
         _ = ShopBox.Setup(holder, _ => shopTcs.TrySetResult());
 
-        _ = RankBox.Setup(holder, _ => rankTcs.TrySetResult());
+        _ = DungeonsBox.Setup(holder, _ => rankTcs.TrySetResult());
+        _ = SkillBox.Setup(holder, _ => rankTcs.TrySetResult());
 
         await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, rankTcs.Task);
 

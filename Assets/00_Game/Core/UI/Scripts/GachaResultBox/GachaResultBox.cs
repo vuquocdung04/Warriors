@@ -28,53 +28,47 @@ public class GachaResultBox : BaseBox<GachaResultBox>
 
     protected override void InitState() { }
 
-    public void ShowResult(List<GachaService.GachaResult> results)
+    // dùng chung cho mọi loại gacha (equipment/skill/treasure...)
+    public void ShowResult(List<IGachaResultEntry> entries)
     {
         Show();
 
         ClearHolder(holderX1);
         ClearHolder(holderX10);
 
-        bool isX10 = results.Count > 1;
+        bool isX10 = entries.Count > 1;
         tabX1.SetCanvasState(!isX10, !isX10 ? 1f : 0f);
         tabX10.SetCanvasState(isX10, isX10 ? 1f : 0f);
 
         btnClose.enabled = false;
 
-        if (isX10) PlayX10(results).Forget();
+        if (isX10) PlayX10(entries).Forget();
         else
         {
-            if (results.Count > 0) SpawnItem(results[0], holderX1);
+            if (entries.Count > 0) SpawnEntry(entries[0], holderX1);
             btnClose.enabled = true;
         }
     }
 
-    async UniTaskVoid PlayX10(List<GachaService.GachaResult> results)
+    async UniTaskVoid PlayX10(List<IGachaResultEntry> entries)
     {
         var token = this.GetCancellationTokenOnDestroy();
-        foreach (var res in results)
+        foreach (var e in entries)
         {
-            SpawnItem(res, holderX10);
+            SpawnEntry(e, holderX10);
             await UniTask.Delay(System.TimeSpan.FromSeconds(spawnDelay), cancellationToken: token);
         }
         btnClose.enabled = true;
     }
 
-    void SpawnItem(GachaService.GachaResult res, Transform holder)
+    void SpawnEntry(IGachaResultEntry entry, Transform holder)
     {
-        var item = Instantiate(GetItemPrefab(res.type), holder);
-
-        item.Init(res.equip, res.type, GetIcon(res.type, res.equip.id), null);
-        item.SetEquipped(false);
-        item.SetViewProgress(false);
-        item.SetButtonEnabled(false);
-        item.SetNew(res.isFirstOwn);
-
-        if (res.isFirstOwn)
+        var go = entry.Spawn(holder);
+        if (entry.IsNew)
         {
-            var t = item.transform;
+            var t = go.transform;
             t.localScale = Vector3.one * 1.1f;
-            t.DOScale(1f, popDuration).SetEase(Ease.OutBack).SetLink(item.gameObject);
+            t.DOScale(1f, popDuration).SetEase(Ease.OutBack).SetLink(go);
         }
     }
 
@@ -83,20 +77,6 @@ public class GachaResultBox : BaseBox<GachaResultBox>
         for (int i = holder.childCount - 1; i >= 0; i--)
             Destroy(holder.GetChild(i).gameObject);
     }
-
-    EquipmentItem GetItemPrefab(EquipType type) => type switch
-    {
-        EquipType.Melee => DataRepo.Instance.equipmentDatabase.GetMeleeItemPrefab(),
-        EquipType.Range => DataRepo.Instance.equipmentDatabase.GetRangeItemPrefab(),
-        _ => DataRepo.Instance.equipmentDatabase.GetShieldItemPrefab(),
-    };
-
-    Sprite GetIcon(EquipType type, string id) => type switch
-    {
-        EquipType.Melee => DataRepo.Instance.equipmentDatabase.GetMeleeIcon(id),
-        EquipType.Range => DataRepo.Instance.equipmentDatabase.GetRangeIcon(id),
-        _ => DataRepo.Instance.equipmentDatabase.GetShieldIcon(id),
-    };
 
     protected override void OnDestroy() => base.OnDestroy();
 }

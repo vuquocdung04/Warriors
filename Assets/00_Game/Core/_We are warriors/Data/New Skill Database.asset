@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07cdf58eb971671489765ba9d8e2c792, type: 3}
   m_Name: New Skill Database
   m_EditorClassIdentifier: Assembly-CSharp::SkillDatabase
+  itemPrefab: {fileID: 3162818744725041066, guid: 16f2e0ce6051342909089b9d74c1a642, type: 3}
   skillJson: {fileID: 4900000, guid: 06e93e359a95f1d45a1b389f7728f25f, type: 3}
   icons:
   - id: 1
