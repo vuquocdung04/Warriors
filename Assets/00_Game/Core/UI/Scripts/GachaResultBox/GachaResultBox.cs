@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using EventDispatcher;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,17 +21,18 @@ public class GachaResultBox : BaseBox<GachaResultBox>
     [Header("Config")]
     public float spawnDelay = 0.1f;
     public float popDuration = 0.2f;
-
+    private EventID? _postOnClose;
     protected override void Init()
     {
-        btnClose.OnClicked(delegate { Close(); });
+        btnClose.OnClicked(delegate { OnClose(); });
     }
 
     protected override void InitState() { }
 
     // dùng chung cho mọi loại gacha (equipment/skill/treasure...)
-    public void ShowResult(List<IGachaResultEntry> entries)
+    public void ShowResult(List<IGachaResultEntry> entries, EventID? postOnClose = null)
     {
+        _postOnClose = postOnClose;
         Show();
 
         ClearHolder(holderX1);
@@ -71,7 +73,12 @@ public class GachaResultBox : BaseBox<GachaResultBox>
             t.DOScale(1f, popDuration).SetEase(Ease.OutBack).SetLink(go);
         }
     }
-
+    void OnClose()
+    {
+        Close();
+        if (_postOnClose.HasValue) this.PostEvent(_postOnClose.Value);
+        _postOnClose = null;
+    }
     void ClearHolder(Transform holder)
     {
         for (int i = holder.childCount - 1; i >= 0; i--)

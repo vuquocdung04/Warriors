@@ -43,8 +43,8 @@ public class SkillBox : BaseBox<SkillBox>
 
     void RefreshCost()
     {
-        if (costText1 != null) _ = costText1.CountToWithIcon(costX1, "<sprite=0> ", duration: 0f);
-        if (costText10 != null) _ = costText10.CountToWithIcon(costX10, "<sprite=0> ", duration: 0f);
+        if (costText1 != null) _ = costText1.CountToWithIcon(costX1, "<sprite=19> ", duration: 0f);
+        if (costText10 != null) _ = costText10.CountToWithIcon(costX10, "<sprite=19> ", duration: 0f);
     }
 
     void BuildOwned()
@@ -131,10 +131,10 @@ public class SkillBox : BaseBox<SkillBox>
             var r = GachaSkillService.Spin();
             if (r != null) entries.Add(new SkillGachaEntry(r));
         }
-        this.PostEvent(EventID.ON_SKILL_CHANGED);
+        // KHÔNG post ở đây
 
         var holder = LobbyController.Instance.topCanvas;
-        _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries));
+        _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries, EventID.ON_SKILL_CHANGED));
     }
     protected override void OnDestroy()
     {

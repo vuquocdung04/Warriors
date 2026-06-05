@@ -53,8 +53,9 @@ public class DetailSkillBox : BaseBox<DetailSkillBox>
         _item.Refresh();
 
         var state = SkillSave.Get(_data.id);
+        bool canUp = SkillUpgrade.CanUpgrade(_data);
         if (txtName != null) txtName.text = _data.name;
-        if (txtDes != null) txtDes.text = _data.DescAt(state.level);   // mô tả theo level
+        if (txtDes != null) txtDes.text = _data.DescPreview(state.level, canUp);
 
         btnEquip.gameObject.SetActive(!_fromEquipped);
         btnRemove.gameObject.SetActive(_fromEquipped);

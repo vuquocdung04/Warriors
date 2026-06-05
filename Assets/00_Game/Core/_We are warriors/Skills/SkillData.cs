@@ -16,4 +16,24 @@ public class SkillData
         string vStr = v % 1 == 0 ? ((int)v).ToString() : v.ToString("0.#");
         return string.IsNullOrEmpty(description) ? "" : description.Replace("{value}", vStr);
     }
+    public string DescPreview(int level, bool showNext)
+    {
+        float cur = ValueAt(level);
+        string curStr = Fmt(cur);
+
+        string vStr;
+        if (showNext && level < levelMax)
+        {
+            float delta = valuePerLevel;          
+             vStr = $"{curStr} <color=#2ECC40>(+{delta})</color>";
+        }
+        else
+        {
+            vStr = curStr;                         
+        }
+
+        return string.IsNullOrEmpty(description) ? "" : description.Replace("{value}", vStr);
+    }
+
+    static string Fmt(float v) => v % 1 == 0 ? ((int)v).ToString() : v.ToString("0.#");
 }
