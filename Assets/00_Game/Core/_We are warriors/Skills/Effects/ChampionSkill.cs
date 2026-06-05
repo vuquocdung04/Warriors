@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public class ChampionSkill : ISkillEffect
 {
-    const float MOVE_SPEED = 1.5f;
-    const float ATTACK_SPEED = 1f;
-    const float ATTACK_RANGE = 1.5f;
+    const float MOVE_SPEED = 1f;
+    const float ATTACK_SPEED = 0.75f;
+    const float ATTACK_RANGE = 6f;
     const int FRONT_PRIORITY = 100;
 
     public void Activate(SkillData data, int level)

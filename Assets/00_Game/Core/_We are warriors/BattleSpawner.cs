@@ -18,7 +18,7 @@ public class BattleSpawner : MonoBehaviour
     private Dictionary<string, UnitStats> _enemyStats;
     private readonly Queue<SpawnModifier> _pendingAllyMods = new();
     private readonly UnitData _championData = new UnitData { id = "champion" };
-
+    private readonly UnitData _zombieData = new UnitData { id = "zombie" };
     public void Init(UnitDatabase db)
     {
         _db = db;
@@ -137,6 +137,18 @@ public class BattleSpawner : MonoBehaviour
 
         Unit u = Instantiate(prefab);
         u.Init(_championData, stats, Team.Ally, cell.Value);
+        return u;
+    }
+    public Unit SpawnZombie(Unit prefab, UnitStats stats)
+    {
+        if (prefab == null) { Debug.LogError("[Spawner] thiếu zombie prefab"); return null; }
+
+        Vector2Int anchor = GetSpawnCell(Team.Ally);
+        Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
+        if (cell == null) return null;
+
+        Unit u = Instantiate(prefab);
+        u.Init(_zombieData, stats.Clone(), Team.Ally, cell.Value); 
         return u;
     }
 }

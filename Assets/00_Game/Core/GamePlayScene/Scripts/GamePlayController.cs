@@ -17,6 +17,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public BottomBar bottomBar;
 
     public SkillController skillController;
+    public FlyTextSpawner flyTextSpawner;
 
     protected override void OnAwake()
     {
@@ -33,7 +34,6 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
 
         bottomBar.Init(spawner, db, startFood);
         skillController.Init();
-
         FXManager.Instance.isNextSceneReady = true;
 
     }

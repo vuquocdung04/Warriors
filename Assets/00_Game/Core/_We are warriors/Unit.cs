@@ -173,6 +173,7 @@ public class Unit : MonoBehaviour, IDamageable
         _hpBar?.Set(_stats.hp / _stats.maxHp);
         if (_stats.hp <= 0f) { Die(); return; }
         PlayHitFeedback();
+        FlyTextSpawner.Instance.Show(((int)dmg).ToString(), Color.white, transform.position + Vector3.up * 2.5f);
     }
 
     // Phản hồi khi trúng đòn: nháy sáng sprite rồi trả về màu gốc (DOTween tự huỷ khi destroy nhờ SetLink).

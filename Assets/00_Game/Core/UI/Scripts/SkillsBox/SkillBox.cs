@@ -105,6 +105,8 @@ public class SkillBox : BaseBox<SkillBox>
             item.SetNew(false);
             item.SetEquipped(false);
             item.SetViewProgress(false);   // ô đeo: ẩn progress/new/equipped
+            item.SetBg(false);
+
             item.Refresh();
         }
     }

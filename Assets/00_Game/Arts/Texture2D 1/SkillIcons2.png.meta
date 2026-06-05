@@ -1,11 +1,9 @@
 fileFormatVersion: 2
 guid: 2ba9d2accc2271d449d2fd62fadb0171
-timeCreated: 1780028455
-licenseType: Free
 TextureImporter:
-  serializedVersion: 13
   internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -82,46 +80,100 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SkillIcons2_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 799
+        width: 194
+        height: 195
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb9dd6e398e7c24eaa646eb1409c901
+      internalID: 1467825902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillIcons2_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 807
+        width: 206
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8718e371074e4c44c86f3334da3b2a52
+      internalID: 616302169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
-    customData:
+    customData: 
     physicsShape: []
     bones: []
-    spriteID:
+    spriteID: bf3447005667307418aff6bc051efe02
     internalID: 0
     vertices: []
-    indices:
+    indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
-    nameFileIdTable: {}
-  mipmapLimitGroupName:
-  output:
-    textureImportInstructions:
-      compressedFormat: 0
-      uncompressedFormat: 0
-      desiredFormat: 0
-      usageMode: 0
-      colorSpace: 0
-      width: 0
-      height: 0
-      depth: 0
-      cubeIntermediateSize: 0
-      cubeMode: 0
-      cubeLayout: 0
-      compressionQuality: 0
-      vtOnly: 0
-    sourceTextureInformation:
-      width: 0
-      height: 0
-      doesTextureContainAlpha: 0
-      sourceWasHDR: 0
-    importInspectorWarnings:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      SkillIcons2_0: 1467825902
+      SkillIcons2_1: -450162573
+      SkillIcons2_2: 616302169
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

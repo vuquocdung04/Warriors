@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07cdf58eb971671489765ba9d8e2c792, type: 3}
   m_Name: New Skill Database
   m_EditorClassIdentifier: Assembly-CSharp::SkillDatabase
+  zombiePrefab: {fileID: 7175834198329670700, guid: ce6c9bd52d7b3e448b860171994ebee3, type: 3}
+  championPrefab: {fileID: 5546164806312993225, guid: 869c68bdb0becbe4fa141a99817c93a2, type: 3}
   itemPrefab: {fileID: 3162818744725041066, guid: 16f2e0ce6051342909089b9d74c1a642, type: 3}
   skillJson: {fileID: 4900000, guid: 06e93e359a95f1d45a1b389f7728f25f, type: 3}
   icons:
@@ -22,6 +24,6 @@ MonoBehaviour:
   - id: 3
     sprite: {fileID: -1850449242, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
   - id: 4
-    sprite: {fileID: 352982727, guid: 9c313339916bc4b4388ec39090885701, type: 3}
+    sprite: {fileID: 616302169, guid: 2ba9d2accc2271d449d2fd62fadb0171, type: 3}
   - id: 5
     sprite: {fileID: -1887335050, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
