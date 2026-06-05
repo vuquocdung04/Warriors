@@ -6,6 +6,9 @@ public class BattleManager : StaffSingleton<BattleManager>
 {
     private readonly List<Unit> _allies = new();
     private readonly List<Unit> _enemies = new();
+
+    public IReadOnlyList<Unit> Allies => _allies;
+    public IReadOnlyList<Unit> Enemies => _enemies;
     private readonly List<IDamageable> _allyTargets = new();   // unit + house theo phe
     private readonly List<IDamageable> _enemyTargets = new();
     public bool IsBattleOver { get; private set; }
@@ -15,30 +18,12 @@ public class BattleManager : StaffSingleton<BattleManager>
         _allies.Clear(); _enemies.Clear();
         _allyTargets.Clear(); _enemyTargets.Clear();
         this.RegisterListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
-        this.RegisterListener(EventID.APPLY_EFFECT_ALL_ALLIES, OnEffectAllAllies);
-        this.RegisterListener(EventID.APPLY_EFFECT_ALL_ENEMIES, OnEffectAllEnemies);
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
         this.RemoveListener(EventID.HOUSE_DESTROYED, OnHouseDestroyed);
-        this.RemoveListener(EventID.APPLY_EFFECT_ALL_ALLIES, OnEffectAllAllies);
-        this.RemoveListener(EventID.APPLY_EFFECT_ALL_ENEMIES, OnEffectAllEnemies);
-    }
-
-    // param: Func<IStatusEffect> -> tạo effect MỚI cho từng unit (mỗi con đếm giờ riêng)
-    void OnEffectAllAllies(object param) => ApplyToAll(_allies, param);
-    void OnEffectAllEnemies(object param) => ApplyToAll(_enemies, param);
-
-    void ApplyToAll(List<Unit> list, object param)
-    {
-        if (param is not System.Func<IStatusEffect> factory) return;
-        for (int i = 0; i < list.Count; i++)
-        {
-            var u = list[i];
-            if (u != null && u.IsAlive) u.Effects.Add(u, factory());
-        }
     }
 
     void OnHouseDestroyed(object param)
@@ -54,7 +39,7 @@ public class BattleManager : StaffSingleton<BattleManager>
 
     void Update()
     {
-          if (IsBattleOver) return;
+        if (IsBattleOver) return;
         Tick(Time.deltaTime);
     }
     public void Register(Unit u)
@@ -67,7 +52,7 @@ public class BattleManager : StaffSingleton<BattleManager>
     {
         (h.team == Team.Ally ? _allyTargets : _enemyTargets).Add(h);
     }
-    public void EndBattle() 
+    public void EndBattle()
     {
         IsBattleOver = true;
     }

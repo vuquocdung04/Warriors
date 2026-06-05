@@ -17,7 +17,6 @@ public class Unit : MonoBehaviour, IDamageable
     public bool IsAlive => _state != UnitState.Dead;
     public int FrontPriority => _stats != null ? _stats.frontPriority : 0;
     public UnitData Data => _data;
-    public UnitEffects Effects { get; } = new();   // buff/debuff: slow, độc, choáng, +sát thương...
 
     private UnitHpBar _hpBar;
     private UnitData _data;
@@ -70,10 +69,7 @@ public class Unit : MonoBehaviour, IDamageable
     {
         if (_state == UnitState.Dead) return;
 
-        Effects.Tick(this, dt);                  // độc trừ máu, đếm giờ, hết hạn tự gỡ
         if (_state == UnitState.Dead) return;    // bị DoT giết
-        if (Effects.IsControlled) return;        // đóng băng / choáng -> đứng im
-
         if (_attackTimer > 0f) _attackTimer -= dt;
 
         switch (_state)
@@ -86,8 +82,7 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- MOVING ----
     void UpdateMoving(float dt)
     {
-        if (_movement.IsMoving) { _movement.Step(dt, _stats.moveSpeed * Effects.MoveMul); return; }
-
+        if (_movement.IsMoving) { _movement.Step(dt, _stats.moveSpeed); return; }
         _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
         if (IsValidTarget(_attackTarget)) { _state = UnitState.Attacking; return; }
         _attackTarget = null;
@@ -119,14 +114,14 @@ public class Unit : MonoBehaviour, IDamageable
     void TryAttack()
     {
         if (_attackTimer > 0f) return;
-        _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed * Effects.AtkSpeedMul);
+        _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
         _attackStrategy?.Attack(_attackTarget);
     }
 
     public void DealDamage(IDamageable target)
     {
         if (target == null || !target.IsAlive) return;
-        float dmg = _stats.atk * Effects.AtkMul;
+        float dmg = _stats.atk;
         if (Random.value < _stats.criticalChance) dmg *= 2f;
         target.TakeDamage(dmg);
         if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);
