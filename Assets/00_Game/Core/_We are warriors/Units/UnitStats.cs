@@ -18,6 +18,10 @@ public class UnitStats
         attackRangeInCells = d.attackRangeInCells;
         criticalChance = d.criticalChance;
         lifeSteal = d.lifeSteal;
+        pushChance = d.pushChance;
+        poisonChance = d.poisonChance;
+        burnChance = d.burnChance;
+        freezeChance = d.freezeChance;
     }
 
     public UnitStats Clone() => (UnitStats)MemberwiseClone();   // thêm: mỗi unit 1 bản riêng

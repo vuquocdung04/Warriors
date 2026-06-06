@@ -15,6 +15,10 @@ public class UnitData
     public float attackRangeInCells;
     public float criticalChance;
     public float lifeSteal;
+    public float pushChance;
+    public float poisonChance;
+    public float burnChance;
+    public float freezeChance;
     public int foodCost;
     public int buyPrice;
 
@@ -22,7 +26,6 @@ public class UnitData
         !string.IsNullOrEmpty(atkType) && atkType.Trim().ToLower() == "ranged"
             ? AtkType.Ranged : AtkType.Melee;
 
-    // nếu sheet chưa có cột front_priority thì tự suy từ atkType
     public int FrontPriority =>
         frontPriority > 0 ? frontPriority : (AtkType == AtkType.Melee ? 2 : 1);
 }

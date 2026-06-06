@@ -11,9 +11,17 @@ public class UnitEffects
     private Unit _unit;
 
     public void Init(Unit unit) { _unit = unit; _effects.Clear(); }
-
     public void Add(IStatusEffect e)
     {
+        foreach (var ex in _effects)
+        {
+            if (ex.GetType() == e.GetType())
+            {
+                if (ex is DotEffectBase dot) dot.Refresh();
+                else if (ex is FreezeEffect fz) fz.Refresh();
+                return;   
+            }
+        }
         _effects.Add(e);
         e.OnApply(_unit);
     }

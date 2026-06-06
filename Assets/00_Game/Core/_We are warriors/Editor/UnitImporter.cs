@@ -16,7 +16,11 @@ public class UnitImporter : ISheetImporter
         int cId = Col("id"), cCiv = Col("civ_id"), cName = Col("name"), cType = Col("atk_type"),
             cHp = Col("hp"), cAtk = Col("atk"), cAs = Col("attack_speed"), cMs = Col("move_speed"),
             cCrit = Col("critical_chance"), cLs = Col("life_steal"), cFood = Col("food_cost"),
-            cBuy = Col("buy_price"), cRange = Col("attack_range");
+            cBuy = Col("buy_price"), cRange = Col("attack_range"), cPush = Col("push_chance"), cPoison = Col("poison_chance"),
+            cBurn = Col("burn_chance"), cFreeze = Col("freeze_chance");
+
+
+
 
         string lastCiv = "";
         for (int r = 1; r < rows.Count; r++)
@@ -33,13 +37,24 @@ public class UnitImporter : ISheetImporter
 
             list.Add(new UnitData
             {
-                id = id, civId = civ, displayName = Get(cName), atkType = type,
+                id = id,
+                civId = civ,
+                displayName = Get(cName),
+                atkType = type,
                 frontPriority = isRanged ? 1 : 2,
-                hp = PFloat(Get(cHp)), atk = PFloat(Get(cAtk)),
-                attackSpeed = PFloat(Get(cAs)), moveSpeed = PFloat(Get(cMs)),
+                hp = PFloat(Get(cHp)),
+                atk = PFloat(Get(cAtk)),
+                attackSpeed = PFloat(Get(cAs)),
+                moveSpeed = PFloat(Get(cMs)),
                 attackRangeInCells = PFloat(Get(cRange)),
-                criticalChance = PFloat(Get(cCrit)), lifeSteal = PFloat(Get(cLs)),
-                foodCost = (int)PFloat(Get(cFood)), buyPrice = PMoney(Get(cBuy)),
+                criticalChance = PFloat(Get(cCrit))/100,
+                lifeSteal = PFloat(Get(cLs))/100,
+                pushChance = PFloat(Get(cPush))/100,
+                poisonChance = PFloat(Get(cPoison))/100,
+                burnChance = PFloat(Get(cBurn))/100,
+                freezeChance = PFloat(Get(cFreeze))/100,
+                foodCost = (int)PFloat(Get(cFood)),
+                buyPrice = PMoney(Get(cBuy)),
             });
         }
         return list;

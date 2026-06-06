@@ -8,9 +8,10 @@ public class FlyText : MonoBehaviour
     public float riseDistance = 1f;
     public float duration = 0.8f;
 
-    public void Play(string content, Color color, Vector3 worldPos)
+    public void Play(string content, Color color, Vector3 worldPos, float scale = 1f)
     {
         transform.position = worldPos;
+        transform.localScale = Vector3.one * scale;
         text.text = content;
         text.color = color;
         text.alpha = 1f;

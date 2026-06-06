@@ -153,10 +153,26 @@ public class Unit : MonoBehaviour, IDamageable
     public void DealDamage(IDamageable target)
     {
         if (target == null || !target.IsAlive) return;
+
         float dmg = _stats.atk;
-        if (Random.value < _stats.criticalChance) dmg *= 2f;
+        bool crit = Random.value < _stats.criticalChance;
+        if (crit) dmg *= 2f;
+
         target.TakeDamage(dmg);
+
+
+        Vector3 pos = target.Transform.position + Vector3.up * 2.5f;
+        FlyTextSpawner.Instance.Damage(dmg, pos, crit);
+
         if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);
+
+        if (target is Unit u && u.IsAlive)
+        {
+            if (Random.value < _stats.freezeChance) u.AddEffect(new FreezeEffect(0.5f));
+            if (Random.value < _stats.poisonChance) u.AddEffect(new PoisonEffect());
+            if (Random.value < _stats.burnChance) u.AddEffect(new BurnEffect());
+            if (Random.value < _stats.pushChance) u.PushBack(2, 4f);
+        }
     }
 
     void Heal(float amount)
@@ -173,7 +189,6 @@ public class Unit : MonoBehaviour, IDamageable
         _hpBar?.Set(_stats.hp / _stats.maxHp);
         if (_stats.hp <= 0f) { Die(); return; }
         PlayHitFeedback();
-        FlyTextSpawner.Instance.Show(((int)dmg).ToString(), Color.white, transform.position + Vector3.up * 2.5f);
     }
 
     // Phản hồi khi trúng đòn: nháy sáng sprite rồi trả về màu gốc (DOTween tự huỷ khi destroy nhờ SetLink).
@@ -196,6 +211,7 @@ public class Unit : MonoBehaviour, IDamageable
         _state = UnitState.Dead;
         _movement.Release();
         if (drop) this.PostEvent(EventID.UNIT_DIED, this);
+        DeathFxSpawner.Instance.Play(transform.position + Vector3.up * 0.5f);
         Destroy(gameObject);
     }
 
