@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class UpgradeBar : MonoBehaviour
 {
+    public FoodProduction foodProduction;
+    public EquipmentBar equipmentBar;
+
     [Header("3 item (trái -> phải)")]
     public List<UpgradeUnitItem> items;
 
     public void Init(string civId)
     {
+        equipmentBar.Init();
+        foodProduction.Init();
         Build(civId);
         this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }

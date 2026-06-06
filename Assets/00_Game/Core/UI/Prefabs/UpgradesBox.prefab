@@ -645,6 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6481030436272635717}
+  - component: {fileID: 8564872926005408301}
   m_Layer: 5
   m_Name: FoodProduction
   m_TagString: Untagged
@@ -675,6 +676,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -248}
   m_SizeDelta: {x: 1184, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8564872926005408301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819338536351335944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa2cb1e0093844fdbb3af62e5e470914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodProduction
+  upgradeButton: {fileID: 3231313246713864359}
+  rateText: {fileID: 1578950696633476215}
+  costText: {fileID: 4112370698011348030}
+  ratePerLevel: 0.02
+  cost: 0
 --- !u!1 &941098207223853974
 GameObject:
   m_ObjectHideFlags: 0
@@ -4143,6 +4161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536ce2dd5ff49bd4eb201005d7074d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeBar
+  foodProduction: {fileID: 8564872926005408301}
+  equipmentBar: {fileID: 6382897998867451578}
   items:
   - {fileID: 6241605966524775283}
   - {fileID: 8558552137809888233}
@@ -4155,7 +4175,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3614849822077382132}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4837,7 +4857,6 @@ MonoBehaviour:
   tabUpgradeBar: {fileID: 6514911210512380339}
   evolutionBar: {fileID: 4382878558225450639}
   upgradeBar: {fileID: 7857879302872181263}
-  equipmentBar: {fileID: 6382897998867451578}
   evolveButtonParent: {fileID: 8233925853187220383}
   upgradeButtonParent: {fileID: 3808346229924577157}
 --- !u!1 &4057411763596622983
@@ -5785,10 +5804,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 203768194760077350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -108.4, y: 15.3}
-  m_SizeDelta: {x: 88.35, y: 43.86}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 10.738}
+  m_SizeDelta: {x: 0, y: -21.4554}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3870895370986224709
 CanvasRenderer:
@@ -5818,7 +5837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: <sprite=0> 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
   m_sharedMaterial: {fileID: 7739413296518866188, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
@@ -5837,7 +5856,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 3873d8bf952e64085895e02b038848d1, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -6365,81 +6384,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 1392838447, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!1 &5103701786521511950
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7679275888222986390}
-  - component: {fileID: 11224024488860770}
-  - component: {fileID: 2329746763487800474}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7679275888222986390
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103701786521511950}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 203768194760077350}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -28.3, y: 14.3}
-  m_SizeDelta: {x: 49.47, y: 49.11}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &11224024488860770
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103701786521511950}
-  m_CullTransparentMesh: 1
---- !u!114 &2329746763487800474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103701786521511950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: -1902673652, guid: fa7089f7eb9674140a83746c04ccb32a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9688,7 +9632,6 @@ RectTransform:
   m_LocalScale: {x: 1.0003201, y: 1.0003201, z: 1.0003201}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7679275888222986390}
   - {fileID: 4618717843259614541}
   m_Father: {fileID: 6481030436272635717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9881,7 +9824,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7508727114775655060}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
