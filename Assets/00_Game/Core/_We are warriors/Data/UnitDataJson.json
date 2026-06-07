@@ -119,7 +119,7 @@
     "atk": 12.0,
     "attackSpeed": 1.0,
     "moveSpeed": 1.0,
-    "attackRangeInCells": 3.0,
+    "attackRangeInCells": 5.0,
     "criticalChance": 0.0,
     "lifeSteal": 0.0,
     "pushChance": 0.0,

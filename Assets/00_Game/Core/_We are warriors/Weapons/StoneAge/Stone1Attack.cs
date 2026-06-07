@@ -5,19 +5,9 @@ public class Stone1Attack : AttackStrategyBase
 {
     public Transform weapon;
 
-    private Vector3 _baseRot;
-    private bool _cached;
-
-    void CacheBase()
+    protected override void PlayAnim(float duration, System.Action onHit)
     {
-        if (_cached) return;
-        _baseRot = weapon.localEulerAngles;
-        _cached = true;
-    }
-
-    public override void Attack(IDamageable target, float duration)
-    {
-        CacheBase();
+        CacheBase(weapon);
 
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -25,9 +15,11 @@ public class Stone1Attack : AttackStrategyBase
         float down = duration * 0.25f;
         float ret = duration * 0.45f;
 
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, 12f), up));      
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -100f), down)); 
-        seq.AppendCallback(() => Hit(target));
-        seq.Append(weapon.DOLocalRotate(_baseRot, ret));               
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, 12f), up));
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -115f), down));
+        seq.AppendCallback(() => onHit?.Invoke());
+        seq.Append(weapon.DOLocalRotate(BaseRot(0), ret));
+
+        if (owner != null) seq.SetLink(owner.gameObject);
     }
 }

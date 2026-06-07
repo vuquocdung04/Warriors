@@ -5,38 +5,23 @@ public class Farm1Attack : AttackStrategyBase
 {
     public Transform weapon;
 
-
-    private Vector3 _basePos;
-    private Vector3 _baseRot;
-    private bool _cached;
-
-    void CacheBase()
+    protected override void PlayAnim(float duration, System.Action onHit)
     {
-        if (_cached) return;
-        _basePos = weapon.localPosition;
-        _baseRot = weapon.localEulerAngles;
-        _cached = true;
-    }
-
-    public override void Attack(IDamageable target, float duration)
-    {
-        CacheBase();
-        weapon.localPosition = _basePos;
-        weapon.localEulerAngles = _baseRot;
+        CacheBase(weapon);
+        ResetToBase();
 
         seq?.Kill();
         seq = DOTween.Sequence();
 
-        float prep = duration * 0.4f;
-        float ret = duration * 0.6f;
+        float windUp = duration * 0.3f, strike = duration * 0.3f, ret = duration * 0.4f;
 
-        seq.Append(weapon.DOLocalRotate(Vector3.zero, prep));
-        seq.Join(weapon.DOLocalMoveX(0.5f, prep));
-        seq.AppendCallback(() => Hit(target));
-        seq.Append(weapon.DOLocalMove(_basePos, ret));
-        seq.Join(weapon.DOLocalRotate(_baseRot, ret));
+        seq.Append(weapon.DOLocalRotate(Vector3.zero, windUp));
+        seq.Join(weapon.DOLocalMoveX(BasePos(0).x - 0.5f, windUp));
+        seq.Append(weapon.DOLocalMoveX(BasePos(0).x + 0.5f, strike));
+        seq.AppendCallback(() => onHit?.Invoke());
+        seq.Append(weapon.DOLocalMove(BasePos(0), ret));
+        seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
 
-        seq.SetLink(owner.gameObject);
+        if (owner != null) seq.SetLink(owner.gameObject);
     }
-
 }
