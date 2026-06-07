@@ -45,7 +45,7 @@ public class LobbyBox : BaseBox<LobbyBox>
     }
     void RefreshForCurrentCiv()
     {
-        _viewIndex = IndexOfCiv(UseProfile.CurrentCiv.Value);
+        _viewIndex = IndexOfCiv(UseProfile.EnemyCiv.Value);
         RefreshAllyHouse();
         ShowCiv(_viewIndex);
     }
@@ -86,7 +86,7 @@ public class LobbyBox : BaseBox<LobbyBox>
 
     int UnlockedCount()
     {
-        return DataRepo.Instance.unitDatabase.GetCivOrder(UseProfile.CurrentCiv.Value);
+        return DataRepo.Instance.unitDatabase.GetCivOrder(UseProfile.EnemyCiv.Value);
     }
 
     protected override void OnDestroy()
