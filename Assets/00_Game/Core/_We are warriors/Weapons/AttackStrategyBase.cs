@@ -6,18 +6,23 @@ public abstract class AttackStrategyBase : MonoBehaviour, IAttackStrategy
 {
     protected Unit owner;
     protected Sequence seq;
-
+    private bool _playing;
     public virtual void Init(Unit owner) => this.owner = owner;
 
-    public void Attack(IDamageable target, float duration) => PlayAnim(duration, () => Hit(target));
+
+    public void Attack(IDamageable target, float duration)
+    {
+        if (_playing) return;
+        _playing = true;
+        PlayAnim(duration, () => Hit(target));
+    }
 
     protected abstract void PlayAnim(float duration, System.Action onHit);
-
+    protected void OnAnimDone() => _playing = false;
     protected virtual void Hit(IDamageable target)
     {
         if (target != null && target.IsAlive) owner.DealDamage(target);
     }
-
     private Transform[] _targets;
     private Vector3[] _pos;
     private Vector3[] _rot;

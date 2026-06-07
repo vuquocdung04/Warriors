@@ -488,7 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stone2Attack
   weapon: {fileID: 2853344431850654736}
   windUpPos: {x: -0.5, y: 0.6, z: 0}
-  windUp: 0.5
   rockPrefab: {fileID: 2898244956182907244, guid: 06f738d4a756442b084b7f00e87d86a9, type: 3}
   firePoint: {fileID: 2853344431850654736}
   rockSpeed: 8

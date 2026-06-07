@@ -21,6 +21,7 @@ public class Farm1Attack : AttackStrategyBase
         seq.AppendCallback(() => onHit?.Invoke());
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));
         seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
+        seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }

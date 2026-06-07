@@ -38,6 +38,7 @@ public class ChampionAttack : AttackStrategyBase
         seq.Join(weapon.DOLocalRotate(BaseRot(0), reset));
         seq.Join(helmet.DOLocalRotate(BaseRot(1), reset));
         seq.Join(shoulderArmor.DOLocalRotate(BaseRot(2), reset));
+        seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }

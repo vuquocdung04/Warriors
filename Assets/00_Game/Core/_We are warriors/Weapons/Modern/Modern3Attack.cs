@@ -1,40 +1,45 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Renai2Attack : AttackStrategyBase
+public class Modern3Attack : AttackStrategyBase
 {
     [Header("Weapon")]
     public Transform weapon;
+    public Transform body;
 
     [Header("Projectile")]
     public Projectile projectilePrefab;
     public Transform firePoint;
     public float projectileSpeed = 8f;
-    private IDamageable _target;
+
     protected override void PlayAnim(float duration, System.Action onHit)
     {
-        CacheBase(weapon);
+        CacheBase(weapon, body);   // 0=weapon, 1=body
         ResetToBase();
 
         seq?.Kill();
         seq = DOTween.Sequence();
 
-        float draw = duration * 0.35f;
-        float hold = duration * 0.15f;
-        float recoil = duration * 0.1f;
-        float ret = duration * 0.4f;
-        // xoay -90
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -85f), draw));
-        // hold chút rồi bắn
+        float hold = duration * 0.4f;
+        float recoil = duration * 0.12f;
+        float shake1 = duration * 0.12f;
+        float shake2 = duration * 0.12f;
+        float ret = duration * 0.24f;
+
+        // hold lâu (nạp)
         seq.AppendInterval(hold);
+
+        // bắn + giật nòng + body lắc 7
         seq.AppendCallback(() => onHit?.Invoke());
+        seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.4f, recoil));
+        seq.Append(body.DOLocalRotate(new Vector3(0, 0, 7f), shake1));
 
-        // giật lùi nhanh base - 0.2
-        seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.3f, recoil));
+        // body lắc về -6
+        seq.Append(body.DOLocalRotate(new Vector3(0, 0, -6f), shake2));
 
-        // về gốc
-        seq.Append(weapon.DOLocalMove(BasePos(0), ret));
-        seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
+        // về base (nòng + body)
+        seq.Append(weapon.DOLocalMoveX(BasePos(0).x, ret));
+        seq.Join(body.DOLocalRotate(BaseRot(1), ret));
         seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);

@@ -24,6 +24,7 @@ public class Farm3Attack : AttackStrategyBase
         seq.AppendInterval(hold);
         seq.Append(DOTween.To(() => z, v => { z = v; SetZ(v); }, baseZ - 360f, ret).SetEase(Ease.Linear));
         seq.AppendCallback(() => weapon.localEulerAngles = BaseRot(0));
+        seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }

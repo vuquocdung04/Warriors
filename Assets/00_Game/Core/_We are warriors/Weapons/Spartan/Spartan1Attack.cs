@@ -36,6 +36,7 @@ public class Spartan1Attack : AttackStrategyBase
         seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
         seq.Join(shield.DOLocalMove(BasePos(1), ret));
         seq.Join(head.DOLocalRotate(BaseRot(2), ret));
+        seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }

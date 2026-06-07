@@ -19,6 +19,7 @@ public class Stone1Attack : AttackStrategyBase
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -115f), down));
         seq.AppendCallback(() => onHit?.Invoke());
         seq.Append(weapon.DOLocalRotate(BaseRot(0), ret));
+        seq.OnComplete(() => OnAnimDone());
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }

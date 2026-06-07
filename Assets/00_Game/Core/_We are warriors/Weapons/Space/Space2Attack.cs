@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Renai2Attack : AttackStrategyBase
+public class Space2Attack : AttackStrategyBase
 {
     [Header("Weapon")]
     public Transform weapon;
@@ -10,7 +10,7 @@ public class Renai2Attack : AttackStrategyBase
     public Projectile projectilePrefab;
     public Transform firePoint;
     public float projectileSpeed = 8f;
-    private IDamageable _target;
+
     protected override void PlayAnim(float duration, System.Action onHit)
     {
         CacheBase(weapon);
@@ -19,20 +19,15 @@ public class Renai2Attack : AttackStrategyBase
         seq?.Kill();
         seq = DOTween.Sequence();
 
-        float draw = duration * 0.35f;
-        float hold = duration * 0.15f;
-        float recoil = duration * 0.1f;
-        float ret = duration * 0.4f;
-        // xoay -90
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -85f), draw));
-        // hold chút rồi bắn
-        seq.AppendInterval(hold);
+        float aim = duration * 0.45f;
+        float ret = duration * 0.55f;
+
+        // xoay -90 + nâng Y base + 0.2, bắn luôn
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -90f), aim));
+        seq.Join(weapon.DOLocalMoveY(BasePos(0).y + 0.3f, aim));
         seq.AppendCallback(() => onHit?.Invoke());
 
-        // giật lùi nhanh base - 0.2
-        seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.3f, recoil));
-
-        // về gốc
+        // về base
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));
         seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
         seq.OnComplete(() => OnAnimDone());

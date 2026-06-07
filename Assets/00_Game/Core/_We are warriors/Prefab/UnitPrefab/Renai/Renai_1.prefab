@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1812947325141323642}
   - component: {fileID: 6944421057941039859}
   - component: {fileID: 7469320194865723508}
+  - component: {fileID: 4892943723393553466}
   m_Layer: 5
   m_Name: Renai_1
   m_TagString: Untagged
@@ -83,6 +84,19 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &4892943723393553466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222440706052620539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d75d29db6a0ee44e98c470cbf753d33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Renai1Attack
+  weapon: {fileID: 4330016968460393986}
 --- !u!1 &2446182836837257372
 GameObject:
   m_ObjectHideFlags: 0

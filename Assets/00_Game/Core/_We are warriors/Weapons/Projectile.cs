@@ -13,6 +13,10 @@ public class Projectile : MonoBehaviour
         float dist = Vector3.Distance(transform.position, targetPos);
         float duration = dist / Mathf.Max(0.01f, speed);
 
+        Vector3 dir = (targetPos - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
         transform.DOMove(targetPos, duration)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
@@ -23,11 +27,12 @@ public class Projectile : MonoBehaviour
             });
     }
 
-    public void LaunchArc(Vector3 target, float duration, float arcHeight, System.Action onHit)
+    public void LaunchArc(Vector3 target, float speed, float arcHeight, System.Action onHit)
     {
         Vector3 start = transform.position;
+        float distance = Vector3.Distance(start, target);
+        float duration = distance / Mathf.Max(0.01f, speed);
         float t = 0f;
-
         DOTween.To(() => t, v =>
         {
             t = v;
