@@ -11067,7 +11067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!210 &1160406878
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -14048,7 +14048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!210 &1456855435
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -16763,6 +16763,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775556188}
   m_CullTransparentMesh: 1
+--- !u!1001 &1801824717
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 673234685766609664, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_Name
+      value: Stone_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 673234685766609664, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.338291
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.9431863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485576217218205413, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0520a2b56ccea2846aeef7e404ad425f, type: 3}
 --- !u!1 &1825412403
 GameObject:
   m_ObjectHideFlags: 0
@@ -21283,13 +21344,14 @@ GameObject:
   - component: {fileID: 6442157785699877261}
   - component: {fileID: 1614206137717941628}
   - component: {fileID: 4540355221715115952}
+  - component: {fileID: 6442157785699877262}
   m_Layer: 5
   m_Name: Farm_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &4274280455421754155
 SpriteRenderer:
   serializedVersion: 2
@@ -21442,6 +21504,19 @@ MonoBehaviour:
   maxPassRange: 4
   hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
   hitFlashTime: 0.06
+--- !u!114 &6442157785699877262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967772953409414406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250e8d1ab6888bb41aa8f674ed9e865c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Farm1Attack
+  weapon: {fileID: 8560922363712868780}
 --- !u!114 &6488464112846441200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21551,7 +21626,7 @@ Transform:
   m_GameObject: {fileID: 336211008510852387}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.2504312, w: 0.96813446}
-  m_LocalPosition: {x: 0.226, y: 0.491, z: 0}
+  m_LocalPosition: {x: 0, y: 0.368, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21584,7 +21659,7 @@ Transform:
   m_GameObject: {fileID: 8634014283461393583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0435, y: -0, z: 0}
+  m_LocalPosition: {x: 0.211, y: 0, z: 0}
   m_LocalScale: {x: 0.9591, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21615,3 +21690,4 @@ SceneRoots:
   - {fileID: 323997843}
   - {fileID: 550238721}
   - {fileID: 593689421}
+  - {fileID: 1801824717}

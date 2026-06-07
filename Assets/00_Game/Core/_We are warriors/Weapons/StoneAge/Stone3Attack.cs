@@ -5,13 +5,32 @@ public class Stone3Attack : AttackStrategyBase
 {
     public Transform weapon;
 
-    public override void Attack(IDamageable target)
+    private Vector3 _basePos;
+    private bool _cached;
+
+    void CacheBase()
     {
+        if (_cached) return;
+        _basePos = weapon.localPosition; 
+        _cached = true;
+    }
+
+    public override void Attack(IDamageable target, float duration)
+    {
+        CacheBase();
+
         seq?.Kill();
         seq = DOTween.Sequence();
-        seq.Append(weapon.DOLocalMove(new Vector3(-1f, 0.4f,0f), 0.08f));
-        seq.Append(weapon.DOLocalMove(new Vector3(0.14f, 0.22f, 0f), 0.06f));
+
+        float up = duration * 0.3f;
+        float hit = duration * 0.25f;
+        float ret = duration * 0.45f;
+
+        seq.Append(weapon.DOLocalMove(new Vector3(-1f, 0.4f, 0f), up));     
+        seq.Append(weapon.DOLocalMove(new Vector3(0.14f, 0.22f, 0f), hit));
         seq.AppendCallback(() => Hit(target));
-        seq.Append(weapon.DOLocalMove(new Vector3(-0.6f, 0.34f, 0f), 0.12f));
+        seq.Append(weapon.DOLocalMove(_basePos, ret));                      
+
+        seq.SetLink(owner.gameObject);
     }
 }

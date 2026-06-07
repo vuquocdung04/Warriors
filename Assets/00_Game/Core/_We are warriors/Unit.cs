@@ -146,8 +146,9 @@ public class Unit : MonoBehaviour, IDamageable
     void TryAttack()
     {
         if (_attackTimer > 0f) return;
-        _attackTimer = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
-        _attackStrategy?.Attack(_attackTarget);
+        float cooldown = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
+        _attackTimer = cooldown;
+        _attackStrategy?.Attack(_attackTarget, cooldown); 
     }
 
     public void DealDamage(IDamageable target)

@@ -1,5 +1,5 @@
 public interface IAttackStrategy
 {
     void Init(Unit owner);
-    void Attack(IDamageable target);
+    public abstract void Attack(IDamageable target, float duration);
 }
