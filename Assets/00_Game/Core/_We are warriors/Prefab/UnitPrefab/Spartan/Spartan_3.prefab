@@ -122,7 +122,6 @@ Transform:
   m_Children:
   - {fileID: 4977205423988416040}
   - {fileID: 4200378087580592048}
-  - {fileID: 3316562543336567265}
   - {fileID: 8840975403495427582}
   - {fileID: 7842659770861304142}
   - {fileID: 1835473592610994475}
@@ -232,7 +231,8 @@ Transform:
   m_LocalPosition: {x: -0.2337, y: 1.632, z: 0}
   m_LocalScale: {x: 0.9883537, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3316562543336567265}
   m_Father: {fileID: 718275733064935604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1086265984946181937
@@ -320,11 +320,11 @@ Transform:
   m_GameObject: {fileID: 1947642396225974343}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3189, y: 1.74, z: 0}
-  m_LocalScale: {x: 0.94288313, y: 0.92532974, z: 1}
+  m_LocalPosition: {x: -0.08620309, y: 0.10800004, z: 0}
+  m_LocalScale: {x: 0.95399356, y: 0.92532974, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 718275733064935604}
+  m_Father: {fileID: 4200378087580592048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1010383728765344554
 SpriteRenderer:
@@ -662,7 +662,7 @@ Transform:
   m_GameObject: {fileID: 6728795611749712044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.164, z: 0}
   m_LocalScale: {x: 1, y: 0.9583, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -752,7 +752,7 @@ Transform:
   m_GameObject: {fileID: 6804713859603743993}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.865461, w: 0.5009764}
-  m_LocalPosition: {x: 0.038, y: 0.867, z: 0}
+  m_LocalPosition: {x: -0.3, y: 1.035, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -771,6 +771,7 @@ GameObject:
   - component: {fileID: 7344879922538795222}
   - component: {fileID: 3848407368365390151}
   - component: {fileID: 655686528432292601}
+  - component: {fileID: 5347313212216279652}
   m_Layer: 5
   m_Name: Spartan_3
   m_TagString: Untagged
@@ -842,6 +843,20 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &5347313212216279652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676849064311117964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e2945c9fe9bfd4e9008ff4ed7a2f64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spartan3Attack
+  weapon: {fileID: 1835473592610994475}
+  head: {fileID: 4200378087580592048}
 --- !u!1 &9158726720331914582
 GameObject:
   m_ObjectHideFlags: 0
