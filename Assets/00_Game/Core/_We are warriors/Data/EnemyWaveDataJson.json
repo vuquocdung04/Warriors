@@ -1,0 +1,206 @@
+[
+  {
+    "civId": "stone",
+    "houseHp": 500,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "stone_1:1"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "stone_1:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "stone_2:2, stone_3: 2"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "stone_3: 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "civId": "farm",
+    "houseHp": 1100,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "farm_1:5"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "farm_2:2"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "farm_2:3, farm_1:4, farm_3:1"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "farm_3:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "civId": "spartan",
+    "houseHp": 10000,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "spartan_1:3"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "spartan_2:2"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "spartan_3:2, spartan_1:4"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "spartan_3:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "civId": "renai",
+    "houseHp": 25000,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "renai_1:3"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "renai_2:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "renai_2:2, renai_3:2, renai_1:3"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "renai_3:6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "civId": "modern",
+    "houseHp": 102500,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "modern_1:4"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "modern_2:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "modern_3:2, modern_1:5"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "modern_3:6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "civId": "space",
+    "houseHp": 400000,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 0.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "space_1:4"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "space_2:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "space_3:3, space_1:5, space_2:2"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "space_3:7"
+          }
+        ]
+      }
+    ]
+  }
+]

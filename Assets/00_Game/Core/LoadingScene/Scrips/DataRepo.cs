@@ -13,6 +13,7 @@ public class DataRepo : MonoBehaviour
     public EquipmentDatabase equipmentDatabase;
     public GachaDatabase gachaDatabase;
     public SkillDatabase skillDatabase;
+    public EnemyWaveDatabase enemyWaveDatabase;
     public void Init()
     {
         Instance = this;
@@ -20,6 +21,7 @@ public class DataRepo : MonoBehaviour
         equipmentDatabase.Init();
         gachaDatabase.Init();
         skillDatabase.Init();
+        enemyWaveDatabase.Init();
 
         UseProfile.FoodRate.Value = 1f;
         UseProfile.Coin.Value = 100000000;

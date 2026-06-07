@@ -1138,6 +1138,7 @@ MonoBehaviour:
   equipmentDatabase: {fileID: 11400000, guid: 9fccbf91fa84daf418614e0859a0406c, type: 2}
   gachaDatabase: {fileID: 11400000, guid: 3d62c0acd72046aa96d665263ada9017, type: 2}
   skillDatabase: {fileID: 11400000, guid: d8b9746470f44a64e846968014e74c0b, type: 2}
+  enemyWaveDatabase: {fileID: 11400000, guid: 86c7e830986110b489ba2c4ddc91c414, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
