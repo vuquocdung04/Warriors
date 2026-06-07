@@ -13,7 +13,7 @@ public class FlyTextSpawner : StaffSingleton<FlyTextSpawner>
     }
     public void Damage(float dmg, Vector3 pos, bool crit)
     {
-        Show(((int)dmg).ToString(), crit ? CRIT : NORMAL, pos, crit ? 1.4f : 1f);
+        Show(((int)dmg).ToString(), crit ? CRIT : NORMAL, pos, crit ? 1.3f : 1f);
     }
 
     void Show(string content, Color color, Vector3 pos, float scale)
@@ -21,7 +21,7 @@ public class FlyTextSpawner : StaffSingleton<FlyTextSpawner>
         var ft = SimplePool2.Spawn(prefab);
         ft.Play(content, color, pos, scale);
     }
-     public void Poison(float dmg, Vector3 pos) => Show(((int)dmg).ToString(), POISON, pos, 0.7f);
-    public void Burn(float dmg, Vector3 pos)   => Show(((int)dmg).ToString(), BURN, pos, 0.7f);
+     public void Poison(float dmg, Vector3 pos) => Show(((int)dmg).ToString(), POISON, pos, 0.8f);
+    public void Burn(float dmg, Vector3 pos)   => Show(((int)dmg).ToString(), BURN, pos, 0.8f);
 
 }

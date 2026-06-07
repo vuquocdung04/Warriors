@@ -211,7 +211,7 @@ public class Unit : MonoBehaviour, IDamageable
         _state = UnitState.Dead;
         _movement.Release();
         if (drop) this.PostEvent(EventID.UNIT_DIED, this);
-        DeathFxSpawner.Instance.Play(transform.position + Vector3.up * 0.5f);
+        DeathFxSpawner.Instance.Play(transform.position);
         Destroy(gameObject);
     }
 
