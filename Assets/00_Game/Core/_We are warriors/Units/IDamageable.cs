@@ -7,4 +7,5 @@ public interface IDamageable
     Transform Transform { get; } 
     void TakeDamage(float dmg);
     float SqrDistanceTo(Vector3 p); 
+    Vector3 AimPoint { get; }
 }

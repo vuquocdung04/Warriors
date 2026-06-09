@@ -42,6 +42,9 @@ public class Unit : MonoBehaviour, IDamageable
     public float Atk => _stats != null ? _stats.atk : 0f;
     public float MaxHp => _stats != null ? _stats.maxHp : 0f;
     public Vector2Int CurrentCell => _movement.Cell;
+
+    public Vector3 AimPoint => transform.position;
+
     public void Init(UnitData data, UnitStats stats, Team team, Vector2Int startCell)
     {
         _data = data;
@@ -124,9 +127,13 @@ public class Unit : MonoBehaviour, IDamageable
     // ---- ATTACKING ----
     void UpdateAttacking(float dt)
     {
-        // đã engage thì giữ đánh tới khi địch ra NGOÀI tầm + đệm 15% (chống rung khi địch đứng đúng mép tầm)
         if (!IsValidTarget(_attackTarget) || !InRange(_attackTarget, 1.15f))
-        { _attackTarget = null; _state = UnitState.Moving; return; }
+        {
+            _attackTarget = null;
+            _state = UnitState.Moving;
+            _attackStrategy?.ResetToIdle();   // hết target -> về base (chỉ loại override mới về)
+            return;
+        }
         TryAttack();
     }
 
@@ -148,7 +155,7 @@ public class Unit : MonoBehaviour, IDamageable
         if (_attackTimer > 0f) return;
         float cooldown = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
         _attackTimer = cooldown;
-        _attackStrategy?.Attack(_attackTarget, cooldown); 
+        _attackStrategy?.Attack(_attackTarget, cooldown);
     }
 
     public void DealDamage(IDamageable target)
@@ -162,7 +169,7 @@ public class Unit : MonoBehaviour, IDamageable
         target.TakeDamage(dmg);
 
 
-        Vector3 pos = target.Transform.position + Vector3.up * 2f;
+        Vector3 pos = target.AimPoint;
         FlyTextSpawner.Instance.Damage(dmg, pos, crit);
 
         if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);

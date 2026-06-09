@@ -111,25 +111,7 @@
         "spawns": [
           {
             "spawnDelay": 2.0,
-            "units": "renai_1:3"
-          },
-          {
-            "spawnDelay": 4.0,
-            "units": "renai_2:3"
-          },
-          {
-            "spawnDelay": 5.0,
-            "units": "renai_2:2, renai_3:2, renai_1:3"
-          }
-        ]
-      },
-      {
-        "wave": 2,
-        "delayBetweenWave": 10.0,
-        "spawns": [
-          {
-            "spawnDelay": 2.0,
-            "units": "renai_3:6"
+            "units": "renai_2:1"
           }
         ]
       }

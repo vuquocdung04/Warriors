@@ -23,7 +23,7 @@ public class DataRepo : MonoBehaviour
         skillDatabase.Init();
         enemyWaveDatabase.Init();
 
-        UseProfile.FoodRate.Value = 1f;
+        UseProfile.EnemyCiv.Value = "renai";
         UseProfile.Coin.Value = 100000000;
     }
 

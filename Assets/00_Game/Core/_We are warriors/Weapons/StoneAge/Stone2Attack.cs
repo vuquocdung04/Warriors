@@ -37,7 +37,7 @@ public class Stone2Attack : AttackStrategyBase
         if (target == null || !target.IsAlive) return;
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
-        Vector3 to = target.Transform.position + Vector3.up;
+        Vector3 to = target.AimPoint;
 
         var rock = Instantiate(rockPrefab, from, Quaternion.identity);
         rock.Launch(to, rockSpeed, () =>

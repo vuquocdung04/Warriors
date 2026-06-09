@@ -20,6 +20,8 @@ public class House : MonoBehaviour, IDamageable
 
     public bool IsAlive => _hp > 0f;
 
+    public Vector3 AimPoint =>  transform.position;
+
     public void Init(HouseData data, Team team, float hpMultiplier = 1f)
     {
         _maxHp = _hp = data.houseHp * hpMultiplier;
