@@ -75,15 +75,7 @@ public class BattleSpawner : MonoBehaviour
         if (u != null && food != null) food.Spend(data.foodCost);
     }
     public void EnqueueNextAllyModifier(SpawnModifier mod) => _pendingAllyMods.Enqueue(mod);
-    public Unit Spawn(Team team, string civId, int index)
-    {
-        if (_db == null) return null;
-        var units = _db.GetCivUnits(civId);
-        if (index < 0 || index >= units.Count)
-        { Debug.LogError($"[Spawner] civ '{civId}' không có lính index {index}"); return null; }
-        return SpawnUnit(team, units[index]);
-    }
-
+    
     Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null)
     {
         Unit prefab = _db.GetUnitById(data.id);
@@ -148,7 +140,18 @@ public class BattleSpawner : MonoBehaviour
         if (cell == null) return null;
 
         Unit u = Instantiate(prefab);
-        u.Init(_zombieData, stats.Clone(), Team.Ally, cell.Value); 
+        u.Init(_zombieData, stats.Clone(), Team.Ally, cell.Value);
         return u;
+    }
+
+    public Unit SpawnEnemyById(string unitId)
+    {
+        if (_db == null) return null;
+
+        var units = _db.GetCivUnits(UseProfile.EnemyCiv.Value);
+        UnitData data = units.Find(u => u.id == unitId);
+        if (data == null) { Debug.LogError($"[Spawner] civ enemy không có '{unitId}'"); return null; }
+
+        return SpawnUnit(Team.Enemy, data);
     }
 }

@@ -162,7 +162,7 @@ public class Unit : MonoBehaviour, IDamageable
         target.TakeDamage(dmg);
 
 
-        Vector3 pos = target.Transform.position + Vector3.up * 2.5f;
+        Vector3 pos = target.Transform.position + Vector3.up * 2f;
         FlyTextSpawner.Instance.Damage(dmg, pos, crit);
 
         if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);

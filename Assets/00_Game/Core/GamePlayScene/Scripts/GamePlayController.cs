@@ -13,11 +13,13 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public BattleGrid grid;
     public BattleManager battle;
     public BattleSpawner spawner;
-    public EnemyAI enemyAI;
     public BottomBar bottomBar;
 
     public SkillController skillController;
     public FlyTextSpawner flyTextSpawner;
+
+    public EnemyAI enemyAI;
+    public EnemyWaveUI enemyWaveUI;
 
     protected override void OnAwake()
     {
@@ -29,6 +31,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         battle.Init();
         spawner.Init(db);
         enemyAI.Init(spawner);
+        enemyWaveUI.Init();
         var allyUnits = db.GetCivUnits(UseProfile.CurrentCiv.Value);
         int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
 

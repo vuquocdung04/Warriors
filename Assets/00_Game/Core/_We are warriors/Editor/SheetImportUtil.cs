@@ -69,20 +69,5 @@ public static class SheetImportUtil
         else if (s.EndsWith("m")) { mul = 1000000f; s = s[..^1]; }
         return float.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var v) ? Mathf.RoundToInt(v * mul) : 0;
     }
-
-    public static void ParseUnits(string units, System.Action<string, int> onEach)
-    {
-        if (string.IsNullOrEmpty(units)) return;
-        foreach (var part in units.Split(','))
-        {
-            var p = part.Trim();
-            if (p.Length == 0) continue;
-            int colon = p.IndexOf(':');
-            if (colon < 0) continue;
-            string id = p.Substring(0, colon).Trim().ToLower();
-            if (int.TryParse(p.Substring(colon + 1).Trim(), out int count) && count > 0)
-                onEach(id, count);
-        }
-    }
 }
 #endif

@@ -1,58 +1,90 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using EventDispatcher;
 using UnityEngine;
-
+public class WaveInfo
+{
+    public int current;
+    public int total;
+    public WaveInfo(int current, int total) { this.current = current; this.total = total; }
+}
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Nền văn minh enemy")]
-    public string civId = "stone";
-
-    [Header("Tốc độ sinh")]
-    [Tooltip("Giây giữa 2 lần sinh (nhỏ = sinh nhanh)")]
-    public float spawnInterval = 2f;
-
-    [Header("Tỉ lệ chọn lính (stone1 < stone2 < stone3 về độ mạnh)")]
-    [Tooltip("Trọng số chọn từng lính theo index. Càng lớn càng hay ra.")]
-    public float weightUnit1 = 5f;
-    public float weightUnit2 = 3f;
-    public float weightUnit3 = 1f;
-
     private BattleSpawner _spawner;
-    private float _timer;
-    private bool _running;
+    private EnemyCivConfig _config;
+    private CancellationTokenSource _cts;
+
+    public int CurrentWave { get; private set; }
+    public int TotalWaves => _config != null ? _config.waves.Count : 0;
 
     public void Init(BattleSpawner spawner)
     {
         _spawner = spawner;
-        _timer = spawnInterval;
-        _running = true;
+
+        string civId = UseProfile.EnemyCiv.Value;
+        _config = DataRepo.Instance.enemyWaveDatabase.Get(civId);
+        if (_config == null)
+        {
+            Debug.LogError($"[EnemyAI] không có config civ {civId}");
+            return;
+        }
+
+        _cts = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+        RunWaves(_cts.Token).Forget();
     }
 
-    void Update()
+    async UniTaskVoid RunWaves(CancellationToken token)
     {
-        if (_spawner == null || BattleManager.Instance == null) return;
-        if (BattleManager.Instance.IsBattleOver) return;
-
-        _timer -= Time.deltaTime;
-        if (_timer <= 0f)
+        try
         {
-            _timer = spawnInterval;
-            SpawnOne();
+            for (int w = 0; w < _config.waves.Count; w++)
+            {
+                var wave = _config.waves[w];
+
+                if (wave.delayBetweenWave > 0f)
+                    await UniTask.Delay(System.TimeSpan.FromSeconds(wave.delayBetweenWave), cancellationToken: token);
+
+                CurrentWave = wave.wave;
+                this.PostEvent(EventID.ON_ENEMY_WAVE_CHANGED, new WaveInfo(CurrentWave, TotalWaves));
+
+                foreach (var entry in wave.spawns)
+                {
+                    await UniTask.Delay(System.TimeSpan.FromSeconds(entry.spawnDelay), cancellationToken: token);
+                    SpawnEntry(entry);
+                }
+            }
+            // hết wave cuối -> dừng
+        }
+        catch (System.OperationCanceledException) { }
+    }
+
+    void SpawnEntry(SpawnEntry entry)
+    {
+        ParseUnits(entry.units, (unitId, count) =>
+        {
+            for (int i = 0; i < count; i++)
+                _spawner.SpawnEnemyById(unitId);
+        });
+    }
+
+    void OnDestroy()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
+    }
+
+    static void ParseUnits(string units, System.Action<string, int> onEach)
+    {
+        if (string.IsNullOrEmpty(units)) return;
+        foreach (var part in units.Split(','))
+        {
+            var p = part.Trim();
+            if (p.Length == 0) continue;
+            int colon = p.IndexOf(':');
+            if (colon < 0) continue;
+            string id = p.Substring(0, colon).Trim().ToLower();
+            if (int.TryParse(p.Substring(colon + 1).Trim(), out int count) && count > 0)
+                onEach(id, count);
         }
     }
-
-    void SpawnOne()
-    {
-        int index = PickWeightedIndex();
-        _spawner.Spawn(Team.Enemy, UseProfile.EnemyCiv.Value, index);
-    }
-
-    int PickWeightedIndex()   // 0/1/2 theo trọng số
-    {
-        float total = weightUnit1 + weightUnit2 + weightUnit3;
-        float r = Random.value * total;
-        if (r < weightUnit1) return 0;
-        if (r < weightUnit1 + weightUnit2) return 1;
-        return 2;
-    }
-
-    public void SetRunning(bool on) => _running = on;
 }
