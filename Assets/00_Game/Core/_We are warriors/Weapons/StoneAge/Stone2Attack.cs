@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Stone2Attack : AttackStrategyBase
 {
@@ -12,7 +13,7 @@ public class Stone2Attack : AttackStrategyBase
     public Transform firePoint;
     public float rockSpeed = 8f;
 
-    protected override void PlayAnim(float duration, System.Action onHit)
+    protected override void PlayAnim2(IDamageable target,float duration, System.Action onHit)
     {
         CacheBase(weapon);
 
@@ -44,5 +45,10 @@ public class Stone2Attack : AttackStrategyBase
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);
         });
+    }
+
+    protected override void PlayAnim(float duration, Action onHit)
+    {
+        
     }
 }

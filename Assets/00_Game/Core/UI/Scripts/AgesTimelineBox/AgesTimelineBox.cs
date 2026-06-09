@@ -63,6 +63,7 @@ public class AgesTimelineBox : BaseBox<AgesTimelineBox>
         Show();
         AnimateRoutine().Forget();
         this.PostEvent(EventID.ON_CIV_CHANGED);
+        this.PostEvent(EventID.CHANGE_COIN);
     }
 
     // mở set cứng (các lần sau, mở bằng nút khác)

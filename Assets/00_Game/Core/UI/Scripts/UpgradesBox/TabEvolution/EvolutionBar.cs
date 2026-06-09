@@ -136,6 +136,8 @@ public class EvolutionBar : MonoBehaviour
         UseProfile.CurrentCiv.Value = next.civId;
         UseProfile.Unit2Unlock.Value = false;
         UseProfile.Unit3Unlock.Value = false;
+        UseProfile.Coin.Value = 0;
+        UseProfile.FoodRate.Value = 0.18f;
 
         var holder = LobbyController.Instance.topCanvas;
         _ = AgesTimelineBox.Setup(holder, box => box.ShowAnimated());

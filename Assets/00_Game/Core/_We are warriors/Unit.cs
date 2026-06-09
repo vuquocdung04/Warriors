@@ -43,7 +43,7 @@ public class Unit : MonoBehaviour, IDamageable
     public float MaxHp => _stats != null ? _stats.maxHp : 0f;
     public Vector2Int CurrentCell => _movement.Cell;
 
-    public Vector3 AimPoint => transform.position;
+    public Vector3 AimPoint => transform.position + Vector3.up * 0.75f;
 
     public void Init(UnitData data, UnitStats stats, Team team, Vector2Int startCell)
     {

@@ -5,25 +5,25 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
             "units": "stone_1:1"
           },
           {
-            "spawnDelay": 4.0,
+            "spawnDelay": 10.0,
             "units": "stone_1:3"
           },
           {
-            "spawnDelay": 5.0,
+            "spawnDelay": 15.0,
             "units": "stone_2:2, stone_3: 2"
           }
         ]
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 25.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -111,7 +111,25 @@
         "spawns": [
           {
             "spawnDelay": 2.0,
-            "units": "renai_2:1"
+            "units": "renai_1:3"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "renai_2:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "renai_2:2, renai_3:2, renai_1:3"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 10.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "renai_3:6"
           }
         ]
       }

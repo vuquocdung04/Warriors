@@ -22,15 +22,22 @@ public class UnitCardBar : MonoBehaviour
 
         for (int i = 0; i < cards.Count; i++)
         {
-            if (i < units.Count)
+            if (i < units.Count && IsUnitUnlocked(i))   // thêm check unlock
             {
                 cards[i].gameObject.SetActive(true);
                 cards[i].Setup(i, units[i], OnCardClicked);
             }
-            else cards[i].gameObject.SetActive(false); 
+            else cards[i].gameObject.SetActive(false);
         }
     }
 
+    bool IsUnitUnlocked(int index)
+    {
+        if (index == 0) return true;                      
+        if (index == 1) return UseProfile.Unit2Unlock.Value;
+        if (index == 2) return UseProfile.Unit3Unlock.Value; 
+        return false;
+    }
     void OnCardClicked(int index)
     {
         _spawner.SpawnAlly(index);

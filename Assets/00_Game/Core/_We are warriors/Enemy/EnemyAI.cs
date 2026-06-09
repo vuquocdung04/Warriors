@@ -1,13 +1,16 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using EventDispatcher;
 using UnityEngine;
+
 public class WaveInfo
 {
     public int current;
     public int total;
     public WaveInfo(int current, int total) { this.current = current; this.total = total; }
 }
+
 public class EnemyAI : MonoBehaviour
 {
     private BattleSpawner _spawner;
@@ -16,6 +19,8 @@ public class EnemyAI : MonoBehaviour
 
     public int CurrentWave { get; private set; }
     public int TotalWaves => _config != null ? _config.waves.Count : 0;
+    public float spawnDelayMin = 0.1f;
+    public float spawnDelayMax = 0.5f;
 
     public void Init(BattleSpawner spawner)
     {
@@ -50,21 +55,27 @@ public class EnemyAI : MonoBehaviour
                 foreach (var entry in wave.spawns)
                 {
                     await UniTask.Delay(System.TimeSpan.FromSeconds(entry.spawnDelay), cancellationToken: token);
-                    SpawnEntry(entry);
+                    await SpawnEntry(entry, token);
                 }
             }
-            // hết wave cuối -> dừng
         }
         catch (System.OperationCanceledException) { }
     }
 
-    void SpawnEntry(SpawnEntry entry)
+    async UniTask SpawnEntry(SpawnEntry entry, CancellationToken token)
     {
+        var queue = new List<string>();
         ParseUnits(entry.units, (unitId, count) =>
         {
-            for (int i = 0; i < count; i++)
-                _spawner.SpawnEnemyById(unitId);
+            for (int i = 0; i < count; i++) queue.Add(unitId);
         });
+
+        foreach (var id in queue)
+        {
+            _spawner.SpawnEnemyById(id);
+            float delay = Random.Range(spawnDelayMin, spawnDelayMax);
+            await UniTask.Delay(System.TimeSpan.FromSeconds(delay), cancellationToken: token);
+        }
     }
 
     void OnDestroy()
