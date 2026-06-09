@@ -24,7 +24,12 @@ public class LobbyBox : BaseBox<LobbyBox>
     {
         var holder = LobbyController.Instance.topCanvas;
         btnSetting.OnClicked(delegate { _ = SettingLobbyBox.Setup(holder, box => box.Show()); });
-        btnPlay.OnClicked(delegate { FXManager.Instance.LoadSceneWithIrisWipe(SceneName.GAME_PLAY); });
+        btnPlay.OnClicked(delegate
+        {
+            string civId = _civs[_viewIndex].civId;          
+            UseProfile.SelectedEnemyCiv.Value = civId;     
+            FXManager.Instance.LoadSceneWithIrisWipe(SceneName.GAME_PLAY);
+        });
 
         btnNext.OnClicked(delegate { ShowCiv(_viewIndex + 1); });
         btnPrev.OnClicked(delegate { ShowCiv(_viewIndex - 1); });
@@ -39,6 +44,8 @@ public class LobbyBox : BaseBox<LobbyBox>
     protected override void InitState()
     {
     }
+
+
     void OnCivChanged(object param)
     {
         RefreshForCurrentCiv();

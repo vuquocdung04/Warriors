@@ -11,7 +11,8 @@ public class House : MonoBehaviour, IDamageable
     public float halfHeight = 2.25f;
     public float wallOffsetX = 0f;
     [Header("Điểm cho lính")]
-    public List<Transform> spawnPoints;   // lính ra rải từ nhiều điểm (không cùng 1 đường)
+    public List<Transform> spawnPoints;
+    public List<GameObject> houseVisuals;
 
     [Header("Visual / HP bar (tuỳ)")]
     public UnitHpBar hpBar;
@@ -20,7 +21,7 @@ public class House : MonoBehaviour, IDamageable
 
     public bool IsAlive => _hp > 0f;
 
-    public Vector3 AimPoint =>  transform.position;
+    public Vector3 AimPoint => transform.position;
 
     public void Init(HouseData data, Team team, float hpMultiplier = 1f)
     {
@@ -31,6 +32,15 @@ public class House : MonoBehaviour, IDamageable
 
         hpBar?.Set(1f);
         BattleManager.Instance.RegisterHouse(this);
+
+        string civId = team == Team.Ally ? UseProfile.CurrentCiv.Value : UseProfile.SelectedEnemyCiv.Value;
+        ShowVisualForCiv(civId);
+    }
+    void ShowVisualForCiv(string civId)
+    {
+        int index = DataRepo.Instance.unitDatabase.GetCivOrder(civId) - 1;
+        for (int i = 0; i < houseVisuals.Count; i++)
+            houseVisuals[i].SetActive(i == index);
     }
     public Vector3 GetSpawnPosition()
     {

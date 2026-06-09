@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     {
         _spawner = spawner;
 
-        string civId = UseProfile.EnemyCiv.Value;
+        string civId = UseProfile.SelectedEnemyCiv.Value;
         _config = DataRepo.Instance.enemyWaveDatabase.Get(civId);
         if (_config == null)
         {

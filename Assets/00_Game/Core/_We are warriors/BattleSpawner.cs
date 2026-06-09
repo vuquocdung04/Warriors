@@ -24,7 +24,7 @@ public class BattleSpawner : MonoBehaviour
         _db = db;
 
         _allyStats = BuildStatsDict(UseProfile.CurrentCiv.Value, withEquipment: true);
-        _enemyStats = BuildStatsDict(UseProfile.EnemyCiv.Value, withEquipment: false);
+        _enemyStats = BuildStatsDict(UseProfile.SelectedEnemyCiv.Value, withEquipment: false);
 
         InitHouse(allyHouse, Team.Ally);
         InitHouse(enemyHouse, Team.Enemy);
@@ -148,7 +148,7 @@ public class BattleSpawner : MonoBehaviour
     {
         if (_db == null) return null;
 
-        var units = _db.GetCivUnits(UseProfile.EnemyCiv.Value);
+        var units = _db.GetCivUnits(UseProfile.SelectedEnemyCiv.Value);
         UnitData data = units.Find(u => u.id == unitId);
         if (data == null) { Debug.LogError($"[Spawner] civ enemy không có '{unitId}'"); return null; }
 

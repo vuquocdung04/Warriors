@@ -8,6 +8,9 @@ public static class UseProfile
 
     public static readonly PrefVar<string> CurrentCiv = new(StringHelper.CURRENT_CIV, "stone");
     public static readonly PrefVar<string> EnemyCiv = new(StringHelper.ENEMY_CIV, "stone");
+    public static readonly PrefVar<string> SelectedEnemyCiv = new("selected_enemy_civ", "stone");
+
+
     public static readonly PrefVar<bool> WonFinalCiv = new(StringHelper.WON_FINAL_CIV, false);
     public static readonly PrefVar<bool> Unit2Unlock = new(StringHelper.UNIT2_UNLOCK, false);
     public static readonly PrefVar<bool> Unit3Unlock = new(StringHelper.UNIT3_UNLOCK, false);
