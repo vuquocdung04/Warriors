@@ -18,7 +18,11 @@ public class Stone3Attack : AttackStrategyBase
 
         seq.Append(weapon.DOLocalMove(new Vector3(-1f, 0.4f, 0f), up));
         seq.Append(weapon.DOLocalMove(new Vector3(0.14f, 0.22f, 0f), hit));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("whoosh");
+            onHit?.Invoke();
+        });
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));
         seq.OnComplete(() => OnAnimDone());
 

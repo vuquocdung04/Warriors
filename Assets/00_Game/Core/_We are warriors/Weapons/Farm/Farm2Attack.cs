@@ -26,7 +26,11 @@ public class Farm2Attack : AttackStrategyBase
 
         seq.Append(weapon.DOLocalRotate(Vector3.zero, draw));
         seq.Join(weapon.DOLocalMoveX(0.4f, draw));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("whoosh");
+             onHit?.Invoke();
+         });
         seq.Append(weapon.DOLocalMove(BasePos(0), back));
         seq.Join(weapon.DOLocalRotate(BaseRot(0), back));
         seq.OnComplete(() => OnAnimDone());

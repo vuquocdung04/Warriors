@@ -13,7 +13,7 @@ public class Stone2Attack : AttackStrategyBase
     public Transform firePoint;
     public float rockSpeed = 8f;
 
-    protected override void PlayAnim2(IDamageable target,float duration, System.Action onHit)
+    protected override void PlayAnim2(IDamageable target, float duration, System.Action onHit)
     {
         CacheBase(weapon);
 
@@ -24,7 +24,11 @@ public class Stone2Attack : AttackStrategyBase
         float back = duration * 0.6f;
 
         seq.Append(weapon.DOLocalMove(windUpPos, windUp));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("whoosh");
+             onHit?.Invoke();
+         });
         seq.Append(weapon.DOLocalMove(BasePos(0), back));
         seq.AppendCallback(() => weapon.gameObject.SetActive(true));
         seq.OnComplete(() => OnAnimDone());
@@ -49,6 +53,6 @@ public class Stone2Attack : AttackStrategyBase
 
     protected override void PlayAnim(float duration, Action onHit)
     {
-        
+
     }
 }

@@ -17,7 +17,11 @@ public class Stone1Attack : AttackStrategyBase
 
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, 12f), up));
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -115f), down));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("punch");
+            onHit?.Invoke();
+        });
         seq.Append(weapon.DOLocalRotate(BaseRot(0), ret));
         seq.OnComplete(() => OnAnimDone());
 

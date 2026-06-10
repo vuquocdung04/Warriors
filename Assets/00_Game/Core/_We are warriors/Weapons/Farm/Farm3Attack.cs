@@ -20,7 +20,11 @@ public class Farm3Attack : AttackStrategyBase
         void SetZ(float v) => weapon.localRotation = Quaternion.Euler(0, 0, v);
 
         seq.Append(DOTween.To(() => z, v => { z = v; SetZ(v); }, -130f, strike).SetEase(Ease.Linear));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("Firey Swoosh");
+             onHit?.Invoke();
+         });
         seq.AppendInterval(hold);
         seq.Append(DOTween.To(() => z, v => { z = v; SetZ(v); }, baseZ - 360f, ret).SetEase(Ease.Linear));
         seq.AppendCallback(() => weapon.localEulerAngles = BaseRot(0));

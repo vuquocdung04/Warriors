@@ -18,7 +18,11 @@ public class Farm1Attack : AttackStrategyBase
         seq.Append(weapon.DOLocalRotate(Vector3.zero, windUp));
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x - 0.5f, windUp));
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x + 0.5f, strike));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("punch");
+            onHit?.Invoke();
+        });
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));
         seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
         seq.OnComplete(() => OnAnimDone());
