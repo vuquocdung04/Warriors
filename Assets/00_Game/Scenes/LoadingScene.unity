@@ -1132,8 +1132,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationDataBase: {fileID: 11400000, guid: 13f72042c9df5bc4694b9fc94c5b6d5f, type: 2}
-  audioData: {fileID: 11400000, guid: 5f74a99ad3c90864a83b736ffb298fef, type: 2}
   avatarData: {fileID: 11400000, guid: cd11aad89e6d048fba020977c6af6966, type: 2}
+  audioDataList:
+  - {fileID: 11400000, guid: 5f74a99ad3c90864a83b736ffb298fef, type: 2}
+  - {fileID: 11400000, guid: 1ab6b8d3e05aa414988f22a122e90f8f, type: 2}
   unitDatabase: {fileID: 11400000, guid: 6a7babf19417aeb41bae13f3df939fc4, type: 2}
   equipmentDatabase: {fileID: 11400000, guid: 9fccbf91fa84daf418614e0859a0406c, type: 2}
   gachaDatabase: {fileID: 11400000, guid: 3d62c0acd72046aa96d665263ada9017, type: 2}
