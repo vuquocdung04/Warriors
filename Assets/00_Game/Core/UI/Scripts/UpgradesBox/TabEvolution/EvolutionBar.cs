@@ -6,6 +6,8 @@ using EventDispatcher;
 
 public class EvolutionBar : MonoBehaviour
 {
+    public AudioClip evolveSFX;
+
     [Header("Tabs")]
     public GameObject inTimelineTab;
     public GameObject maxTimelineTab;
@@ -37,15 +39,14 @@ public class EvolutionBar : MonoBehaviour
     public GameObject winBattleObject;
     public TMP_Text winBattleText;
     public GameObject travelObject;
-
     private List<HouseData> _civs;
 
     public void Init()
     {
         _civs = DataRepo.Instance.unitDatabase.GetCivsByOrder();
 
-        btnEvolveFree.OnClicked(OnEvolveFree);
-        btnEvolve.OnClicked(OnEvolve);
+        btnEvolveFree.OnClicked(OnEvolveFree,evolveSFX);
+        btnEvolve.OnClicked(OnEvolve,evolveSFX);
         btnTravel.OnClicked(OnTravel);
         btnTimeline.OnClicked(OnShowTimeline);
 

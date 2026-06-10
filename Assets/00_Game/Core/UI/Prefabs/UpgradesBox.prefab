@@ -9840,6 +9840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188aff8bf3ba8bb42bd2a4a9dda1db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EvolutionBar
+  evolveSFX: {fileID: 8300000, guid: 2db5c4b172bdfa248a03651267f446a2, type: 3}
   inTimelineTab: {fileID: 1395276492880603584}
   maxTimelineTab: {fileID: 4295535919730033029}
   currentCivImage: {fileID: 4710822427812786837}
