@@ -7,6 +7,7 @@ public class StringHelper
     public const string ONOFF_SOUND = "ONOFF_SOUND";
     public const string ONOFF_VIB = "ONOFF_VIB";
     public const string COIN = "CoinsAmount";
+    public const string GEM = "Gem";
     public const string LEVEL = "Level";
 
 

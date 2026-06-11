@@ -1,0 +1,44 @@
+[
+  {
+    "civId": "stone",
+    "coinPerKill": 50,
+    "coinDropRate": 0.7,
+    "gemPerKill": 30,
+    "gemDropRate": 0.3
+  },
+  {
+    "civId": "farm",
+    "coinPerKill": 400,
+    "coinDropRate": 0.7,
+    "gemPerKill": 40,
+    "gemDropRate": 0.3
+  },
+  {
+    "civId": "spartan",
+    "coinPerKill": 0,
+    "coinDropRate": 0.7,
+    "gemPerKill": 55,
+    "gemDropRate": 0.3
+  },
+  {
+    "civId": "renai",
+    "coinPerKill": 26000,
+    "coinDropRate": 0.7,
+    "gemPerKill": 75,
+    "gemDropRate": 0.3
+  },
+  {
+    "civId": "modern",
+    "coinPerKill": 205000,
+    "coinDropRate": 0.7,
+    "gemPerKill": 100,
+    "gemDropRate": 0.3
+  },
+  {
+    "civId": "space",
+    "coinPerKill": 1600000,
+    "coinDropRate": 0.7,
+    "gemPerKill": 140,
+    "gemDropRate": 0.3
+  }
+]

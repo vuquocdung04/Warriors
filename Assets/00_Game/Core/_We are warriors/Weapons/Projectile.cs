@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
 
     public void Launch(Vector3 targetPos, float speed, Action onArrive)
     {
+        transform.DOKill();
         float dist = Vector3.Distance(transform.position, targetPos);
         float duration = dist / Mathf.Max(0.01f, speed);
 
@@ -23,12 +24,14 @@ public class Projectile : MonoBehaviour
             {
                 onArrive?.Invoke();
                 PlayHitFx();
-                Destroy(gameObject);
+                SimplePool2.Despawn(gameObject);
             });
     }
 
     public void LaunchArc(Vector3 target, float speed, float arcHeight, System.Action onHit)
     {
+        transform.DOKill();
+
         Vector3 start = transform.position;
         float distance = Vector3.Distance(start, target);
         float duration = distance / Mathf.Max(0.01f, speed);
@@ -42,7 +45,7 @@ public class Projectile : MonoBehaviour
         }, 1f, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
             onHit?.Invoke();
-            Destroy(gameObject);
+            SimplePool2.Despawn(gameObject);
         }).SetLink(gameObject);
     }
     void PlayHitFx()

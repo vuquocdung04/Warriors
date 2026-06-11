@@ -50,9 +50,10 @@ public class Spartan2Attack : AttackStrategyBase
         if (target == null || !target.IsAlive) return;
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
-         Vector3 to = target.AimPoint;
+        Vector3 to = target.AimPoint;
 
-        var rock = Instantiate(arrowPrefab, from, Quaternion.identity);
+        var rock = SimplePool2.Spawn(arrowPrefab);   // pool
+        rock.transform.position = from;
         rock.Launch(to, rockSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);

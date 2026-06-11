@@ -4,6 +4,7 @@ public static class UseProfile
 {
     public static int DefaultBoosterAmount = 3;
     public static int DefaultStartingCoins = 500;
+    public static int DefaultStartingGems = 500;
 
 
     public static readonly PrefVar<string> CurrentCiv = new(StringHelper.CURRENT_CIV, "stone");
@@ -33,6 +34,7 @@ public static class UseProfile
     public static readonly PrefVar<int> Booster1 = new(StringHelper.BOOSTER_1, DefaultBoosterAmount);
     public static readonly PrefVar<int> Booster2 = new(StringHelper.BOOSTER_2, DefaultBoosterAmount);
     public static readonly PrefVar<int> Coin = new(StringHelper.COIN, DefaultStartingCoins);
+    public static readonly PrefVar<int> Gem = new(StringHelper.GEM, DefaultStartingGems);
 
     public static readonly PrefVar<int> AvatarId = new(StringHelper.AVATAR_ID, 0);
     // --- SETTINGS ---

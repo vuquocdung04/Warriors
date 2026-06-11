@@ -53,9 +53,10 @@ public class Space3Attack : AttackStrategyBase
         if (target == null || !target.IsAlive) return;
 
         Vector3 from = firePoint != null ? firePoint.position : body.position;
-         Vector3 to = target.AimPoint;
+        Vector3 to = target.AimPoint;
 
-        var p = Instantiate(projectilePrefab, from, Quaternion.identity);
+        var p = SimplePool2.Spawn(projectilePrefab);
+        p.transform.position = from;
         p.Launch(to, projectileSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);

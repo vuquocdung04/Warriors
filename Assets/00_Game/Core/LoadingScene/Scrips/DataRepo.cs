@@ -15,6 +15,7 @@ public class DataRepo : MonoBehaviour
     public GachaDatabase gachaDatabase;
     public SkillDatabase skillDatabase;
     public EnemyWaveDatabase enemyWaveDatabase;
+    public EconomyDatabase economyDatabase;
     public void Init()
     {
         Instance = this;
@@ -23,7 +24,7 @@ public class DataRepo : MonoBehaviour
         gachaDatabase.Init();
         skillDatabase.Init();
         enemyWaveDatabase.Init();
-
+        economyDatabase.Init();
         UseProfile.EnemyCiv.Value = "renai";
         UseProfile.Coin.Value = 100000000;
     }

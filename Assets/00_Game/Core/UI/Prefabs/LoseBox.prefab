@@ -496,10 +496,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Try Again
+  m_text: Home
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fb070e7f4360f4703a770b8377a76220, type: 2}
-  m_sharedMaterial: {fileID: -8176282419626428379, guid: fb070e7f4360f4703a770b8377a76220, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
+  m_sharedMaterial: {fileID: 7739413296518866188, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

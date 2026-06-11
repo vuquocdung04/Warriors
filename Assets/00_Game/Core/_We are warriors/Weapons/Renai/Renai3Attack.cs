@@ -48,9 +48,10 @@ public class Renai3Attack : AttackStrategyBase
         if (target == null || !target.IsAlive) return;
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
-         Vector3 to = target.AimPoint;
+        Vector3 to = target.AimPoint;
 
-        var p = Instantiate(projectilePrefab, from, Quaternion.identity);
+        var p = SimplePool2.Spawn(projectilePrefab);   // pool
+        p.transform.position = from;
         p.LaunchArc(to, projectileSpeed, arcHeight, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);

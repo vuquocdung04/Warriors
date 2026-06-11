@@ -4696,7 +4696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite=0> 200
+  m_text: <sprite=0>0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
   m_sharedMaterial: {fileID: 7739413296518866188, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
@@ -19719,9 +19719,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupHolder: {fileID: 2124169858}
   darkPanel: {fileID: 482042480}
-  txtLevelDisplay: {fileID: 0}
+  txtCoinCollect: {fileID: 324130022}
   btnSetting: {fileID: 0}
-  btnCoin: {fileID: 0}
 --- !u!1 &1316276017
 GameObject:
   m_ObjectHideFlags: 0
@@ -19738,6 +19737,7 @@ GameObject:
   - component: {fileID: 1316276025}
   - component: {fileID: 1316276026}
   - component: {fileID: 1316276027}
+  - component: {fileID: 1316276028}
   m_Layer: 0
   m_Name: GamePlayController
   m_TagString: Untagged
@@ -19787,6 +19787,7 @@ MonoBehaviour:
   flyTextSpawner: {fileID: 1316276026}
   enemyAI: {fileID: 898309397}
   enemyWaveUI: {fileID: 898309398}
+  dropController: {fileID: 1316276028}
 --- !u!114 &1316276021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19868,6 +19869,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeathFxSpawner
   prefab: {fileID: 4592232332644603394, guid: ab75fdbced93fe9448c9193f773b690b, type: 3}
   crackPrefab: {fileID: 328315735241273265, guid: cb6c7e4eba71c554bb2c14eef8b5bf9b, type: 3}
+--- !u!114 &1316276028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d775b8ecb10d64f949505ad60dfbe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropController
+  coinPrefab: {fileID: 8909597771577985788, guid: 94009d3ccb8b71640a5c3644357e74ea, type: 3}
+  gemPrefab: {fileID: 8410103154741818037, guid: 6bc96e96f63485a4c976be45f76f0dc8, type: 3}
 --- !u!1 &1321174892
 GameObject:
   m_ObjectHideFlags: 0

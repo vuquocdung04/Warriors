@@ -45,8 +45,9 @@ public class Farm2Attack : AttackStrategyBase
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;
 
-        var rock = Instantiate(rockPrefab, from, Quaternion.identity);
-        rock.Launch(to, rockSpeed, () =>
+        var p = SimplePool2.Spawn(rockPrefab);   // pool
+        p.transform.position = from;
+        p.Launch(to, rockSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);
         });

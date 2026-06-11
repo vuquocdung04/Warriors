@@ -20,6 +20,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
 
     public EnemyAI enemyAI;
     public EnemyWaveUI enemyWaveUI;
+    public DropController dropController;
 
     protected override void OnAwake()
     {
@@ -37,12 +38,14 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
 
         bottomBar.Init(spawner, db, startFood);
         skillController.Init();
+        dropController.Init();
+        gameScene.Init();
+
         FXManager.Instance.isNextSceneReady = true;
 
     }
     private async UniTaskVoid Init()
     {
-        gameScene.Init();
         gameFlow.Init();
         gameFlow.RequestPause();
 

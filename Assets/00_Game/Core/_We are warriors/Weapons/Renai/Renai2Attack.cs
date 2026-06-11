@@ -16,7 +16,7 @@ public class Renai2Attack : AttackStrategyBase
     {
         CacheBase(weapon);
 
-        float angle = AimAngleLocal(weapon,target);
+        float angle = AimAngleLocal(weapon, target);
 
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -59,7 +59,8 @@ public class Renai2Attack : AttackStrategyBase
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;
 
-        var p = Instantiate(projectilePrefab, from, Quaternion.identity);
+        var p = SimplePool2.Spawn(projectilePrefab);   // pool
+        p.transform.position = from;
         p.Launch(to, projectileSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
 guid: 4d8d839bcdb74e34a9d2df8eebbb7909
-timeCreated: 1780028456
-licenseType: Free
 TextureImporter:
-  serializedVersion: 13
   internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -82,46 +80,97 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: CurrencyDrops_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 370
+        width: 120
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 154bae415b975fa48a1033878ab84082
+      internalID: -1018509176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CurrencyDrops_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 122
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e62207db6ec7384088edbf7ef542250
+      internalID: 114731684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
-    customData:
+    customData: 
     physicsShape: []
     bones: []
-    spriteID:
+    spriteID: 23472c397fcd1b74cadae6e4212fd93c
     internalID: 0
     vertices: []
-    indices:
+    indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
-  mipmapLimitGroupName:
-  output:
-    textureImportInstructions:
-      compressedFormat: 0
-      uncompressedFormat: 0
-      desiredFormat: 0
-      usageMode: 0
-      colorSpace: 0
-      width: 0
-      height: 0
-      depth: 0
-      cubeIntermediateSize: 0
-      cubeMode: 0
-      cubeLayout: 0
-      compressionQuality: 0
-      vtOnly: 0
-    sourceTextureInformation:
-      width: 0
-      height: 0
-      doesTextureContainAlpha: 0
-      sourceWasHDR: 0
-    importInspectorWarnings:
+    nameFileIdTable:
+      CurrencyDrops_0: -1018509176
+      CurrencyDrops_1: 114731684
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

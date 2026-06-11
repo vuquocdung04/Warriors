@@ -15,8 +15,8 @@ public class Modern3Attack : AttackStrategyBase
 
     protected override void PlayAnim2(IDamageable target, float duration, Action onHit)
     {
-        CacheBase(weapon);
-        float angle = AimAngleLocal(weapon, target);
+        CacheBase(weapon, body);
+        float angle = AimAngleTank(weapon, target);
 
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -29,7 +29,7 @@ public class Modern3Attack : AttackStrategyBase
         float ret = duration * 0.24f;
 
         // hold lâu (nạp)
-        seq.Append(weapon.DOLocalRotate(new Vector3(0,0,angle),aim));
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, angle), aim));
         seq.AppendInterval(hold);
 
         // bắn + giật nòng + body lắc 7
@@ -49,6 +49,13 @@ public class Modern3Attack : AttackStrategyBase
 
         if (owner != null) seq.SetLink(owner.gameObject);
     }
+    float AimAngleTank(Transform weapon, IDamageable target)
+    {
+        if (target == null || weapon.parent == null) return weapon.localEulerAngles.z;
+        Vector3 localTarget = weapon.parent.InverseTransformPoint(target.AimPoint);
+        Vector2 dir = (Vector2)(localTarget - weapon.localPosition);
+        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+    }
     public override void ResetToIdle()
     {
         seq?.Kill();
@@ -65,7 +72,8 @@ public class Modern3Attack : AttackStrategyBase
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;
-        var p = Instantiate(projectilePrefab, from, Quaternion.identity);
+        var p = SimplePool2.Spawn(projectilePrefab);
+        p.transform.position = from;
         p.Launch(to, projectileSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);
@@ -74,6 +82,6 @@ public class Modern3Attack : AttackStrategyBase
 
     protected override void PlayAnim(float duration, Action onHit)
     {
-        
+
     }
 }

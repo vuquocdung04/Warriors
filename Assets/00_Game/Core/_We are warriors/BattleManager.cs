@@ -34,7 +34,6 @@ public class BattleManager : StaffSingleton<BattleManager>
 
         bool allyWin = loserTeam == Team.Enemy;
         Debug.Log($"[Battle] House {loserTeam} sập -> {(allyWin ? "THẮNG" : "THUA")}");
-        // TODO (khi bật GameFlow.Init): GameFlow nghe event này để show popup Win/Lose
     }
 
     void Update()
