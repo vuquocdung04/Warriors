@@ -28,7 +28,11 @@ public class Renai3Attack : AttackStrategyBase
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, 30f), lift));
 
         seq.AppendInterval(hold);
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Tank");
+            onHit?.Invoke();
+        });
 
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.2f, recoil));
 

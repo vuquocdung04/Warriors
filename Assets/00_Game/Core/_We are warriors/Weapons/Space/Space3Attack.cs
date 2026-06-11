@@ -25,7 +25,11 @@ public class Space3Attack : AttackStrategyBase
         float ret = duration * 0.55f;
 
         // bắn ngay
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("LaserGun");
+            onHit?.Invoke();
+        });
 
         // giật lùi + nghiêng -15
         seq.Append(body.DOLocalMoveX(BasePos(0).x - 0.3f, kick));

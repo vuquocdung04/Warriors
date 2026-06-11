@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modern3Attack
   weapon: {fileID: 2261099925601735881}
-  body: {fileID: 136703831209018839}
+  body: {fileID: 4241323009849427825}
   projectilePrefab: {fileID: 7509144334049952533, guid: db8a9eeafa5e13a4da168c81346c7d5f, type: 3}
   firePoint: {fileID: 3977348996122585035}
   projectileSpeed: 8

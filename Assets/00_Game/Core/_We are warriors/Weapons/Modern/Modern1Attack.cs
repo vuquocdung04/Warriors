@@ -22,7 +22,11 @@ public class Modern1Attack : AttackStrategyBase
 
         // đâm: moveX base + 0.3
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x + 0.5f, stab));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Light Sword");
+            onHit?.Invoke();
+        });
 
         // về base
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));

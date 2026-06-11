@@ -24,7 +24,11 @@ public class Space1Attack : AttackStrategyBase
         // vụt xuống 110 thật nhanh + moveX base + 0.1
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -110f), strike).SetEase(Ease.Linear));
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x + 0.2f, strike));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Light Sword");
+            onHit?.Invoke();
+        });
 
         // hold chút
         seq.AppendInterval(hold);

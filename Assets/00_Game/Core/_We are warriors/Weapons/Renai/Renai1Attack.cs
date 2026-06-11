@@ -23,7 +23,11 @@ public class Renai1Attack : AttackStrategyBase
 
         // đâm về base X
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x, strike));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Heavy Sword");
+            onHit?.Invoke();
+        });
 
         // về gốc
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));

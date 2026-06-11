@@ -28,7 +28,11 @@ public class Spartan2Attack : AttackStrategyBase
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x + 0.6f, draw));
 
         // bắn
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("Bow");
+             onHit?.Invoke();
+         });
 
         // giật nhẹ: base+0.6 -> base+0.5
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x + 0.45f, recoil));

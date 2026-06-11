@@ -26,7 +26,11 @@ public class Spartan3Attack : AttackStrategyBase
         // đánh: head 10, weapon moveX base + 0.5
         seq.Append(head.DOLocalRotate(new Vector3(0, 0, 10f), strike));
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x + 0.9f, strike));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("whoosh");
+             onHit?.Invoke();
+         });
 
         // về gốc
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));

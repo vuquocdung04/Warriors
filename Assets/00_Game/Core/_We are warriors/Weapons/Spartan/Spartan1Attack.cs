@@ -22,14 +22,18 @@ public class Spartan1Attack : AttackStrategyBase
         // phase 1: chuẩn bị
         seq.Append(shield.DOLocalMoveX(BasePos(1).x + 0.3f, prep));
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x - 0.2f, prep));
-        seq.Join(weapon.DOLocalRotate(new Vector3(0, 0, - 90f), prep));
+        seq.Join(weapon.DOLocalRotate(new Vector3(0, 0, -90f), prep));
         seq.Join(head.DOLocalRotate(new Vector3(0, 0, 10f), prep));
 
         // phase 2: vọt đánh
         seq.Append(shield.DOLocalMoveX(BasePos(1).x - 0.3f, strike));
         seq.Join(weapon.DOLocalMoveX(BasePos(0).x + 0.75f, strike));
-        seq.Join(head.DOLocalRotate(new Vector3(0, 0, - 10f), strike));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.Join(head.DOLocalRotate(new Vector3(0, 0, -10f), strike));
+        seq.AppendCallback(() =>
+         {
+             AudioManager.Instance.PlaySfx("whoosh");
+             onHit?.Invoke();
+         });
 
         // về gốc
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));

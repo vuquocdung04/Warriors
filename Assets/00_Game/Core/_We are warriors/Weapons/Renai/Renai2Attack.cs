@@ -28,7 +28,11 @@ public class Renai2Attack : AttackStrategyBase
 
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, angle), aim));
         seq.AppendInterval(hold);
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Rifle");
+            onHit?.Invoke();
+        });
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.3f, recoil));
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x, back));
         seq.OnComplete(() => OnAnimDone());

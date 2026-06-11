@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Modern2Attack : AttackStrategyBase
 {
@@ -11,10 +12,11 @@ public class Modern2Attack : AttackStrategyBase
     public Transform firePoint;
     public float projectileSpeed = 8f;
 
-    protected override void PlayAnim(float duration, System.Action onHit)
+    protected override void PlayAnim2(IDamageable target, float duration, Action onHit)
     {
         CacheBase(weapon);
-        ResetToBase();
+
+        float angle = AimAngleLocal(weapon, target);
 
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -22,21 +24,33 @@ public class Modern2Attack : AttackStrategyBase
         float aim = duration * 0.35f;
         float hold = duration * 0.15f;
         float recoil = duration * 0.1f;
-        float ret = duration * 0.4f;
+        float ret = duration * 0.2f;
 
         // xoay -90
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -90f), aim));
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, angle - 10f), aim));
 
         // hold rồi bắn + giật
         seq.AppendInterval(hold);
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Reifle Semi");
+            onHit?.Invoke();
+        });
         seq.Append(weapon.DOLocalMoveX(BasePos(0).x - 0.3f, recoil));   // giật súng
+        seq.Append(weapon.DOLocalMoveX(BasePos(0).x, ret));
 
-        // về base
-        seq.Append(weapon.DOLocalMove(BasePos(0), ret));
-        seq.Join(weapon.DOLocalRotate(BaseRot(0), ret));
         seq.OnComplete(() => OnAnimDone());
 
+        if (owner != null) seq.SetLink(owner.gameObject);
+    }
+    protected override void PlayAnim(float duration, System.Action onHit) { }
+    public override void ResetToIdle()
+    {
+        seq?.Kill();
+        OnAnimDone();
+        seq = DOTween.Sequence();
+        seq.Append(weapon.DOLocalMove(BasePos(0), 0.2f));
+        seq.Join(weapon.DOLocalRotate(BaseRot(0), 0.2f));
         if (owner != null) seq.SetLink(owner.gameObject);
     }
 
@@ -52,5 +66,11 @@ public class Modern2Attack : AttackStrategyBase
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);
         });
+    }
+    private void OnDrawGizmos()
+    {
+        if (weapon == null) return;
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(weapon.position, weapon.up * 2f);
     }
 }

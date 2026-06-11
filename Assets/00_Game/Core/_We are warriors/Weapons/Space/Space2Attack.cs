@@ -25,7 +25,11 @@ public class Space2Attack : AttackStrategyBase
         // xoay -90 + nâng Y base + 0.2, bắn luôn
         seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -90f), aim));
         seq.Join(weapon.DOLocalMoveY(BasePos(0).y + 0.3f, aim));
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("LaserGun");
+            onHit?.Invoke();
+        });
 
         // về base
         seq.Append(weapon.DOLocalMove(BasePos(0), ret));
