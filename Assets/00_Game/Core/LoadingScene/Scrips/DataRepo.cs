@@ -25,8 +25,9 @@ public class DataRepo : MonoBehaviour
         skillDatabase.Init();
         enemyWaveDatabase.Init();
         economyDatabase.Init();
+        UseProfile.Coin.Value = 2000;
+        UseProfile.Gem.Value = 10000;
         UseProfile.EnemyCiv.Value = "renai";
-        UseProfile.Coin.Value = 100000000;
     }
 
 

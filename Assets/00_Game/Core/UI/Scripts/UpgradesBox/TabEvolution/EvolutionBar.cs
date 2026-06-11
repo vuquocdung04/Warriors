@@ -45,8 +45,8 @@ public class EvolutionBar : MonoBehaviour
     {
         _civs = DataRepo.Instance.unitDatabase.GetCivsByOrder();
 
-        btnEvolveFree.OnClicked(OnEvolveFree,evolveSFX);
-        btnEvolve.OnClicked(OnEvolve,evolveSFX);
+        btnEvolveFree.OnClicked(OnEvolveFree, evolveSFX);
+        btnEvolve.OnClicked(OnEvolve, evolveSFX);
         btnTravel.OnClicked(OnTravel);
         btnTimeline.OnClicked(OnShowTimeline);
 
@@ -124,9 +124,7 @@ public class EvolutionBar : MonoBehaviour
     {
         var next = NextCiv();
         if (next == null) return;
-        if (UseProfile.Coin.Value < next.unlockCost) return;
-
-        UseProfile.Coin.Value -= next.unlockCost;
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Coin, next.unlockCost)) return;
         EvolveTo(next);
     }
 

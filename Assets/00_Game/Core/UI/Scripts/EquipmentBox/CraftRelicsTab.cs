@@ -60,16 +60,17 @@ public class CraftRelicsTab : MonoBehaviour
     }
     void OnSpin(int count)
     {
+        int cost = count == 1 ? costX1 : costX10;
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Gem, cost)) return;
         var entries = new List<IGachaResultEntry>();
         for (int i = 0; i < count; i++)
         {
             var r = GachaService.Spin();
             if (r != null) entries.Add(new EquipmentGachaEntry(r));
         }
-        this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
-
+        
         var holder = LobbyController.Instance.topCanvas;
-        _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries));
+        _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries,EventID.ON_EQUIPMENT_CHANGED));
     }
 
     void OnShowRate()

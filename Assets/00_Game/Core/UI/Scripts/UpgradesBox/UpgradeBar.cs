@@ -27,9 +27,7 @@ public class UpgradeBar : MonoBehaviour
     void OnBuy(UpgradeUnitItem item)
     {
         int price = item.Data.buyPrice;
-        if (UseProfile.Coin.Value < price) return;
-
-        UseProfile.Coin.Value -= price;
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Coin, price)) return;
         if (item.Index == 1) UseProfile.Unit2Unlock.Value = true;
         else if (item.Index == 2) UseProfile.Unit3Unlock.Value = true;
         item.SetUnlocked(true);

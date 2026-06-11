@@ -25,7 +25,12 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     protected override void OnAwake()
     {
         base.OnAwake();
+        Init().Forget();
 
+    }
+    private async UniTaskVoid Init()
+    {
+        gameFlow.Init();
         var db = DataRepo.Instance.unitDatabase;
 
         grid.Init();
@@ -40,21 +45,11 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         skillController.Init();
         dropController.Init();
         gameScene.Init();
-
-        FXManager.Instance.isNextSceneReady = true;
-
-    }
-    private async UniTaskVoid Init()
-    {
-        gameFlow.Init();
-        gameFlow.RequestPause();
-
         AudioManager.Instance.PlayMusic("Normal Level Music (Cover) 1");
 
         await UniTask.WaitForEndOfFrame(this);
         await UniTask.Delay(500);
         FXManager.Instance.isNextSceneReady = true;
         await UniTask.Delay(500);
-        gameFlow.RequestResume();
     }
 }

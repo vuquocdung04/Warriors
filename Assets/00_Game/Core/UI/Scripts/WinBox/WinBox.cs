@@ -25,8 +25,7 @@ public class WinBox : BaseBox<WinBox>
         btnReward.OnClicked(delegate
         {
             btnReward.interactable = false;
-            bool isMaxLevel = true;
-            string targetScene = isMaxLevel ? SceneName.LOBBY_SCENE : SceneName.GAME_PLAY;
+            string targetScene = SceneName.LOBBY_SCENE;
 
             _ = FXManager.Instance.SpawnCoinFly(
                 btnReward.transform.position,
@@ -48,7 +47,7 @@ public class WinBox : BaseBox<WinBox>
 
     protected override void InitState()
     {
-        RefreshProgress();
+        //RefreshProgress();
     }
 
     void PopCoinTarget()

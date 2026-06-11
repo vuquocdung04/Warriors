@@ -43,8 +43,8 @@ public class SkillBox : BaseBox<SkillBox>
 
     void RefreshCost()
     {
-        if (costText1 != null) _ = costText1.CountToWithIcon(costX1, "<sprite=19> ", duration: 0f);
-        if (costText10 != null) _ = costText10.CountToWithIcon(costX10, "<sprite=19> ", duration: 0f);
+        if (costText1 != null) _ = costText1.CountToWithIcon(costX1, "<sprite=52> ", duration: 0f);
+        if (costText10 != null) _ = costText10.CountToWithIcon(costX10, "<sprite=52> ", duration: 0f);
     }
 
     void BuildOwned()
@@ -125,13 +125,15 @@ public class SkillBox : BaseBox<SkillBox>
 
     void OnSpin(int count)
     {
+        int cost = count == 1 ? costX1 : costX10;
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Gem, cost)) return;
+
         var entries = new List<IGachaResultEntry>();
         for (int i = 0; i < count; i++)
         {
             var r = GachaSkillService.Spin();
             if (r != null) entries.Add(new SkillGachaEntry(r));
         }
-        // KHÔNG post ở đây
 
         var holder = LobbyController.Instance.topCanvas;
         _ = GachaResultBox.Setup(holder, box => box.ShowResult(entries, EventID.ON_SKILL_CHANGED));

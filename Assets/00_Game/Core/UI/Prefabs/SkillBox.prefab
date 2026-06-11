@@ -958,7 +958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite=19> 15.7t
+  m_text: <sprite=52> 15.7t
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
   m_sharedMaterial: {fileID: 7739413296518866188, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
@@ -2227,8 +2227,8 @@ MonoBehaviour:
   btnX10: {fileID: 4124842728661743057}
   costText1: {fileID: 4302672249062468498}
   costText10: {fileID: 5934063794655788131}
-  costX1: 0
-  costX10: 0
+  costX1: 300
+  costX10: 2850
   skillHolder: {fileID: 7619144695858920167}
   selectedHolders:
   - {fileID: 4967094696325361829}
@@ -2472,6 +2472,7 @@ GameObject:
   - component: {fileID: 319167749345947251}
   - component: {fileID: 6561033792077789049}
   - component: {fileID: 3741545661048252108}
+  - component: {fileID: 2638403537938817390}
   m_Layer: 5
   m_Name: BluePotsView
   m_TagString: Untagged
@@ -2537,3 +2538,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.2
+--- !u!114 &2638403537938817390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166211654130203338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bc80bbb2385654a801343a67077ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GemView
+  gemText: {fileID: 5370145711783484097}

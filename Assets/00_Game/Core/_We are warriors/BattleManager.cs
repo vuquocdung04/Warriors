@@ -33,7 +33,11 @@ public class BattleManager : StaffSingleton<BattleManager>
         EndBattle();
 
         bool allyWin = loserTeam == Team.Enemy;
-        Debug.Log($"[Battle] House {loserTeam} sập -> {(allyWin ? "THẮNG" : "THUA")}");
+
+        if (allyWin)
+            this.PostEvent(EventID.LEVEL_COMPLETE);  
+        else
+            GameFlow.Instance.TriggerLose();         
     }
 
     void Update()

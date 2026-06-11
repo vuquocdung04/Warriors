@@ -3,6 +3,7 @@
 
     NONE,
     //HOME SCRENE
+    CHANGE_GEM = 49,
     CHANGE_COIN = 50,
     CHANGE_HEART = 51,
     CHANGE_AVATAR = 52,

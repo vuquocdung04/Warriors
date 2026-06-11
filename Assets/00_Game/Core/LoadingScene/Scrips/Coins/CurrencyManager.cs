@@ -63,6 +63,7 @@ public class CurrencyManager : MonoBehaviour
     private PrefVar<int> GetPref(CurrencyType type) => type switch
     {
         CurrencyType.Coin => UseProfile.Coin,
+        CurrencyType.Gem => UseProfile.Gem,
         //CurrencyType.Gem => UseProfile.Gem,  // thêm vào UseProfile khi cần
         _ => throw new ArgumentException($"Unknown currency: {type}")
     };
@@ -72,7 +73,7 @@ public class CurrencyManager : MonoBehaviour
         EventID eventId = type switch
         {
             CurrencyType.Coin => EventID.CHANGE_COIN,
-            //CurrencyType.Gem => EventID.CHANGE_GEM,  // thêm vào EventID khi cần
+            CurrencyType.Gem => EventID.CHANGE_GEM,  // thêm vào EventID khi cần
             _ => EventID.CHANGE_COIN
         };
         this.PostEvent(eventId);
