@@ -44,7 +44,8 @@ public class Stone2Attack : AttackStrategyBase
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;
 
-        var rock = Instantiate(rockPrefab, from, Quaternion.identity);
+        var rock = SimplePool2.Spawn(rockPrefab);
+        rock.transform.position = from;
         rock.Launch(to, rockSpeed, () =>
         {
             if (target != null && target.IsAlive) owner.DealDamage(target);

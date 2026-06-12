@@ -63,10 +63,10 @@ public class BattleSpawner : MonoBehaviour
         if (index < 0 || index >= units.Count) return;
 
         UnitData data = units[index];
-        var food = BottomBar.Instance != null ? BottomBar.Instance.foodBar : null;
-        if (food != null && !food.CanAfford(data.foodCost))
+        var food = BottomBar.Instance.foodBar;
+        if (!food.CanAfford(data.foodCost))
         {
-            Debug.Log($"[Spawn] không đủ food cho '{data.id}' (cần {data.foodCost}, có {food.Food})");
+            ToastManager.Instance.ShowToast("Not Enough Food");
             return;
         }
 

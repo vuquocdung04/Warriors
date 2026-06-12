@@ -43,7 +43,7 @@ public class UnitCard : MonoBehaviour
         }
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => _onClick?.Invoke(_index));
+        button.OnClicked(() => _onClick?.Invoke(_index));
         this.RemoveListener(EventID.FOOD_CHANGED, OnFoodChanged);
         this.RegisterListener(EventID.FOOD_CHANGED, OnFoodChanged);
 
