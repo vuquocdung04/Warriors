@@ -46,7 +46,11 @@ public class FoodBar : MonoBehaviour
             .OnStepComplete(() => { _food++; RefreshUI(); })
             .SetLink(gameObject);
     }
-
+    public void SetPause(bool paused)
+    {
+        if (paused) _fillTween.Pause();
+        else _fillTween.Play();
+    }
     void OnBattleOver(object _) => _fillTween?.Pause();
 
     public bool CanAfford(int cost) => _food >= cost;

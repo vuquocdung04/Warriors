@@ -12,6 +12,9 @@ public class BattleManager : StaffSingleton<BattleManager>
     private readonly List<IDamageable> _allyTargets = new();   // unit + house theo phe
     private readonly List<IDamageable> _enemyTargets = new();
     public bool IsBattleOver { get; private set; }
+    private bool _paused;
+    public void SetPause(bool p) => _paused = p;
+
     public override void Init()
     {
         IsBattleOver = false;
@@ -35,14 +38,15 @@ public class BattleManager : StaffSingleton<BattleManager>
         bool allyWin = loserTeam == Team.Enemy;
 
         if (allyWin)
-            this.PostEvent(EventID.LEVEL_COMPLETE);  
+            this.PostEvent(EventID.LEVEL_COMPLETE);
         else
-            GameFlow.Instance.TriggerLose();         
+            GameFlow.Instance.TriggerLose();
     }
 
     void Update()
     {
         if (IsBattleOver) return;
+        if (_paused) return; 
         Tick(Time.deltaTime);
     }
     public void Register(Unit u)

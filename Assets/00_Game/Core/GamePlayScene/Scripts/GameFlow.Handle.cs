@@ -7,10 +7,10 @@ public partial class GameFlow
         switch (state)
         {
             case GameState.Playing:
-                
+
                 break;
             case GameState.Paused:
-                
+                SetGameplayPaused(true);
                 break;
             case GameState.Win:
 
@@ -43,7 +43,7 @@ public partial class GameFlow
             case GameState.Playing:
                 break;
             case GameState.Paused:
-                // hide pause UI
+                SetGameplayPaused(false);
                 break;
             case GameState.BoosterActive:
                 // close booster UI
@@ -52,5 +52,12 @@ public partial class GameFlow
                 // hide tutorial overlay
                 break;
         }
+    }
+    void SetGameplayPaused(bool paused)
+    {
+        BattleManager.Instance.SetPause(paused);
+        EnemyAI.Instance.SetPause(paused);
+        BottomBar.Instance.foodBar.SetPause(paused);
+        BattleSpawner.Instance.SetHousesInvincible(paused);
     }
 }

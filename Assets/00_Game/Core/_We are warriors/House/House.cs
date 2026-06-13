@@ -23,6 +23,9 @@ public class House : MonoBehaviour, IDamageable
 
     public Vector3 AimPoint => transform.position;
 
+    private bool _invincible;
+    public void SetInvincible(bool on) => _invincible = on;
+
     public void Init(HouseData data, Team team, float hpMultiplier = 1f)
     {
         _maxHp = _hp = data.houseHp * hpMultiplier;
@@ -56,6 +59,7 @@ public class House : MonoBehaviour, IDamageable
     }
     public void TakeDamage(float dmg)
     {
+        if (_invincible) return;
         if (!IsAlive) return;
         _hp -= dmg;
         hpBar?.Set(_hp / _maxHp);

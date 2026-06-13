@@ -7,7 +7,7 @@ public class SpawnModifier
     public System.Action<UnitStats> ModifyStats;
     public System.Action<Unit> AfterSpawn;
 }
-public class BattleSpawner : MonoBehaviour
+public class BattleSpawner : StaffSingleton<BattleSpawner>
 {
     public House allyHouse;
     public House enemyHouse;
@@ -53,7 +53,11 @@ public class BattleSpawner : MonoBehaviour
         float mult = team == Team.Enemy ? enemyHouseHpMultiplier : 1f;
         house.Init(data, team, mult);
     }
-
+    public void SetHousesInvincible(bool on)
+    {
+        allyHouse.SetInvincible(on);
+        enemyHouse.SetInvincible(on);
+    }
     public void SpawnAlly(int index)
     {
         if (BattleManager.Instance != null && BattleManager.Instance.IsBattleOver) return;
@@ -75,7 +79,7 @@ public class BattleSpawner : MonoBehaviour
         if (u != null && food != null) food.Spend(data.foodCost);
     }
     public void EnqueueNextAllyModifier(SpawnModifier mod) => _pendingAllyMods.Enqueue(mod);
-    
+
     Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null)
     {
         Unit prefab = _db.GetUnitById(data.id);
@@ -153,5 +157,10 @@ public class BattleSpawner : MonoBehaviour
         if (data == null) { Debug.LogError($"[Spawner] civ enemy không có '{unitId}'"); return null; }
 
         return SpawnUnit(Team.Enemy, data);
+    }
+
+    public override void Init()
+    {
+        
     }
 }

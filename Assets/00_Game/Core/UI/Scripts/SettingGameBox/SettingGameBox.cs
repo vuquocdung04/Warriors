@@ -1,3 +1,4 @@
+using EventDispatcher;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,11 @@ public class SettingGameBox : BaseBox<SettingGameBox>
 
     protected override void Init()
     {
-        btnClose.OnClicked(Close);
+        btnClose.OnClicked(delegate
+        {
+            Close();
+            this.PostEvent(EventID.POPUP_CLOSED);
+        });
 
         btnSound.OnClicked(delegate
         {
@@ -46,7 +51,7 @@ public class SettingGameBox : BaseBox<SettingGameBox>
 
         btnRestart.OnClicked(delegate
         {
-            _ = QuitLevelBox.Setup(transform.parent, box => box.SetupAndShow(QuitLevelBox.Mode.Restart));
+            //_ = QuitLevelBox.Setup(transform.parent, box => box.SetupAndShow(QuitLevelBox.Mode.Restart));
         });
 
         btnCheat.OnClicked(delegate
@@ -59,6 +64,8 @@ public class SettingGameBox : BaseBox<SettingGameBox>
 
     protected override void InitState()
     {
+        
+
     }
 
     private void Refresh()

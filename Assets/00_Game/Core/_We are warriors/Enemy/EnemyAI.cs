@@ -11,7 +11,7 @@ public class WaveInfo
     public WaveInfo(int current, int total) { this.current = current; this.total = total; }
 }
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : StaffSingleton<EnemyAI>
 {
     private BattleSpawner _spawner;
     private EnemyCivConfig _config;
@@ -21,6 +21,8 @@ public class EnemyAI : MonoBehaviour
     public int TotalWaves => _config != null ? _config.waves.Count : 0;
     public float spawnDelayMin = 0.1f;
     public float spawnDelayMax = 0.5f;
+    private bool _paused;
+    public void SetPause(bool p) => _paused = p;
 
     public void Init(BattleSpawner spawner)
     {
@@ -38,6 +40,17 @@ public class EnemyAI : MonoBehaviour
         RunWaves(_cts.Token).Forget();
     }
 
+    async UniTask PausableDelay(float seconds, CancellationToken token)
+    {
+        float t = 0f;
+        while (t < seconds)
+        {
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            if (_paused) continue;
+            t += Time.deltaTime;
+        }
+    }
+
     async UniTaskVoid RunWaves(CancellationToken token)
     {
         try
@@ -47,14 +60,14 @@ public class EnemyAI : MonoBehaviour
                 var wave = _config.waves[w];
 
                 if (wave.delayBetweenWave > 0f)
-                    await UniTask.Delay(System.TimeSpan.FromSeconds(wave.delayBetweenWave), cancellationToken: token);
+                    await PausableDelay(wave.delayBetweenWave, token);   // SỬA: truyền đúng giá trị
 
                 CurrentWave = wave.wave;
                 this.PostEvent(EventID.ON_ENEMY_WAVE_CHANGED, new WaveInfo(CurrentWave, TotalWaves));
 
                 foreach (var entry in wave.spawns)
                 {
-                    await UniTask.Delay(System.TimeSpan.FromSeconds(entry.spawnDelay), cancellationToken: token);
+                    await PausableDelay(entry.spawnDelay, token);        // SỬA: PausableDelay
                     await SpawnEntry(entry, token);
                 }
             }
@@ -74,12 +87,13 @@ public class EnemyAI : MonoBehaviour
         {
             _spawner.SpawnEnemyById(id);
             float delay = Random.Range(spawnDelayMin, spawnDelayMax);
-            await UniTask.Delay(System.TimeSpan.FromSeconds(delay), cancellationToken: token);
+            await PausableDelay(delay, token);   // SỬA: PausableDelay (pause cả lúc spawn từng con)
         }
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         _cts?.Cancel();
         _cts?.Dispose();
     }
@@ -97,5 +111,10 @@ public class EnemyAI : MonoBehaviour
             if (int.TryParse(p.Substring(colon + 1).Trim(), out int count) && count > 0)
                 onEach(id, count);
         }
+    }
+
+    public override void Init()
+    {
+
     }
 }
