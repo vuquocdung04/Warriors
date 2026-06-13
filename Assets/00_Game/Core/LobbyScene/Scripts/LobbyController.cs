@@ -6,7 +6,7 @@ public class LobbyController : LeaderSingleton<LobbyController>
     [Header("UI Layers")]
     public Transform botCanvas;
     public Transform topCanvas;
-    
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -16,7 +16,8 @@ public class LobbyController : LeaderSingleton<LobbyController>
     private void Init()
     {
         lobbyScene.InitAsync().Forget();
-        //AudioManager.Instance.PlayMusic("Main Menu Music (Cover) 2");
+        AudioManager.Instance.PlayMusic("Lobby");
+
 
     }
 }

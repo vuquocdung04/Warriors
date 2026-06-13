@@ -5,6 +5,8 @@ using static SheetImportUtil;
 public class EnemyWaveImporter : ISheetImporter
 {
     public string Name => "EnemyWave";
+    public string AnchorColumn => "civ_id";
+
 
     public object Parse(List<List<string>> rows)
     {

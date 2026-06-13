@@ -32,7 +32,7 @@ public class LobbyScene : MonoBehaviour
         _ = DungeonsBox.Setup(holder, _ => dungeonsBox.TrySetResult());
         _ = SkillBox.Setup(holder, _ => skillBox.TrySetResult());
 
-        await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, dungeonsBox.Task, skillBox.Task);
+        await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, dungeonsBox.Task, skillBox.Task,upgradesTcs.Task);
 
         FXManager.Instance.isNextSceneReady = true;
     }

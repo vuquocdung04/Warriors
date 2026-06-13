@@ -129,7 +129,7 @@ public class AudioManager : MonoBehaviour
 
     private void ApplyMusicVolume()
     {
-        asBg.volume = UseProfile.OnMusic ? 0.4f : 0f;
+        asBg.volume = UseProfile.OnMusic ? 0.65f : 0f;
     }
 
     private void ApplySoundVolume()

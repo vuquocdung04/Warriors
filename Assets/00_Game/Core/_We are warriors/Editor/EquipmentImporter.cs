@@ -5,6 +5,7 @@ using static SheetImportUtil;
 public class EquipmentImporter : ISheetImporter
 {
     private readonly string _name;
+    public string AnchorColumn => "id";
     public EquipmentImporter(string name) => _name = name;   // "MeleeEquipment"...
     public string Name => _name;
 

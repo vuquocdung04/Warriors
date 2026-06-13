@@ -5,7 +5,8 @@ using static SheetImportUtil;
 public class UnitImporter : ISheetImporter
 {
     public string Name => "Unit";
-
+    public string AnchorColumn => "id";
+    
     public object Parse(List<List<string>> rows)
     {
         var list = new List<UnitData>();
@@ -47,12 +48,12 @@ public class UnitImporter : ISheetImporter
                 attackSpeed = PFloat(Get(cAs)),
                 moveSpeed = PFloat(Get(cMs)),
                 attackRangeInCells = PFloat(Get(cRange)),
-                criticalChance = PFloat(Get(cCrit))/100,
-                lifeSteal = PFloat(Get(cLs))/100,
-                pushChance = PFloat(Get(cPush))/100,
-                poisonChance = PFloat(Get(cPoison))/100,
-                burnChance = PFloat(Get(cBurn))/100,
-                freezeChance = PFloat(Get(cFreeze))/100,
+                criticalChance = PFloat(Get(cCrit)) / 100,
+                lifeSteal = PFloat(Get(cLs)) / 100,
+                pushChance = PFloat(Get(cPush)) / 100,
+                poisonChance = PFloat(Get(cPoison)) / 100,
+                burnChance = PFloat(Get(cBurn)) / 100,
+                freezeChance = PFloat(Get(cFreeze)) / 100,
                 foodCost = (int)PFloat(Get(cFood)),
                 buyPrice = PMoney(Get(cBuy)),
             });

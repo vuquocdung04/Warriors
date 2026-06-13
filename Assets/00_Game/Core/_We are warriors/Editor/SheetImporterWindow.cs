@@ -77,12 +77,24 @@ public class SheetImporterWindow : OdinEditorWindow
         if (csv.TrimStart().StartsWith("<"))
         { Debug.LogError("[Sheet] Nhận HTML — sheet chưa share public?"); return; }
 
-        var data = importer.Parse(SheetImportUtil.SplitCsv(csv));
+        var rows = SheetImportUtil.SplitCsv(csv);
+        int headerRow = FindHeaderRow(rows, importer.AnchorColumn);
+        if (headerRow > 0) rows = rows.Skip(headerRow).ToList();
+
+        var data = importer.Parse(rows);
         _json = JsonConvert.SerializeObject(data, Formatting.Indented);
         int count = data is System.Collections.ICollection c ? c.Count : 0;
-        Debug.Log($"[Sheet] {SelectedType} OK: {count} dòng\n{_json}");
+        Debug.Log($"[Sheet] {SelectedType} OK: header ở row {headerRow + 1}, {count} dòng\n{_json}");
     }
 
+    int FindHeaderRow(List<List<string>> rows, string anchor)
+    {
+        if (string.IsNullOrEmpty(anchor)) return 0;
+        string a = anchor.Trim().ToLower();
+        for (int i = 0; i < rows.Count; i++)
+            if (rows[i].Any(c => c.Trim().ToLower() == a)) return i;
+        return 0;
+    }
     [Button(ButtonSizes.Large), GUIColor(0.5f, 1f, 0.5f), EnableIf("@!string.IsNullOrEmpty(_json)")]
     public void Save()
     {

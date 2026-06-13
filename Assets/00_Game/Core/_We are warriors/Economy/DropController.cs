@@ -22,7 +22,10 @@ public class DropController : MonoBehaviour
         Vector3 edge = GetEdgePosition(unit.CurrentCell);
 
         if (Random.value < _config.coinDropRate)
+        {
             SimplePool2.Spawn(coinPrefab).Play(DropType.Coin, _config.coinPerKill, edge);
+            AudioManager.Instance.PlaySfx("Coins");
+        }
 
         if (Random.value < _config.gemDropRate)
             SimplePool2.Spawn(gemPrefab).Play(DropType.Gem, _config.gemPerKill, edge);

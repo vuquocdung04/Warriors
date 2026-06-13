@@ -5,6 +5,7 @@ using static SheetImportUtil;
 public class GachaLevelImporter : ISheetImporter
 {
     public string Name => "GachaLevel";
+    public string AnchorColumn => "level";
 
     public object Parse(List<List<string>> rows)
     {
@@ -35,6 +36,7 @@ public class GachaLevelImporter : ISheetImporter
 public class GachaRateImporter : ISheetImporter
 {
     public string Name => "GachaRate";
+    public string AnchorColumn => "level";
 
     public object Parse(List<List<string>> rows)
     {

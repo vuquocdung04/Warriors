@@ -15,8 +15,7 @@ public class EquipmentSlot : MonoBehaviour
     [Header("Button")]
     public Button button;
 
-    [Header("Config")]
-    public int unlockCivOrder = 5;
+    private int unlockCivOrder;
 
     private int _slotIndex;          // nhận từ Bar (0=melee 1=range 2=shield)
     private EquipmentItem _item;
@@ -24,10 +23,11 @@ public class EquipmentSlot : MonoBehaviour
 
     public void Init(int slotIndex, System.Action<int> onClick)
     {
+        unlockCivOrder = UseProfile.UnlockCivOrder.Value;
         _slotIndex = slotIndex;
         _onClick = onClick;
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() =>
+        button.OnClicked(() =>
         {
             _onClick?.Invoke(_slotIndex);
         });

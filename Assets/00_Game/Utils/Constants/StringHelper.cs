@@ -10,7 +10,9 @@ public class StringHelper
     public const string GEM = "Gem";
     public const string LEVEL = "Level";
 
-
+    public const string SHOW_CIV_ORDER = "show_civ_order";
+    public const string UNLOCK_CIV_ORDER = "unlock_civ_order";
+    
     public const string CURRENT_CIV = "CURRENT_CIV";
     public const string ENEMY_CIV = "ENEMY_CIV";
     public const string WON_FINAL_CIV = "WON_FINAL_CIV";

@@ -31,9 +31,9 @@ public class CheatBox : BaseBox<CheatBox>
 
     private void OnClickNextLevel()
     {
-        if (int.TryParse(inputNextLevel.text, out int level))
-            UseProfile.Level.Value = level;
-        FXManager.Instance.LoadSceneWithIrisWipe(SceneName.GAME_PLAY);
+        // if (int.TryParse(inputNextLevel.text, out int level))
+        //     UseProfile.Level.Value = level;
+        // FXManager.Instance.LoadSceneWithIrisWipe(SceneName.GAME_PLAY);
     }
 
     private void OnClickWin()

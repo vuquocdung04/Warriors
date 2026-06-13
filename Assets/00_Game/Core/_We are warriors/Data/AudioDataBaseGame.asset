@@ -14,11 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioDataBase
   audioFolder: Assets/00_Game/Core/_We are warriors/AudioClip
   audioConfigs:
-  - key: CandyLand
-    variants:
-    - {fileID: 8300000, guid: ca35d687106f93149af993bba2b57e9a, type: 3}
-    minPitch: 0.7
-    maxPitch: 1.1
   - key: Evolve
     variants:
     - {fileID: 8300000, guid: 2db5c4b172bdfa248a03651267f446a2, type: 3}
@@ -84,6 +79,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 1caaa22881691ec4dbf67ef3b82a3b17, type: 3}
     minPitch: 0.7
     maxPitch: 1.1
+  - key: GamePlay
+    variants:
+    - {fileID: 8300000, guid: b999a7f36daef114cae5715817a6bfb4, type: 3}
+    minPitch: 0.7
+    maxPitch: 1.1
   - key: Heavy Sword
     variants:
     - {fileID: 8300000, guid: a0c53ceb5b9e42f42a9668cf3b5c045f, type: 3}
@@ -98,6 +98,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 8cce73968cb9fd34c8cc4a8014717621, type: 3}
     - {fileID: 8300000, guid: 45f7522a9f8ceee49a6c921054412f2c, type: 3}
     - {fileID: 8300000, guid: 2c9a94ae2dcb4a14997229a43f4bc8a7, type: 3}
+    minPitch: 0.7
+    maxPitch: 1.1
+  - key: Lobby
+    variants:
+    - {fileID: 8300000, guid: 30920db716128d2458bc3462a4c5f278, type: 3}
     minPitch: 0.7
     maxPitch: 1.1
   - key: punch

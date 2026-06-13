@@ -6,6 +6,7 @@ public class BoosterBar : MonoBehaviour
 {
     public Button btnBooster;
     public Transform skillHolder;
+    public Transform doneButton;
     private readonly List<SkillItem> _skills = new();
     public void Init()
     {
@@ -15,14 +16,15 @@ public class BoosterBar : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-
-
+        doneButton.gameObject.SetActive(false);
         btnBooster.OnClicked(OnBooster);
         BuildEquippedSkills(equipped);
     }
 
     void OnBooster()
     {
+        doneButton.gameObject.SetActive(true);
+        btnBooster.enabled = false;
         var equipped = SkillSave.GetEquipped();
         if (equipped.Count == 0) return;
         SkillController.Instance.Activate(equipped[0].id);

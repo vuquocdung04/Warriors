@@ -62,6 +62,9 @@ public class EnemyAI : StaffSingleton<EnemyAI>
                 if (wave.delayBetweenWave > 0f)
                     await PausableDelay(wave.delayBetweenWave, token);   // SỬA: truyền đúng giá trị
 
+                if (w == 0)
+                    AudioManager.Instance.PlaySfx("StartBattleDrums");
+
                 CurrentWave = wave.wave;
                 this.PostEvent(EventID.ON_ENEMY_WAVE_CHANGED, new WaveInfo(CurrentWave, TotalWaves));
 

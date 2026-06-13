@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class StatImporter : ISheetImporter
 {
     public string Name => "Stat";
+    public string AnchorColumn => "id";
 
     public object Parse(List<List<string>> rows)
     {

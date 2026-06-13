@@ -37,7 +37,7 @@ public class EquipmentItem : MonoBehaviour
         bgCard.color = DataRepo.Instance.equipmentDatabase.GetRankColor(data.rank);
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => _onClick?.Invoke(this));
+        button.OnClicked(() => _onClick?.Invoke(this));
     }
     public void Refresh()
     {

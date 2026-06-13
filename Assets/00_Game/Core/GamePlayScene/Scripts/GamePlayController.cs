@@ -45,7 +45,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         skillController.Init();
         dropController.Init();
         gameScene.Init();
-        AudioManager.Instance.PlayMusic("Normal Level Music (Cover) 1");
+        AudioManager.Instance.PlayMusic("GamePlay");
 
         await UniTask.WaitForEndOfFrame(this);
         await UniTask.Delay(500);

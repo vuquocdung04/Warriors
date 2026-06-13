@@ -20,7 +20,7 @@ public class EquipmentNavButton : MonoBehaviour
     public void SetupClick(System.Action onClick)
     {
         _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(() => onClick?.Invoke());
+        _button.OnClicked(() => onClick?.Invoke());
     }
 
     public void SetSelected(bool selected, Color selectedColor, Color normalColor,

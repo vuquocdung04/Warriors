@@ -6,10 +6,11 @@ public class EquipmentBar : MonoBehaviour
 {
     public CanvasGroup canvasGroup;     // ẩn/hiện bằng alpha (object vẫn active -> nhận event)
     public List<EquipmentSlot> slots;
-    public int showCivOrder = 3;
+    private int showCivOrder;
 
     public void Init()
     {
+        showCivOrder = UseProfile.ShowCivOrder.Value;
         this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
         this.RegisterListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
         Build();

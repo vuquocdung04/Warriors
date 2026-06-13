@@ -5,6 +5,7 @@ using static SheetImportUtil;
 public class RankImporter : ISheetImporter
 {
     public string Name => "Rank";
+    public string AnchorColumn => "rank";
 
     public object Parse(List<List<string>> rows)
     {
