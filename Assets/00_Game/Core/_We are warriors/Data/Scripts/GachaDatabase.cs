@@ -6,20 +6,14 @@ using UnityEngine;
 public class GachaDatabase : ScriptableObject
 {
     public TextAsset gachaLevelJson;
-    public TextAsset gachaRateJson;
 
     private Dictionary<int, GachaLevelData> _gachaLevels;
-    private Dictionary<int, GachaRateData> _gachaRates;
 
     public void Init()
     {
         _gachaLevels = new Dictionary<int, GachaLevelData>();
         foreach (var g in Load<GachaLevelData>(gachaLevelJson))
             _gachaLevels[g.level] = g;
-
-        _gachaRates = new Dictionary<int, GachaRateData>();
-        foreach (var g in Load<GachaRateData>(gachaRateJson))
-            _gachaRates[g.level] = g;
     }
 
     List<T> Load<T>(TextAsset json)
@@ -29,7 +23,6 @@ public class GachaDatabase : ScriptableObject
     }
 
     public GachaLevelData GetGachaLevel(int level) => _gachaLevels.TryGetValue(level, out var g) ? g : null;
-    public GachaRateData GetGachaRate(int level) => _gachaRates.TryGetValue(level, out var g) ? g : null;
 
     public int GetMaxGachaLevel()
     {

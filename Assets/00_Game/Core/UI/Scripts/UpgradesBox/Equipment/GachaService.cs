@@ -18,7 +18,7 @@ public static class GachaService
         var gdb = DataRepo.Instance.gachaDatabase;
         int gLevel = UseProfile.GachaLevel.Value;
 
-        string rank = RollRank(gdb.GetGachaRate(gLevel));
+        string rank = RollRank(gdb.GetGachaLevel(gLevel));
 
         var (equip, type) = RandomEquipOfRank(db, rank);
         if (equip == null) return null;
@@ -37,7 +37,7 @@ public static class GachaService
         return new GachaResult { equip = equip, type = type, rank = rank, isFirstOwn = firstOwn, leveledUpGacha = leveled };
     }
 
-    static string RollRank(GachaRateData rate)
+    static string RollRank(GachaLevelData rate)
     {
         if (rate == null) return "common";
         float r = Random.value;

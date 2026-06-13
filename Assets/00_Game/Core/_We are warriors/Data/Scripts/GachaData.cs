@@ -3,11 +3,8 @@ public class GachaLevelData
 {
     public int level;
     public int spinNeeded;
-}
-
-[System.Serializable]
-public class GachaRateData
-{
-    public int level;
-    public float common, rare, epic, legend;
+    public float common;
+    public float rare;
+    public float epic;
+    public float legend;
 }

@@ -35,7 +35,7 @@ public class RateRelicsBox : BaseBox<RateRelicsBox>
     {
         _viewLevel = Mathf.Clamp(level, 1, _maxLevel);
 
-        var rate = DataRepo.Instance.gachaDatabase.GetGachaRate(_viewLevel);
+        var rate = DataRepo.Instance.gachaDatabase.GetGachaLevel(_viewLevel);
         txtLevel.text = "Level " + _viewLevel.ToString();
         if (rate != null)
         {

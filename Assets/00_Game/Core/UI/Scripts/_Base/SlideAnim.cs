@@ -23,7 +23,6 @@ public class SlideAnim : IShowAnimation
 
     public Tween PlayClose(RectTransform panel, CanvasGroup cg, float duration)
     {
-        Debug.Log("PlayClose called");
         float w = panel.rect.width > 0 ? panel.rect.width : Screen.width;
         float endX = _direction == Direction.ToLeft ? -w : w;
         return panel.DOAnchorPos(new Vector2(endX, 0), duration).SetEase(Ease.OutCubic);

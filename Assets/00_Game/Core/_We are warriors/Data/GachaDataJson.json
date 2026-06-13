@@ -1,6 +1,7 @@
 [
   {
     "level": 1,
+    "spinNeeded": 10,
     "common": 0.7,
     "rare": 0.25,
     "epic": 0.04,
@@ -8,6 +9,7 @@
   },
   {
     "level": 2,
+    "spinNeeded": 15,
     "common": 0.66,
     "rare": 0.27,
     "epic": 0.05,
@@ -15,6 +17,7 @@
   },
   {
     "level": 3,
+    "spinNeeded": 22,
     "common": 0.62,
     "rare": 0.29,
     "epic": 0.06,
@@ -22,6 +25,7 @@
   },
   {
     "level": 4,
+    "spinNeeded": 33,
     "common": 0.58,
     "rare": 0.3,
     "epic": 0.08,
@@ -29,6 +33,7 @@
   },
   {
     "level": 5,
+    "spinNeeded": 50,
     "common": 0.53,
     "rare": 0.32,
     "epic": 0.1,
@@ -36,6 +41,7 @@
   },
   {
     "level": 6,
+    "spinNeeded": 75,
     "common": 0.48,
     "rare": 0.34,
     "epic": 0.12,
@@ -43,6 +49,7 @@
   },
   {
     "level": 7,
+    "spinNeeded": 112,
     "common": 0.43,
     "rare": 0.34,
     "epic": 0.14,
@@ -50,6 +57,7 @@
   },
   {
     "level": 8,
+    "spinNeeded": 168,
     "common": 0.38,
     "rare": 0.34,
     "epic": 0.17,
@@ -57,6 +65,7 @@
   },
   {
     "level": 9,
+    "spinNeeded": 252,
     "common": 0.33,
     "rare": 0.34,
     "epic": 0.2,
@@ -64,6 +73,7 @@
   },
   {
     "level": 10,
+    "spinNeeded": 0,
     "common": 0.28,
     "rare": 0.32,
     "epic": 0.25,
