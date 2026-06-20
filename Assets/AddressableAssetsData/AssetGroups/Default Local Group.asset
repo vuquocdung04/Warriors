@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c42ac0567665d549be94afbcc11ae27
+    m_Address: DummyWarmup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 124ff88eb109547bbb5a78c9acf74ad3
     m_Address: LobbyBox
     m_ReadOnly: 0

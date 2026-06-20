@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class WinBox : BaseBox<WinBox>
 {
     public Button btnReward;
 
+    public TextMeshProUGUI txtCoin;
+    public TextMeshProUGUI txtCoinCollectReward;
     public Transform coinTarget;
 
     [Header("Progress")]
@@ -22,20 +25,54 @@ public class WinBox : BaseBox<WinBox>
 
     protected override void Init()
     {
-        btnReward.OnClicked(delegate
+        int coinCollected = GameScene.Instance.CoinCollected;
+        double startCoin = UseProfile.Coin.Value - coinCollected;
+
+        txtCoin.text = NumberFormatter.Format(startCoin);
+        txtCoinCollectReward.text = $"+{NumberFormatter.Format(coinCollected)}";
+
+        btnReward.OnClicked(async delegate
         {
             btnReward.interactable = false;
             string targetScene = SceneName.LOBBY_SCENE;
 
+            bool isFirstCoinArrived = false;
+
+            var coinFlyTask = new UniTaskCompletionSource();
+            var countToTask = new UniTaskCompletionSource();
+
+            float countDuration = FXManager.Instance.GetCoinFlowDuration();
+
             _ = FXManager.Instance.SpawnCoinFly(
                 btnReward.transform.position,
                 coinTarget,
-                onEachArrived: PopCoinTarget,
+                onEachArrived: () =>
+                {
+                    PopCoinTarget();
+
+                    if (!isFirstCoinArrived)
+                    {
+                        isFirstCoinArrived = true;
+
+                        _ = txtCoin.CountTo(
+                            target: UseProfile.Coin.Value,
+                            duration: countDuration,
+                            from: startCoin,
+                            token: this.GetCancellationTokenOnDestroy()
+                        ).ContinueWith(() => countToTask.TrySetResult());
+                    }
+                },
                 onComplete: () =>
                 {
-                    FXManager.Instance.LoadSceneWithIrisWipe(targetScene);
+                    coinFlyTask.TrySetResult();
                 }
             );
+
+            await UniTask.WhenAll(coinFlyTask.Task, countToTask.Task);
+
+            txtCoin.text = NumberFormatter.Format(UseProfile.Coin.Value);
+
+            FXManager.Instance.LoadSceneWithIrisWipe(targetScene);
         });
     }
 

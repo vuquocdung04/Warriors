@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f684ba87f9e4d578468f5dc7412eaff, type: 3}
   m_Name: New Gacha Database
   m_EditorClassIdentifier: Assembly-CSharp::GachaDatabase
-  gachaLevelJson: {fileID: 4900000, guid: 9228dc7ecf0819348993eae8ebf76aa6, type: 3}
-  gachaRateJson: {fileID: 4900000, guid: 8b7b1129ad6bd044fac13e66e6bee806, type: 3}
+  gachaLevelJson: {fileID: 4900000, guid: ec89b22d828f49343b06c6fe7039780b, type: 3}

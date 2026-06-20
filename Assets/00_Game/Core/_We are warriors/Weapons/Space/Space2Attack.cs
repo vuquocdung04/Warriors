@@ -11,10 +11,10 @@ public class Space2Attack : AttackStrategyBase
     public Transform firePoint;
     public float projectileSpeed = 8f;
 
-    protected override void PlayAnim(float duration, System.Action onHit)
+    protected override void PlayAnim2(IDamageable target, float duration, System.Action onHit)
     {
         CacheBase(weapon);
-        ResetToBase();
+        float angle = AimAngleLocal(weapon, target);   // ngắm target
 
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -22,8 +22,8 @@ public class Space2Attack : AttackStrategyBase
         float aim = duration * 0.45f;
         float ret = duration * 0.55f;
 
-        // xoay -90 + nâng Y base + 0.2, bắn luôn
-        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, -90f), aim));
+        // xoay tới góc ngắm + nâng Y, bắn
+        seq.Append(weapon.DOLocalRotate(new Vector3(0, 0, angle), aim));
         seq.Join(weapon.DOLocalMoveY(BasePos(0).y + 0.3f, aim));
         seq.AppendCallback(() =>
         {
@@ -39,6 +39,8 @@ public class Space2Attack : AttackStrategyBase
         if (owner != null) seq.SetLink(owner.gameObject);
     }
 
+    protected override void PlayAnim(float duration, System.Action onHit) { }   // không dùng (gun override PlayAnim2)
+
     protected override void Hit(IDamageable target)
     {
         if (target == null || !target.IsAlive) return;
@@ -46,7 +48,7 @@ public class Space2Attack : AttackStrategyBase
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;
 
-        var p = SimplePool2.Spawn(projectilePrefab);   // pool
+        var p = SimplePool2.Spawn(projectilePrefab);
         p.transform.position = from;
         p.Launch(to, projectileSpeed, () =>
         {

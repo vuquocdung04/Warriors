@@ -43,13 +43,18 @@ public class CheatBox : BaseBox<CheatBox>
 
     private void OnClickLose()
     {
-        GameFlow.Instance.TriggerLose();
+        //GameFlow.Instance.TriggerLose();
     }
 
     private void OnClickBuffCoin()
     {
         if (int.TryParse(inputBuffCoin.text, out int amount))
+        {
             UseProfile.Coin.Value += amount;
+            UseProfile.Gem.Value += amount;
+        }
+
+
 
         this.PostEvent(EventID.CHANGE_COIN);
     }

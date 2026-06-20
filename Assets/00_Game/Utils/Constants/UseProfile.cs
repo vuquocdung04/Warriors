@@ -3,18 +3,18 @@ using System;
 public static class UseProfile
 {
     public static int DefaultBoosterAmount = 3;
-    public static int DefaultStartingCoins = 500;
-    public static int DefaultStartingGems = 500;
-    public static int DefaultShowCivOrder = 3;
-    public static int DefaultUnlockCivOrder = 2;
+    public static int DefaultStartingCoins = 0;
+    public static int DefaultStartingGems = 0;
+    public static int DefaultShowCivOrder = 2;
+    public static int DefaultUnlockCivOrder = 3;
 
 
     public static readonly PrefVar<string> CurrentCiv = new(StringHelper.CURRENT_CIV, "stone");
     public static readonly PrefVar<string> EnemyCiv = new(StringHelper.ENEMY_CIV, "stone");
     public static readonly PrefVar<string> SelectedEnemyCiv = new("selected_enemy_civ", "stone");
 
-    public static readonly PrefVar<int> ShowCivOrder = new(StringHelper.SHOW_CIV_ORDER, 1);
-    public static readonly PrefVar<int> UnlockCivOrder = new(StringHelper.UNLOCK_CIV_ORDER, 1);
+    public static readonly PrefVar<int> ShowCivOrder = new(StringHelper.SHOW_CIV_ORDER, DefaultShowCivOrder);
+    public static readonly PrefVar<int> UnlockCivOrder = new(StringHelper.UNLOCK_CIV_ORDER, DefaultUnlockCivOrder);
 
     public static readonly PrefVar<bool> WonFinalCiv = new(StringHelper.WON_FINAL_CIV, false);
     public static readonly PrefVar<bool> Unit2Unlock = new(StringHelper.UNIT2_UNLOCK, false);

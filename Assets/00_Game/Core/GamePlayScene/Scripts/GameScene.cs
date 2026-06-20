@@ -18,8 +18,10 @@ public class GameScene : StaffSingleton<GameScene>
     public TextMeshProUGUI txtBattleTitle;
     [Header("Button")]
     public Button btnSetting;
-
+    [Space(5)]
+    public GameObject blockRaycast;
     private int _coinCollected;
+    public int CoinCollected => _coinCollected;
 
     public override void Init()
     {
@@ -38,6 +40,11 @@ public class GameScene : StaffSingleton<GameScene>
         this.RegisterListener(EventID.CHANGE_COIN, OnCoinChanged);
 
         SetupCivMap();
+    }
+    public static void SetBlockRaycast(bool on)
+    {
+        if (Instance != null && Instance.blockRaycast != null)
+            Instance.blockRaycast.SetActive(on);
     }
     void SetupCivMap()
     {

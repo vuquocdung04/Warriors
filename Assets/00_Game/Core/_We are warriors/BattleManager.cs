@@ -34,7 +34,8 @@ public class BattleManager : StaffSingleton<BattleManager>
         if (IsBattleOver) return;
         var loserTeam = (Team)param;
         EndBattle();
-
+        AudioManager.Instance.PlaySfx("SpaceBaseDestroy");
+        
         bool allyWin = loserTeam == Team.Enemy;
 
         if (allyWin)
@@ -46,7 +47,7 @@ public class BattleManager : StaffSingleton<BattleManager>
     void Update()
     {
         if (IsBattleOver) return;
-        if (_paused) return; 
+        if (_paused) return;
         Tick(Time.deltaTime);
     }
     public void Register(Unit u)

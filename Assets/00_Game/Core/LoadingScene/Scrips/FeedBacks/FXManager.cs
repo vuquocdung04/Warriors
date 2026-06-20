@@ -36,5 +36,11 @@ public partial class FXManager : MonoBehaviour
         onComplete?.Invoke();
     }
 
+    public float GetCoinFlowDuration()
+    {
+        if (coinCount <= 1) return 0.1f;
+        return (coinCount - 1) * spawnInterval;
+    }
+
 
 }

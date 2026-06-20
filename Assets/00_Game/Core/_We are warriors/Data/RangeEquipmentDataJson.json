@@ -7,9 +7,9 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 12.0
       }
     ]
   },
@@ -21,9 +21,9 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 12.0
       }
     ]
   },
@@ -35,9 +35,9 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "critical_chance",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 10.0
       }
     ]
   },
@@ -49,9 +49,9 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "attack_range",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 2.0
       }
     ]
   },
@@ -63,15 +63,15 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 15.0
       },
       {
         "slot": 2,
-        "statType": "atk",
+        "statType": "critical_chance",
         "levelUnlock": 3,
-        "value": 5.0
+        "value": 10.0
       }
     ]
   },
@@ -83,15 +83,15 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 15.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 2,
-        "value": 5.0
+        "statType": "attack_range",
+        "levelUnlock": 3,
+        "value": 2.0
       }
     ]
   },
@@ -103,15 +103,15 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 15.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 2,
-        "value": 5.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 3,
+        "value": 12.0
       }
     ]
   },
@@ -123,15 +123,15 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 5.0
+        "value": 15.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 2,
-        "value": 5.0
+        "statType": "critical_chance",
+        "levelUnlock": 3,
+        "value": 10.0
       }
     ]
   },
@@ -143,21 +143,21 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 1.0
+        "value": 20.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 3,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 2,
+        "value": 12.0
       },
       {
         "slot": 3,
-        "statType": "atk",
+        "statType": "burn_chance",
         "levelUnlock": 4,
-        "value": 10.0
+        "value": 15.0
       }
     ]
   },
@@ -169,21 +169,21 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 20.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 3,
-        "value": 10.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 2,
+        "value": 15.0
       },
       {
         "slot": 3,
-        "statType": "atk",
+        "statType": "burn_chance",
         "levelUnlock": 4,
-        "value": 10.0
+        "value": 15.0
       }
     ]
   },
@@ -195,21 +195,21 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 20.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 3,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 2,
+        "value": 12.0
       },
       {
         "slot": 3,
-        "statType": "atk",
+        "statType": "poison_chance",
         "levelUnlock": 4,
-        "value": 10.0
+        "value": 15.0
       }
     ]
   },
@@ -221,21 +221,21 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 20.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 3,
-        "value": 10.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 2,
+        "value": 15.0
       },
       {
         "slot": 3,
-        "statType": "atk",
+        "statType": "poison_chance",
         "levelUnlock": 4,
-        "value": 10.0
+        "value": 15.0
       }
     ]
   },
@@ -247,27 +247,27 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 26.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 2,
+        "value": 15.0
       },
       {
         "slot": 3,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 3,
+        "value": 18.0
       },
       {
         "slot": 4,
-        "statType": "atk",
+        "statType": "burn_chance",
         "levelUnlock": 5,
-        "value": 10.0
+        "value": 18.0
       }
     ]
   },
@@ -279,27 +279,27 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 26.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 2,
+        "value": 15.0
       },
       {
         "slot": 3,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "attack_range",
+        "levelUnlock": 3,
+        "value": 3.0
       },
       {
         "slot": 4,
-        "statType": "atk",
+        "statType": "poison_chance",
         "levelUnlock": 5,
-        "value": 10.0
+        "value": 18.0
       }
     ]
   },
@@ -311,27 +311,27 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 26.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 2,
+        "value": 18.0
       },
       {
         "slot": 3,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 3,
+        "value": 15.0
       },
       {
         "slot": 4,
-        "statType": "atk",
+        "statType": "burn_chance",
         "levelUnlock": 5,
-        "value": 10.0
+        "value": 18.0
       }
     ]
   },
@@ -343,27 +343,27 @@
     "stats": [
       {
         "slot": 1,
-        "statType": "atk",
+        "statType": "atk_percent",
         "levelUnlock": 1,
-        "value": 10.0
+        "value": 26.0
       },
       {
         "slot": 2,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "critical_chance",
+        "levelUnlock": 2,
+        "value": 15.0
       },
       {
         "slot": 3,
-        "statType": "atk",
-        "levelUnlock": 4,
-        "value": 10.0
+        "statType": "attack_speed_percent",
+        "levelUnlock": 3,
+        "value": 18.0
       },
       {
         "slot": 4,
-        "statType": "atk",
+        "statType": "poison_chance",
         "levelUnlock": 5,
-        "value": 10.0
+        "value": 18.0
       }
     ]
   }

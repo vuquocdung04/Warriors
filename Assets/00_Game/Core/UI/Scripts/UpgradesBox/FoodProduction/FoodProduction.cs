@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using EventDispatcher;
 
 public class FoodProduction : MonoBehaviour
 {
@@ -17,9 +18,17 @@ public class FoodProduction : MonoBehaviour
     {
         upgradeButton.OnClicked(OnUpgrade);
         Refresh();
+        this.RegisterListener(EventID.ON_FOOD_UI_CHANGED, Refresh);
+
     }
 
-    void Refresh()
+    void OnDestroy()
+    {
+        this.RemoveListener(EventID.ON_FOOD_UI_CHANGED, Refresh);
+    }
+
+
+    void Refresh(object obj = null)
     {
         float rate = UseProfile.FoodRate.Value;
         rateText.text = $"{rate:0.##}/s";

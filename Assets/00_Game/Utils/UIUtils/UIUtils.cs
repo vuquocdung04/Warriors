@@ -147,7 +147,7 @@ public static partial class UIUtils
         format ??= NumberFormatter.Format;
         double start = from ?? 0;   // không parse text vì text giờ có sprite tag, parse sẽ sai
 
-        if (duration <= 0f || System.Math.Abs(start - target) < 0.5)
+        if (duration <= 0f || Math.Abs(start - target) < 0.5)
         {
             text.text = prefix + format(target) + suffix;
             return;

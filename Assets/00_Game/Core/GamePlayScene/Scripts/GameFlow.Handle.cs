@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public partial class GameFlow
@@ -13,25 +14,21 @@ public partial class GameFlow
                 SetGameplayPaused(true);
                 break;
             case GameState.Win:
-
-                _ = WinBox.Setup(popupHolder, box =>
-                    {
-                        box.Show();
-                    });
+                HandleWin();
+                GameScene.SetBlockRaycast(true);
                 AudioManager.Instance.PlaySfx("sfx-Win");
+                ShowBoxDelayed(true).Forget();
                 break;
             case GameState.Lose:
-                _ = LoseBox.Setup(popupHolder, box =>
-                    {
-                        box.Show();
-                    });
+                GameScene.SetBlockRaycast(true);
                 AudioManager.Instance.PlaySfx("sfx-Lose");
+                ShowBoxDelayed(false).Forget();
                 break;
             case GameState.BoosterActive:
-                // open booster UI
+                
                 break;
             case GameState.Tutorial:
-                // show tutorial overlay
+                
                 break;
         }
     }
@@ -51,6 +48,34 @@ public partial class GameFlow
             case GameState.Tutorial:
                 // hide tutorial overlay
                 break;
+        }
+    }
+    async UniTaskVoid ShowBoxDelayed(bool win)
+    {
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
+        if (win) _ = WinBox.Setup(popupHolder, box => box.Show());
+        else _ = LoseBox.Setup(popupHolder, box => box.Show());
+    }
+    void HandleWin()
+    {
+        string selected = UseProfile.SelectedEnemyCiv.Value;
+        string currentEnemy = UseProfile.EnemyCiv.Value;
+
+        var db = DataRepo.Instance.unitDatabase;
+        int selectedOrder = db.GetCivOrder(selected);
+        int enemyOrder = db.GetCivOrder(currentEnemy);
+        int maxOrder = db.GetCivsByOrder().Count;
+
+        if (selectedOrder < enemyOrder) return;     
+        if (enemyOrder >= maxOrder)                   
+        {
+            UseProfile.WonFinalCiv.Value = true;
+            return;
+        }
+        var next = db.GetCivByOrder(enemyOrder + 1);
+        if (next != null)
+        {
+            UseProfile.EnemyCiv.Value = next.civId;
         }
     }
     void SetGameplayPaused(bool paused)

@@ -81,7 +81,13 @@ public class UnitDatabase : ScriptableObject
     public UnitDisplay GetDisplayById(string id) => _display != null && _display.TryGetValue(id, out var d) ? d : null;
     public HouseData GetHouseData(string civId)
         => _houses != null && _houses.TryGetValue(civId, out var h) ? h : null;
-
+    public HouseData GetCivByOrder(int order)
+    {
+        if (_houses == null) return null;
+        foreach (var h in _houses.Values)
+            if (h.order == order) return h;
+        return null;
+    }
     public List<HouseData> GetCivsByOrder()
     {
         var list = new List<HouseData>(_houses.Values);

@@ -138,6 +138,8 @@ public class EvolutionBar : MonoBehaviour
         UseProfile.Coin.Value = 0;
         UseProfile.FoodRate.Value = 0.18f;
 
+        this.PostEvent(EventID.ON_FOOD_UI_CHANGED);
+
         var holder = LobbyController.Instance.topCanvas;
         _ = AgesTimelineBox.Setup(holder, box => box.ShowAnimated());
     }

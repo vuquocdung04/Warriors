@@ -39,7 +39,7 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -57,11 +57,21 @@
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 25.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
             "units": "farm_3:5"
+          }
+        ]
+      },
+      {
+        "wave": 3,
+        "delayBetweenWave": 25.0,
+        "spawns": [
+          {
+            "spawnDelay": 3.0,
+            "units": "farm_1:2, farm_3:3"
           }
         ]
       }
@@ -73,7 +83,7 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -91,7 +101,7 @@
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 30.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -107,7 +117,7 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -125,7 +135,7 @@
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 25.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -141,7 +151,7 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -159,7 +169,7 @@
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 30.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -175,7 +185,7 @@
     "waves": [
       {
         "wave": 1,
-        "delayBetweenWave": 0.0,
+        "delayBetweenWave": 5.0,
         "spawns": [
           {
             "spawnDelay": 2.0,
@@ -193,7 +203,7 @@
       },
       {
         "wave": 2,
-        "delayBetweenWave": 10.0,
+        "delayBetweenWave": 25.0,
         "spawns": [
           {
             "spawnDelay": 2.0,

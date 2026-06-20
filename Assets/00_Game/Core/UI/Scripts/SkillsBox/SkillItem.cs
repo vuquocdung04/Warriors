@@ -38,7 +38,7 @@ public class SkillItem : MonoBehaviour
         if (imageIcon != null) imageIcon.sprite = icon;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => _onClick?.Invoke(this));
+        button.OnClicked(() => _onClick?.Invoke(this));
     }
 
     public void Refresh()
