@@ -15,7 +15,6 @@ public class EvolutionBar : MonoBehaviour
     [Header("InTimeline - images")]
     public Image currentCivImage;
     public Image nextCivImage;
-    public List<Sprite> civSprites;
 
     [Header("InTimeline - buttons")]
     public Button btnEvolveFree;
@@ -82,11 +81,9 @@ public class EvolutionBar : MonoBehaviour
 
         HouseData current = _civs[curIndex];
         HouseData next = _civs[nextIndex];
-
-        if (curIndex < civSprites.Count)
-            currentCivImage.sprite = civSprites[curIndex];
-        if (nextIndex < civSprites.Count)
-            nextCivImage.sprite = civSprites[nextIndex];
+        
+        currentCivImage.sprite = DataRepo.Instance.unitDatabase.GetCivIcon(current.civId);
+        nextCivImage.sprite = DataRepo.Instance.unitDatabase.GetCivIcon(next.civId);
 
         currentAgeText.text = current.civName;
         nextAgeText.text = next.civName;

@@ -79,6 +79,7 @@ public class AgesTimelineBox : BaseBox<AgesTimelineBox>
     {
         scrollRect.enabled = false;
         btnClose.enabled = false;
+        await UniTask.Yield(PlayerLoopTiming.Update);
         int curOrder = DataRepo.Instance.unitDatabase.GetCivOrder(UseProfile.CurrentCiv.Value);
         int prevOrder = curOrder - 1;   // evolve luôn lên 1 bậc
 
