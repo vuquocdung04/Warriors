@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RateRelicsBox
   mainPanel: {fileID: 7124365223189601773}
   canvasGroup: {fileID: 677889672341758938}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 0
   btnClose: {fileID: 3404399548845082099}
   btnNext: {fileID: 3388499598036350334}

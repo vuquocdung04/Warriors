@@ -25233,7 +25233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LobbyBox
   mainPanel: {fileID: 653043003057881228}
   canvasGroup: {fileID: 4940294620149877067}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 1
   btnSetting: {fileID: 6507896876779392461}
   btnPlay: {fileID: 3373215653250035256}

@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentBox
   mainPanel: {fileID: 1909567907005911877}
   canvasGroup: {fileID: 3060783457385216414}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 0
   craftTab: {fileID: 1844622087023145418}
   unitTabs:

@@ -32,7 +32,15 @@ public abstract class AttackStrategyBase : MonoBehaviour, IAttackStrategy
 
     protected virtual void Hit(IDamageable target)
     {
-        if (target != null && target.IsAlive) owner.DealDamage(target);
+        target = ResolveTarget(target);
+        if (target != null) owner.DealDamage(target);
+    }
+
+    // Mục tiêu chết giữa lúc đang ngắm -> đánh sang mục tiêu hiện tại của unit thay vì bỏ phí đòn
+    protected IDamageable ResolveTarget(IDamageable target)
+    {
+        if (target != null && !(target is Object o && o == null) && target.IsAlive) return target;
+        return owner != null ? owner.CurrentTarget : null;
     }
 
     // ngắm: nòng +Y, xử flip qua InverseTransformPoint

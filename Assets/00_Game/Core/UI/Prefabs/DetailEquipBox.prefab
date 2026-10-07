@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DetailEquipBox
   mainPanel: {fileID: 8609931748512188164}
   canvasGroup: {fileID: 7338570356739102303}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 0
   btnClose: {fileID: 385527861222704319}
   btnUpgrade: {fileID: 5194767816148753173}

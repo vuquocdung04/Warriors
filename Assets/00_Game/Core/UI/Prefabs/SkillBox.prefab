@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillBox
   mainPanel: {fileID: 7029992649302262285}
   canvasGroup: {fileID: 8288853428436488799}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 1
   btnX1: {fileID: 1785800056310690319}
   btnX10: {fileID: 4124842728661743057}

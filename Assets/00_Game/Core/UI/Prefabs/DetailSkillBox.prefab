@@ -705,7 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DetailSkillBox
   mainPanel: {fileID: 8569837142330670101}
   canvasGroup: {fileID: 2900449128228481246}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 0
   btnClose: {fileID: 538436525676714983}
   btnUpgrade: {fileID: 2187559501710623394}

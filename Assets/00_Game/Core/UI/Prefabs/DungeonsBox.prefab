@@ -725,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonsBox
   mainPanel: {fileID: 3542081654052227525}
   canvasGroup: {fileID: 7359206268970042708}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 0
 --- !u!1 &5605056911651761448
 GameObject:

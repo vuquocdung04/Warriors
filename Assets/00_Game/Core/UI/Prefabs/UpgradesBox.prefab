@@ -4849,7 +4849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradesBox
   mainPanel: {fileID: 5192086157562046235}
   canvasGroup: {fileID: 5373189372783557905}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 1
   btnEvolve: {fileID: 8052242190806237766}
   btnUpgrade: {fileID: 3193339681593923741}

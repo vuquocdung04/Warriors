@@ -43,7 +43,8 @@ public class Space2Attack : AttackStrategyBase
 
     protected override void Hit(IDamageable target)
     {
-        if (target == null || !target.IsAlive) return;
+        target = ResolveTarget(target);
+        if (target == null) return;
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
         Vector3 to = target.AimPoint;

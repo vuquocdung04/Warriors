@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour, IDamageable
     [Header("Sorting / Movement")]
     public float depthScale = 100f;
     public int maxPassRange = 4;
+    public float lowerWeaponDelay = 0.4f;
 
     public bool IsAlive => _state != UnitState.Dead;
     public int FrontPriority => _stats != null ? _stats.frontPriority : 0;
@@ -26,6 +27,7 @@ public class Unit : MonoBehaviour, IDamageable
     private UnitState _state = UnitState.Moving;
 
     private float _attackTimer;
+    private float _lowerWeaponTimer;
     private IDamageable _attackTarget;
     private IAttackStrategy _attackStrategy;
 
@@ -36,6 +38,7 @@ public class Unit : MonoBehaviour, IDamageable
     private SpriteRenderer[] _sprites;
     private Color[] _spriteBaseColors;
     private UnitEffects _effects;
+    private FreezeFx _freezeFx;
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
 
@@ -96,6 +99,13 @@ public class Unit : MonoBehaviour, IDamageable
             case UnitState.Moving: UpdateMoving(dt); break;
             case UnitState.Attacking: UpdateAttacking(dt); break;
         }
+
+        // Hết địch một lúc rồi mới hạ vũ khí; địch mới vào tầm trước đó thì bắn tiếp luôn
+        if (_lowerWeaponTimer > 0f && _state != UnitState.Attacking)
+        {
+            _lowerWeaponTimer -= dt;
+            if (_lowerWeaponTimer <= 0f) _attackStrategy?.ResetToIdle();
+        }
     }
 
     // ---- MOVING ----
@@ -109,7 +119,12 @@ public class Unit : MonoBehaviour, IDamageable
         }
 
         _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
-        if (IsValidTarget(_attackTarget)) { _state = UnitState.Attacking; return; }
+        if (IsValidTarget(_attackTarget))
+        {
+            _state = UnitState.Attacking;
+            _lowerWeaponTimer = 0f;
+            return;
+        }
         _attackTarget = null;
         _movement.TryAdvance();
     }
@@ -129,13 +144,21 @@ public class Unit : MonoBehaviour, IDamageable
     {
         if (!IsValidTarget(_attackTarget) || !InRange(_attackTarget, 1.15f))
         {
-            _attackTarget = null;
-            _state = UnitState.Moving;
-            _attackStrategy?.ResetToIdle();   // hết target -> về base (chỉ loại override mới về)
-            return;
+            // Còn địch khác trong tầm -> đổi mục tiêu ngay, giữ nguyên tư thế ngắm (không hạ súng rồi nâng lại)
+            _attackTarget = BattleManager.Instance.FindNearestEnemyInRange(this, AttackRangeWorld);
+            if (!IsValidTarget(_attackTarget))
+            {
+                _attackTarget = null;
+                _state = UnitState.Moving;
+                _lowerWeaponTimer = lowerWeaponDelay;   // hết target -> chờ rồi mới về base
+                return;
+            }
         }
         TryAttack();
     }
+
+    // Mục tiêu hiện tại (null nếu đã chết/mất) — dùng để bắn sang con khác khi mục tiêu chết giữa lúc ngắm
+    public IDamageable CurrentTarget => IsValidTarget(_attackTarget) ? _attackTarget : null;
 
     static bool IsValidTarget(IDamageable t)
     {
@@ -210,12 +233,31 @@ public class Unit : MonoBehaviour, IDamageable
 
     void RestoreSpriteColors()
     {
+        // Đang đóng băng thì trả về màu băng thay vì màu gốc
+        Color tint = _freezeFx != null ? FreezeFxSpawner.Instance.frozenTint : Color.white;
         for (int i = 0; i < _sprites.Length; i++)
-            if (_sprites[i] != null) _sprites[i].color = _spriteBaseColors[i];
+            if (_sprites[i] != null) _sprites[i].color = _spriteBaseColors[i] * tint;
     }
+
+    // ---- FREEZE FEEDBACK ----
+    public void SetFrozen(bool frozen)
+    {
+        if (frozen == (_freezeFx != null)) return;
+        if (FreezeFxSpawner.Instance == null) return;
+
+        if (frozen) _freezeFx = FreezeFxSpawner.Instance.Attach(transform);
+        else
+        {
+            _freezeFx.Release();
+            _freezeFx = null;
+        }
+        RestoreSpriteColors();
+    }
+
     public void Kill(bool dropReward) => Die(dropReward);
     void Die(bool drop = true)
     {
+        SetFrozen(false);
         _state = UnitState.Dead;
         _movement.Release();
         if (drop) this.PostEvent(EventID.UNIT_DIED, this);

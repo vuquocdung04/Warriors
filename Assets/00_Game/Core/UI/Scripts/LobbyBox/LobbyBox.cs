@@ -28,7 +28,7 @@ public class LobbyBox : BaseBox<LobbyBox>
         {
             string civId = _civs[_viewIndex].civId;          
             UseProfile.SelectedEnemyCiv.Value = civId;     
-            FXManager.Instance.LoadSceneWithIrisWipe(SceneName.GAME_PLAY);
+            FXManager.Instance.LoadScene(SceneName.GAME_PLAY);
         });
 
         btnNext.OnClicked(delegate { ShowCiv(_viewIndex + 1); });

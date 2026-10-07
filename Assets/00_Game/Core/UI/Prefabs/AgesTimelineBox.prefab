@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AgesTimelineBox
   mainPanel: {fileID: 635791046540265820}
   canvasGroup: {fileID: 3348730267855550743}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 1
   btnClose: {fileID: 3445586399980583442}
   itemHolder: {fileID: 7304148992933649724}

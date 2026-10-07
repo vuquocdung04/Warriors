@@ -30,6 +30,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     }
     private async UniTaskVoid Init()
     {
+        FXManager.Instance.HoldReveal();
         gameFlow.Init();
         var db = DataRepo.Instance.unitDatabase;
 
@@ -49,7 +50,14 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
 
         await UniTask.WaitForEndOfFrame(this);
         await UniTask.Delay(500);
-        FXManager.Instance.isNextSceneReady = true;
+        FXManager.Instance.NotifySceneReady();
+
+        // Load ngầm các popup trong trận để lúc mở/thắng/thua không bị delay
+        UniTask.WhenAll(
+            SettingGameBox.Preload(),
+            QuitLevelBox.Preload(),
+            WinBox.Preload(),
+            LoseBox.Preload()).Forget();
         await UniTask.Delay(500);
     }
 }

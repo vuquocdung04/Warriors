@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "unity-editor-mcp": {
+      "type": "stdio",
+      "command": "C:\\Users\\s5ipa\\AppData\\Local\\Microsoft\\WindowsApps\\unity.exe",
+      "args": ["mcp"]
+    }
+  }
+}

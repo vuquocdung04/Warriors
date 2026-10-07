@@ -15,8 +15,8 @@ public class GameManager : ManagerSingleton<GameManager>
     public ToastManager toastManager;
 
     public bool isSkipOutPhase;
-    public float loadingStepDuration = 1f;
-    public float loadingFadeOutDuration = 1f;
+    [Min(0f)] public float loadingDuration = 1f;
+    public ThreadPriority loadPriority = ThreadPriority.BelowNormal;
 
     private AsyncOperationHandle<Sprite> _uiWarmupHandle;
 
@@ -29,7 +29,50 @@ public class GameManager : ManagerSingleton<GameManager>
     {
         Application.targetFrameRate = 60;
         loadingBox.Init();
-        var load50Task = loadingBox.LoadingAsync(0.5f, loadingStepDuration);
+
+        var token = destroyCancellationToken;
+        var initTask = InitManagersAsync().Preserve();
+        AsyncOperation operation = null;
+
+        ThreadPriority previousPriority = Application.backgroundLoadingPriority;
+        Application.backgroundLoadingPriority = loadPriority;
+
+        try
+        {
+            float elapsed = 0f;
+
+            while (loadingBox.Progress < 1f)
+            {
+                await UniTask.NextFrame(token);
+                elapsed += Time.unscaledDeltaTime;
+
+                // Init xong mới preload: scene đang giữ ở 90% sẽ chặn các AsyncOperation khác (Addressables) xếp sau nó
+                if (operation == null && initTask.Status.IsCompleted())
+                {
+                    operation = fxManager.PreloadScene(SceneName.LOBBY_SCENE);
+                    if (operation == null) return;
+                }
+
+                // Nửa đầu thanh chờ init, nửa sau chờ scene load; không chạy nhanh hơn loadingDuration
+                float timeProgress = loadingDuration > 0f ? elapsed / loadingDuration : 1f;
+                float loadProgress = operation == null ? 0f : operation.progress / FXManager.SceneReadyProgress;
+
+                loadingBox.SetProgress(Mathf.Min(timeProgress, 0.5f + 0.5f * loadProgress));
+            }
+        }
+        finally
+        {
+            Application.backgroundLoadingPriority = previousPriority;
+        }
+
+        await initTask;
+
+        if (isSkipOutPhase) fxManager.PrepareCovered();
+        fxManager.LoadScene(operation, isSkipOutPhase);
+    }
+
+    private async UniTask InitManagersAsync()
+    {
         await GamePrefs.Init();
         //firebaseSetup.Init();
         //await UniTask.WaitUntil(() => firebaseSetup.IsActiveRemote);
@@ -40,13 +83,6 @@ public class GameManager : ManagerSingleton<GameManager>
         currencyManager.Init();
         toastManager.Init();
         await WarmupUIAddressables();
-        await load50Task;
-        await loadingBox.LoadingAsync(1f, loadingStepDuration);
-        fxManager.PrepareWipeClosed();
-        await loadingBox.CloseAsync(loadingFadeOutDuration);
-
-        //Init final
-        fxManager.LoadSceneWithIrisWipe(SceneName.LOBBY_SCENE, isSkipOutPhase);
     }
 
     private async UniTask WarmupUIAddressables()

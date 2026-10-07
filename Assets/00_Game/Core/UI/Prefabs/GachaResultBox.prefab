@@ -443,7 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GachaResultBox
   mainPanel: {fileID: 1913354626530534781}
   canvasGroup: {fileID: 1492938893256099187}
-  durationAppeared: 0.3
+  durationAppeared: 0.2
   animationType: 1
   tabX1: {fileID: 9153464862673958930}
   tabX10: {fileID: 1117843434348971765}

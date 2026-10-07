@@ -7,6 +7,7 @@ public class LobbyScene : MonoBehaviour
     public NavController navController;
     public async UniTask InitAsync()
     {
+        FXManager.Instance.HoldReveal();
         navController.Init();
 
         await PreLoad();
@@ -34,7 +35,17 @@ public class LobbyScene : MonoBehaviour
 
         await UniTask.WhenAll(lobbyTcs.Task, shopTcs.Task, dungeonsBox.Task, skillBox.Task,upgradesTcs.Task);
 
-        FXManager.Instance.isNextSceneReady = true;
+        FXManager.Instance.NotifySceneReady();
+
+        // Load ngầm các popup mở từ lobby để lần đầu bấm không bị delay
+        UniTask.WhenAll(
+            SettingLobbyBox.Preload(),
+            EquipmentBox.Preload(),
+            DetailEquipBox.Preload(),
+            DetailSkillBox.Preload(),
+            GachaResultBox.Preload(),
+            RateRelicsBox.Preload(),
+            AgesTimelineBox.Preload()).Forget();
     }
 
     public void NavigateTo(ENavType type) => navController.NavigateTo(type);

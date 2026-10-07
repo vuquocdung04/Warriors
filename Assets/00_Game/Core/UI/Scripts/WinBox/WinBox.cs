@@ -72,7 +72,7 @@ public class WinBox : BaseBox<WinBox>
 
             txtCoin.text = NumberFormatter.Format(UseProfile.Coin.Value);
 
-            FXManager.Instance.LoadSceneWithIrisWipe(targetScene);
+            FXManager.Instance.LoadScene(targetScene);
         });
     }
 
