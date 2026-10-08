@@ -95,11 +95,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7d3513a169e2d43f1bd09717c46f2d67
-    m_Address: CheatBox
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7f5eab166303d433a9c18e1bd1826926
     m_Address: EquipmentBox
     m_ReadOnly: 0

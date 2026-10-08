@@ -5,7 +5,6 @@ public class PathPrefabs
     public const string AVATAR_BOX = "AvatarBox";
     public const string BOOSTER_UNLOCK_BOX = "BoosterUnlockBox";
     public const string BUY_BOOSTER_BOX = "BuyBoosterBox";
-    public const string CHEAT_BOX = "CheatBox";
     public const string DETAIL_EQUIP_BOX = "DetailEquipBox";
     public const string DETAIL_SKILL_BOX = "DetailSkillBox";
     public const string DUNGEONS_BOX = "DungeonsBox";
