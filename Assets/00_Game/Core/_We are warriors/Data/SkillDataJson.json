@@ -38,5 +38,37 @@
     "baseValue": 4.0,
     "valuePerLevel": 1.0,
     "description": "Summon up to {value} zombies"
+  },
+  {
+    "id": "6",
+    "name": "Lightning",
+    "levelMax": 10,
+    "baseValue": 3.0,
+    "valuePerLevel": 1.0,
+    "description": "Strike {value} enemy units with lightning, killing them instantly"
+  },
+  {
+    "id": "7",
+    "name": "Poison",
+    "levelMax": 10,
+    "baseValue": 2.0,
+    "valuePerLevel": 0.5,
+    "description": "Poison all enemy units, dealing {value}% of their max health per second for 5s"
+  },
+  {
+    "id": "8",
+    "name": "Burn",
+    "levelMax": 10,
+    "baseValue": 3.0,
+    "valuePerLevel": 1.0,
+    "description": "Set all enemy units on fire for {value}s, dealing 3% of their max health per second"
+  },
+  {
+    "id": "9",
+    "name": "Haste",
+    "levelMax": 10,
+    "baseValue": 20.0,
+    "valuePerLevel": 5.0,
+    "description": "Increase the movement speed of all your units by {value}% for 10s"
   }
 ]

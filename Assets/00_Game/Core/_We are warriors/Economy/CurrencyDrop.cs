@@ -22,6 +22,7 @@ public class CurrencyDrop : MonoBehaviour
         else
         {
             UseProfile.Gem.Value += amount;
+            this.PostEvent(EventID.CHANGE_GEM, amount);
         }
 
         pos.x += Random.Range(-0.3f, 0.3f);

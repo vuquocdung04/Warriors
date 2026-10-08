@@ -90,7 +90,7 @@ public class CheatController : MonoBehaviour
 
         UseProfile.Coin.Value = coin;
 
-        this.PostEvent(EventID.CHANGE_COIN, coin);
+        this.PostEvent(EventID.CHANGE_COIN);   // không kèm số: tránh bị tính là coin nhặt được trong trận
     }
 
     private void OnClickApplyGem()
@@ -100,7 +100,7 @@ public class CheatController : MonoBehaviour
 
         UseProfile.Gem.Value = gem;
 
-        this.PostEvent(EventID.CHANGE_GEM, gem);
+        this.PostEvent(EventID.CHANGE_GEM);
     }
 
     private static bool TryParse(TMP_InputField input, out int value)

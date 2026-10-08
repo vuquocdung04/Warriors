@@ -27,3 +27,11 @@ MonoBehaviour:
     sprite: {fileID: 616302169, guid: 2ba9d2accc2271d449d2fd62fadb0171, type: 3}
   - id: 5
     sprite: {fileID: -1887335050, guid: de5fd210919d0ae4882993c6bbc78a71, type: 3}
+  - id: 6
+    sprite: {fileID: 21300000, guid: 55f5ff069a76e4241ab265b6c049039d, type: 3}
+  - id: 7
+    sprite: {fileID: -917227039, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}
+  - id: 8
+    sprite: {fileID: -1773079710, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}
+  - id: 9
+    sprite: {fileID: -1466226451, guid: c433554079bfe634b9ce29d2b75f24f7, type: 3}

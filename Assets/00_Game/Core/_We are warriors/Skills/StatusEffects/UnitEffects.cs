@@ -17,8 +17,9 @@ public class UnitEffects
         {
             if (ex.GetType() == e.GetType())
             {
-                if (ex is DotEffectBase dot) dot.Refresh();
+                if (ex is DotEffectBase dot) dot.Refresh((DotEffectBase)e);
                 else if (ex is FreezeEffect fz) fz.Refresh((FreezeEffect)e);
+                else if (ex is SpeedBuffEffect sp) sp.Refresh((SpeedBuffEffect)e);
                 return;   
             }
         }

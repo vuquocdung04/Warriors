@@ -14,6 +14,7 @@ public class GameScene : StaffSingleton<GameScene>
     public List<GameObject> civMaps;
     [Header("Coin View")]
     public TextMeshProUGUI txtCoinCollect;
+    public TextMeshProUGUI txtGemCollect;
     [Header("Title")]
     public TextMeshProUGUI txtBattleTitle;
     [Header("Button")]
@@ -22,6 +23,11 @@ public class GameScene : StaffSingleton<GameScene>
     public GameObject blockRaycast;
     private int _coinCollected;
     public int CoinCollected => _coinCollected;
+    private int _gemCollected;
+    public int GemCollected => _gemCollected;
+
+    const string COIN_ICON = "<sprite=0> ";
+    const string GEM_ICON = "<sprite=52> ";
 
     public override void Init()
     {
@@ -35,9 +41,12 @@ public class GameScene : StaffSingleton<GameScene>
         });
 
         _coinCollected = 0;
-        txtCoinCollect.text = $"<sprite=0>{_coinCollected}";
+        txtCoinCollect.text = COIN_ICON + _coinCollected;
+        _gemCollected = 0;
+        if (txtGemCollect != null) txtGemCollect.text = GEM_ICON + _gemCollected;
 
         this.RegisterListener(EventID.CHANGE_COIN, OnCoinChanged);
+        this.RegisterListener(EventID.CHANGE_GEM, OnGemChanged);
 
         SetupCivMap();
     }
@@ -62,12 +71,21 @@ public class GameScene : StaffSingleton<GameScene>
     {
         int amount = param is int a ? a : 0;
         _coinCollected += amount;
-        _ = txtCoinCollect.CountToWithIcon(_coinCollected, "<sprite=0> ", duration: 0.3f);
+        _ = txtCoinCollect.CountToWithIcon(_coinCollected, COIN_ICON, duration: 0.3f);
+    }
+
+    // chỉ cộng khi event mang số lượng nhặt được (drop trong trận); event không kèm số thì bỏ qua
+    void OnGemChanged(object param)
+    {
+        if (!(param is int amount) || txtGemCollect == null) return;
+        _gemCollected += amount;
+        _ = txtGemCollect.CountToWithIcon(_gemCollected, GEM_ICON, duration: 0.3f);
     }
 
     protected override void OnDestroy()
     {
         this.RemoveListener(EventID.CHANGE_COIN, OnCoinChanged);
+        this.RemoveListener(EventID.CHANGE_GEM, OnGemChanged);
     }
 
     public static void EnableDarkPanel(bool state)

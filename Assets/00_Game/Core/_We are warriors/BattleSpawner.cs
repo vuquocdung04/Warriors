@@ -46,7 +46,8 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
     void InitHouse(House house, Team team)
     {
         if (house == null) return;
-        string civ = team == Team.Ally ? UseProfile.CurrentCiv.Value : UseProfile.EnemyCiv.Value;
+        // enemy: theo trận đang chọn đánh (giống lính + visual house), không phải civ cao nhất đã mở
+        string civ = team == Team.Ally ? UseProfile.CurrentCiv.Value : UseProfile.SelectedEnemyCiv.Value;
         HouseData data = _db.GetHouseData(civ);
         if (data == null) { Debug.LogError($"[Spawner] thiếu house data civ '{civ}'"); return; }
 

@@ -13,6 +13,10 @@ public class SkillController : StaffSingleton<SkillController>
             { "3", new PushSkill() },
             { "4", new ChampionSkill() },
             { "5", new NecromancySkill() },
+            { "6", new LightningSkill() },
+            { "7", new PoisonSkill() },
+            { "8", new BurnSkill() },
+            { "9", new SpeedSkill() },
         };
     }
 

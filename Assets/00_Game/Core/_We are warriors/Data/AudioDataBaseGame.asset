@@ -145,3 +145,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 83ca13a87635c124a8751a2e4ee988f8, type: 3}
     minPitch: 0.7
     maxPitch: 1.1
+  - key: lightningSound
+    variants:
+    - {fileID: 8300000, guid: be641cb0d0b02cb4d8f1de19b72600b2, type: 3}
+    minPitch: 0.9
+    maxPitch: 1.1
