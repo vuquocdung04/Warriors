@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17d938c0fa43fc945b73e741bb5eff3f
+    m_Address: DetailUnitBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1b011c1b06260994ba1539641f89fe4c
     m_Address: RateRelicsBox
     m_ReadOnly: 0

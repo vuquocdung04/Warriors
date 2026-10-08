@@ -10,6 +10,8 @@ public class House : MonoBehaviour, IDamageable
     [Header("Kích thước tường (theo Y)")]
     public float halfHeight = 2.25f;
     public float wallOffsetX = 0f;
+    [Tooltip("Điểm dừng đánh lùi vào trong mặt trước của house bao nhiêu (world unit)")]
+    public float wallInset = 0.7f;
     [Header("Điểm cho lính")]
     public List<Transform> spawnPoints;
     public List<GameObject> houseVisuals;
@@ -44,6 +46,17 @@ public class House : MonoBehaviour, IDamageable
         int index = DataRepo.Instance.unitDatabase.GetCivOrder(civId) - 1;
         for (int i = 0; i < houseVisuals.Count; i++)
             houseVisuals[i].SetActive(i == index);
+
+        if (index >= 0 && index < houseVisuals.Count) FitWallToVisual(houseVisuals[index]);
+    }
+
+    // Mỗi thời đại house rộng khác nhau -> điểm dừng đánh tính theo mặt trước của visual đang hiện
+    void FitWallToVisual(GameObject visual)
+    {
+        var sr = visual.GetComponent<SpriteRenderer>();
+        if (sr == null) return;
+        float front = team == Team.Ally ? sr.bounds.max.x - wallInset : sr.bounds.min.x + wallInset;
+        wallOffsetX = front - transform.position.x;
     }
     public Vector3 GetSpawnPosition()
     {

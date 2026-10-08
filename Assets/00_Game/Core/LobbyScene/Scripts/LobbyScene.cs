@@ -43,6 +43,7 @@ public class LobbyScene : MonoBehaviour
             EquipmentBox.Preload(),
             DetailEquipBox.Preload(),
             DetailSkillBox.Preload(),
+            DetailUnitBox.Preload(),
             GachaResultBox.Preload(),
             RateRelicsBox.Preload(),
             AgesTimelineBox.Preload()).Forget();

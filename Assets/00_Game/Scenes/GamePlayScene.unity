@@ -656,7 +656,7 @@ Transform:
   m_GameObject: {fileID: 38622067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.23, y: -1.95, z: 0}
+  m_LocalPosition: {x: -11.25, y: -1.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144e85d0ab3dc734884f43be1c6d4014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleGrid
-  width: 40
+  width: 50
   height: 9
   cellSize: 0.45
 --- !u!1 &50773144
@@ -2516,7 +2516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &171738516
@@ -2666,7 +2666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &178271994
@@ -7645,7 +7645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &524281032
@@ -9565,7 +9565,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::House
   team: 1
   halfHeight: 2.25
-  wallOffsetX: -1.05
+  wallOffsetX: -1.1503897
+  wallInset: 0.7
   spawnPoints:
   - {fileID: 1480694604}
   - {fileID: 1922219398}
@@ -9586,7 +9587,7 @@ Transform:
   m_GameObject: {fileID: 593689418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.01, y: 1, z: 0}
+  m_LocalPosition: {x: 9.92, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19630,6 +19631,9 @@ GameObject:
   - component: {fileID: 1316276027}
   - component: {fileID: 1316276028}
   - component: {fileID: 1316276029}
+  - component: {fileID: 1316276030}
+  - component: {fileID: 1316276031}
+  - component: {fileID: 1316276032}
   m_Layer: 0
   m_Name: GamePlayController
   m_TagString: Untagged
@@ -19672,6 +19676,7 @@ MonoBehaviour:
   gameScene: {fileID: 1312233915}
   gameFlow: {fileID: 991276320}
   grid: {fileID: 38622069}
+  layout: {fileID: 1316276032}
   battle: {fileID: 1316276022}
   spawner: {fileID: 1316276021}
   bottomBar: {fileID: 1316276024}
@@ -19791,6 +19796,55 @@ MonoBehaviour:
   prefab: {fileID: 4042696069566430506, guid: 36e583e78111adc4f871465c45329168, type: 3}
   offset: {x: 0, y: 0.6, z: 0}
   frozenTint: {r: 0.55, g: 0.85, b: 1, a: 1}
+--- !u!114 &1316276030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a90bab5ab6146e49905d5841db1a054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DotFxSpawner
+  burnPrefab: {fileID: 3284467441516876092, guid: 8d4ddf042d291db4dbd450fba76909d2, type: 3}
+  poisonPrefab: {fileID: 7747818861385472577, guid: 77408d5cde321d844b3f0df99ad68a1c, type: 3}
+  offset: {x: 0, y: 0.3, z: 0}
+  burnTint: {r: 1, g: 0.72, b: 0.55, a: 1}
+  poisonTint: {r: 0.7, g: 1, b: 0.6, a: 1}
+--- !u!114 &1316276031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76cf949bc2330c49b099d9f1728ca88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LifeStealFxSpawner
+  prefab: {fileID: 8664971615130229965, guid: a5f55967a368fcb438c5ffee4a6dcd22, type: 3}
+  offset: {x: 0, y: 0.3, z: 0}
+  minInterval: 0.35
+--- !u!114 &1316276032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1b92da1e7a37042b92a07981186784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleLayout
+  cam: {fileID: 721269318}
+  allyHouse: {fileID: 1815357501}
+  enemyHouse: {fileID: 593689420}
+  grid: {fileID: 38622069}
+  edgePadding: 0
 --- !u!1 &1323767704
 GameObject:
   m_ObjectHideFlags: 0
@@ -24690,7 +24744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1617277740
@@ -27960,7 +28014,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::House
   team: 0
   halfHeight: 2.25
-  wallOffsetX: 3.88
+  wallOffsetX: 3.8103895
+  wallInset: 0.7
   spawnPoints:
   - {fileID: 573354852}
   - {fileID: 1098532690}
@@ -27981,7 +28036,7 @@ Transform:
   m_GameObject: {fileID: 1815357499}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.59, y: 1, z: 0}
+  m_LocalPosition: {x: -12.58, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28180,7 +28235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1826554307
@@ -31019,7 +31074,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4406094}
   m_AnchorMax: {x: 0.5, y: 0.5586094}
-  m_AnchoredPosition: {x: 0, y: 0.30000305}
+  m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0.4699707, y: -1.2799988}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1983394616

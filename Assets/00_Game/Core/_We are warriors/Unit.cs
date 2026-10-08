@@ -39,6 +39,10 @@ public class Unit : MonoBehaviour, IDamageable
     private Color[] _spriteBaseColors;
     private UnitEffects _effects;
     private FreezeFx _freezeFx;
+    private DotFx _burnFx;
+    private DotFx _poisonFx;
+    private float _lastLifeStealFxTime = -999f;
+    private float _pendingLifeSteal;
     private float AttackRangeWorld =>
         (_stats != null ? _stats.attackRangeInCells : 1.5f) * (_grid != null ? _grid.cellSize : 0.5f);
 
@@ -195,7 +199,7 @@ public class Unit : MonoBehaviour, IDamageable
         Vector3 pos = target.AimPoint;
         FlyTextSpawner.Instance.Damage(dmg, pos, crit);
 
-        if (_stats.lifeSteal > 0f) Heal(dmg * _stats.lifeSteal);
+        if (_stats.lifeSteal > 0f) LifeSteal(dmg * _stats.lifeSteal);
 
         if (target is Unit u && u.IsAlive)
         {
@@ -210,6 +214,21 @@ public class Unit : MonoBehaviour, IDamageable
     {
         _stats.hp = Mathf.Min(_stats.maxHp, _stats.hp + amount);
         _hpBar?.Set(_stats.hp / _stats.maxHp);
+    }
+
+    // Hút máu: hồi máu mỗi đòn, nhưng hiệu ứng + chữ "+N" gộp lại, tối đa 1 lần / minInterval
+    void LifeSteal(float amount)
+    {
+        Heal(amount);
+        _pendingLifeSteal += amount;
+
+        var spawner = LifeStealFxSpawner.Instance;
+        if (spawner == null || Time.time - _lastLifeStealFxTime < spawner.minInterval) return;
+        _lastLifeStealFxTime = Time.time;
+
+        spawner.Play(transform.position);
+        FlyTextSpawner.Instance.Heal(_pendingLifeSteal, AimPoint + Vector3.up * 0.25f);
+        _pendingLifeSteal = 0f;
     }
 
     // ---- DAMAGE / DEATH ----
@@ -233,8 +252,11 @@ public class Unit : MonoBehaviour, IDamageable
 
     void RestoreSpriteColors()
     {
-        // Đang đóng băng thì trả về màu băng thay vì màu gốc
-        Color tint = _freezeFx != null ? FreezeFxSpawner.Instance.frozenTint : Color.white;
+        // Đang dính hiệu ứng thì trả về màu hiệu ứng thay vì màu gốc (ưu tiên băng > cháy > độc)
+        Color tint = Color.white;
+        if (_freezeFx != null) tint = FreezeFxSpawner.Instance.frozenTint;
+        else if (_burnFx != null) tint = DotFxSpawner.Instance.Tint(DotType.Burn);
+        else if (_poisonFx != null) tint = DotFxSpawner.Instance.Tint(DotType.Poison);
         for (int i = 0; i < _sprites.Length; i++)
             if (_sprites[i] != null) _sprites[i].color = _spriteBaseColors[i] * tint;
     }
@@ -254,16 +276,50 @@ public class Unit : MonoBehaviour, IDamageable
         RestoreSpriteColors();
     }
 
+    // ---- BURN / POISON FEEDBACK ----
+    public void SetDotFx(DotType type, bool on)
+    {
+        ref DotFx fx = ref (type == DotType.Burn ? ref _burnFx : ref _poisonFx);
+        if (on == (fx != null)) return;
+        if (DotFxSpawner.Instance == null) return;
+
+        if (on) fx = DotFxSpawner.Instance.Attach(type, transform);
+        else
+        {
+            fx.Release();
+            fx = null;
+        }
+        RestoreSpriteColors();
+    }
+
     public void Kill(bool dropReward) => Die(dropReward);
     void Die(bool drop = true)
     {
         SetFrozen(false);
+        SetDotFx(DotType.Burn, false);
+        SetDotFx(DotType.Poison, false);
         _state = UnitState.Dead;
         _movement.Release();
         if (drop) this.PostEvent(EventID.UNIT_DIED, this);
         DeathFxSpawner.Instance.Play(transform.position);
         Destroy(gameObject);
     }
+
+    // ---- DEBUG: bấm trong Play mode để test hiệu ứng ----
+    [Sirenix.OdinInspector.FoldoutGroup("Debug Effects"), Sirenix.OdinInspector.Button, Sirenix.OdinInspector.EnableIf("@UnityEngine.Application.isPlaying")]
+    void DebugFreeze(float duration = 2f) { if (IsAlive) AddEffect(new FreezeEffect(duration)); }
+
+    [Sirenix.OdinInspector.FoldoutGroup("Debug Effects"), Sirenix.OdinInspector.Button, Sirenix.OdinInspector.EnableIf("@UnityEngine.Application.isPlaying")]
+    void DebugBurn() { if (IsAlive) AddEffect(new BurnEffect()); }
+
+    [Sirenix.OdinInspector.FoldoutGroup("Debug Effects"), Sirenix.OdinInspector.Button, Sirenix.OdinInspector.EnableIf("@UnityEngine.Application.isPlaying")]
+    void DebugPoison() { if (IsAlive) AddEffect(new PoisonEffect()); }
+
+    [Sirenix.OdinInspector.FoldoutGroup("Debug Effects"), Sirenix.OdinInspector.Button, Sirenix.OdinInspector.EnableIf("@UnityEngine.Application.isPlaying")]
+    void DebugPush() { if (IsAlive) PushBack(2, 4f); }
+
+    [Sirenix.OdinInspector.FoldoutGroup("Debug Effects"), Sirenix.OdinInspector.Button, Sirenix.OdinInspector.EnableIf("@UnityEngine.Application.isPlaying")]
+    void DebugLifeSteal(float amount = 20f) { if (IsAlive) LifeSteal(amount); }
 
     void OnDrawGizmosSelected()
     {

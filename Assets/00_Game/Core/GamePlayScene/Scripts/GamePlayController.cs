@@ -11,6 +11,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
 
     [Header("We are warriors")]
     public BattleGrid grid;
+    public BattleLayout layout;
     public BattleManager battle;
     public BattleSpawner spawner;
     public BottomBar bottomBar;
@@ -34,6 +35,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         gameFlow.Init();
         var db = DataRepo.Instance.unitDatabase;
 
+        if (layout != null) layout.Apply();   // căn house theo mép màn hình trước khi tạo grid
         grid.Init();
         battle.Init();
         spawner.Init(db);

@@ -18,6 +18,10 @@ public class UpgradeUnitItem : MonoBehaviour
     public TMP_Text buyPriceText;
     public Button buyButton;
 
+    [Header("Info - bấm vào card để xem chỉ số")]
+    public Button infoButton;
+    public Button infoButtonLocked;
+
     [Header("Hiển thị")]
     public Transform displayParent;
 
@@ -38,6 +42,8 @@ public class UpgradeUnitItem : MonoBehaviour
         if (!_listenerReady)   // gắn 1 lần
         {
             buyButton.OnClicked(() => _onBuy?.Invoke(this));
+            if (infoButton != null) infoButton.OnClicked(OpenDetail);
+            if (infoButtonLocked != null) infoButtonLocked.OnClicked(OpenDetail);
             this.RegisterListener(EventID.ON_EQUIPMENT_CHANGED, OnEquipChanged);
             _listenerReady = true;
         }
@@ -49,6 +55,8 @@ public class UpgradeUnitItem : MonoBehaviour
             _display = Instantiate(prefab, displayParent);
             var rt = _display.transform as RectTransform;
             rt.anchoredPosition = Vector2.zero;
+            // hình unit nằm trên card -> không chặn click vào card
+            foreach (var g in _display.GetComponentsInChildren<Graphic>(true)) g.raycastTarget = false;
         }
 
         nameText.text = data.displayName;
@@ -59,6 +67,13 @@ public class UpgradeUnitItem : MonoBehaviour
     }
 
     void OnEquipChanged(object param) => RefreshStats();
+
+    void OpenDetail()
+    {
+        if (_data == null) return;
+        var holder = LobbyController.Instance.topCanvas;
+        _ = DetailUnitBox.Setup(holder, box => { box.Show(); box.SetData(_data, Index); });
+    }
 
     void RefreshStats()
     {

@@ -33,12 +33,15 @@ public abstract class DotEffectBase : IStatusEffect
         }
     }
 
-    public void OnApply(Unit unit) { }
-    public void OnRemove(Unit unit) { }
+    protected abstract DotType Type { get; }
+
+    public void OnApply(Unit unit) => unit.SetDotFx(Type, true);
+    public void OnRemove(Unit unit) => unit.SetDotFx(Type, false);
 }
 
 public class PoisonEffect : DotEffectBase
 {
+    protected override DotType Type => DotType.Poison;
     protected override float PercentPerTick => 0.01f;   // 1% maxHp
     protected override float TotalDuration => 5f;
     protected override void ShowText(float dmg, Vector3 pos) => FlyTextSpawner.Instance.Poison(dmg, pos);
@@ -46,6 +49,7 @@ public class PoisonEffect : DotEffectBase
 
 public class BurnEffect : DotEffectBase
 {
+    protected override DotType Type => DotType.Burn;
     protected override float PercentPerTick => 0.01f;
     protected override float TotalDuration => 5f;
     protected override void ShowText(float dmg, Vector3 pos) => FlyTextSpawner.Instance.Burn(dmg, pos);
