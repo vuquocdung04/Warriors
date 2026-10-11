@@ -17,6 +17,7 @@ public class SkillController : StaffSingleton<SkillController>
             { "7", new PoisonSkill() },
             { "8", new BurnSkill() },
             { "9", new SpeedSkill() },
+            { "10", new AttackSpeedSkill() },
         };
     }
 

@@ -19,6 +19,7 @@ public class StringHelper
     public const string UNIT2_UNLOCK = "UNIT2_UNLOCK";
     public const string UNIT3_UNLOCK = "UNIT3_UNLOCK";
     public const string FOOD_RATE = "FOOD_RATE";
+    public const string HOUSE_HP_LEVEL = "HOUSE_HP_LEVEL";
 
     // Equipment
     public const string EQUIPPED_MELEE = "EQUIPPED_MELEE";

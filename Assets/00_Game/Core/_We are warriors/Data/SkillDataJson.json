@@ -69,6 +69,14 @@
     "levelMax": 10,
     "baseValue": 20.0,
     "valuePerLevel": 5.0,
-    "description": "Increase the movement speed of all your units by {value}% for 10s"
+    "description": "Increase the movement speed of all your units by {value}% for 8s"
+  },
+  {
+    "id": "10",
+    "name": "Frenzy",
+    "levelMax": 10,
+    "baseValue": 10.0,
+    "valuePerLevel": 10.0,
+    "description": "Increase the attack speed of all your units by {value}% for 8s"
   }
 ]

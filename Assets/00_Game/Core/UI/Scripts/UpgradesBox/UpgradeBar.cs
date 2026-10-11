@@ -5,6 +5,7 @@ using UnityEngine;
 public class UpgradeBar : MonoBehaviour
 {
     public FoodProduction foodProduction;
+    public HouseHpUpgrade houseHpUpgrade;
     public EquipmentBar equipmentBar;
 
     [Header("3 item (trái -> phải)")]
@@ -14,6 +15,7 @@ public class UpgradeBar : MonoBehaviour
     {
         equipmentBar.Init();
         foodProduction.Init();
+        houseHpUpgrade.Init();
         Build(civId);
         this.RegisterListener(EventID.ON_CIV_CHANGED, OnCivChanged);
     }

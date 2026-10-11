@@ -10,6 +10,7 @@ public class LobbyBox : BaseBox<LobbyBox>
     public Button btnPlay;
     public Button btnNext;
     public Button btnPrev;
+    public Button btnWheel;
 
     [Header("6 GameObject civ (index 0..5 theo order)")]
     public List<GameObject> civObjects;
@@ -24,6 +25,7 @@ public class LobbyBox : BaseBox<LobbyBox>
     {
         var holder = LobbyController.Instance.topCanvas;
         btnSetting.OnClicked(delegate { _ = SettingLobbyBox.Setup(holder, box => box.Show()); });
+        btnWheel.OnClicked(delegate { _ = WheelSpinBox.Setup(holder, box => box.Show()); });
         btnPlay.OnClicked(delegate
         {
             string civId = _civs[_viewIndex].civId;          

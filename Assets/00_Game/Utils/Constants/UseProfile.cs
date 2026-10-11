@@ -20,6 +20,7 @@ public static class UseProfile
     public static readonly PrefVar<bool> Unit2Unlock = new(StringHelper.UNIT2_UNLOCK, false);
     public static readonly PrefVar<bool> Unit3Unlock = new(StringHelper.UNIT3_UNLOCK, false);
     public static readonly PrefVar<float> FoodRate = new(StringHelper.FOOD_RATE, 0.18f);
+    public static readonly PrefVar<int> HouseHpLevel = new(StringHelper.HOUSE_HP_LEVEL, 0);
 
 
     // Equipment

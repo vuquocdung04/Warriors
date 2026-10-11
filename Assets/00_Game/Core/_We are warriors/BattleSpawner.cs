@@ -51,7 +51,7 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
         HouseData data = _db.GetHouseData(civ);
         if (data == null) { Debug.LogError($"[Spawner] thiếu house data civ '{civ}'"); return; }
 
-        float mult = team == Team.Enemy ? enemyHouseHpMultiplier : 1f;
+        float mult = team == Team.Enemy ? enemyHouseHpMultiplier : HouseHpUpgrade.HpMultiplier;
         house.Init(data, team, mult);
     }
     public void SetHousesInvincible(bool on)

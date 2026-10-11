@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 196ca05cb4c52f841af865fb2a9ffe3b
+    m_Address: WheelSpinBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1b011c1b06260994ba1539641f89fe4c
     m_Address: RateRelicsBox
     m_ReadOnly: 0

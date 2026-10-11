@@ -134,6 +134,7 @@ public class EvolutionBar : MonoBehaviour
         UseProfile.Unit3Unlock.Value = false;
         UseProfile.Coin.Value = 0;
         UseProfile.FoodRate.Value = 0.18f;
+        UseProfile.HouseHpLevel.Value = 0;
 
         this.PostEvent(EventID.ON_FOOD_UI_CHANGED);
 

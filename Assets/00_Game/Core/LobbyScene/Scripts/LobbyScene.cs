@@ -40,6 +40,7 @@ public class LobbyScene : MonoBehaviour
         // Load ngầm các popup mở từ lobby để lần đầu bấm không bị delay
         UniTask.WhenAll(
             SettingLobbyBox.Preload(),
+            WheelSpinBox.Preload(),
             EquipmentBox.Preload(),
             DetailEquipBox.Preload(),
             DetailSkillBox.Preload(),

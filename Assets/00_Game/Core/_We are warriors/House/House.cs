@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EventDispatcher;
+using TMPro;
 using UnityEngine;
 
 public class House : MonoBehaviour, IDamageable
@@ -18,8 +19,13 @@ public class House : MonoBehaviour, IDamageable
 
     [Header("Visual / HP bar (tuỳ)")]
     public UnitHpBar hpBar;
+    public TMP_Text txtHp;
+
+    [Header("FX khi bị phá")]
+    public GameObject destroyFxPrefab;
 
     private float _maxHp, _hp;
+    private GameObject _activeVisual;
 
     public bool IsAlive => _hp > 0f;
 
@@ -36,6 +42,7 @@ public class House : MonoBehaviour, IDamageable
         halfHeight = grid.Height * grid.cellSize / 2f;
 
         hpBar?.Set(1f);
+        RefreshHpText();
         BattleManager.Instance.RegisterHouse(this);
 
         string civId = team == Team.Ally ? UseProfile.CurrentCiv.Value : UseProfile.SelectedEnemyCiv.Value;
@@ -47,7 +54,8 @@ public class House : MonoBehaviour, IDamageable
         for (int i = 0; i < houseVisuals.Count; i++)
             houseVisuals[i].SetActive(i == index);
 
-        if (index >= 0 && index < houseVisuals.Count) FitWallToVisual(houseVisuals[index]);
+        _activeVisual = index >= 0 && index < houseVisuals.Count ? houseVisuals[index] : null;
+        if (_activeVisual != null) FitWallToVisual(_activeVisual);
     }
 
     // Mỗi thời đại house rộng khác nhau -> điểm dừng đánh tính theo mặt trước của visual đang hiện
@@ -77,12 +85,29 @@ public class House : MonoBehaviour, IDamageable
         _hp -= dmg;
         hpBar?.Set(_hp / _maxHp);
         if (_hp <= 0f) Die();
+        RefreshHpText();
+    }
+
+    void RefreshHpText()
+    {
+        if (txtHp == null) return;
+        txtHp.text = NumberFormatter.Format(Mathf.CeilToInt(Mathf.Max(0f, _hp)));
     }
     public float SqrDistanceTo(Vector3 p) => (ClosestPoint(p) - p).sqrMagnitude;
     void Die()
     {
         _hp = 0f;
+        PlayDestroyFx();
         this.PostEvent(EventID.HOUSE_DESTROYED, team);
+    }
+
+    // Khói bốc lên từ giữa house, chỉ 1 lần mỗi trận nên Instantiate thẳng, không cần pool
+    void PlayDestroyFx()
+    {
+        if (destroyFxPrefab == null) return;
+        var sr = _activeVisual != null ? _activeVisual.GetComponent<SpriteRenderer>() : null;
+        Vector3 pos = sr != null ? sr.bounds.center : transform.position;
+        Instantiate(destroyFxPrefab, pos, Quaternion.identity, transform);
     }
     void OnDrawGizmos()
     {

@@ -1,7 +1,7 @@
 // Tăng {value}% tốc độ di chuyển cho toàn bộ lính mình đang trên sân trong DURATION giây
 public class SpeedSkill : ISkillEffect
 {
-    const float DURATION = 10f;
+    const float DURATION = 8f;
 
     public void Activate(SkillData data, int level)
     {

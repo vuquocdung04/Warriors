@@ -41,6 +41,8 @@ public class Unit : MonoBehaviour, IDamageable
     private FreezeFx _freezeFx;
     private DotFx _burnFx;
     private DotFx _poisonFx;
+    private DotFx _hasteFx;
+    private DotFx _frenzyFx;
     private float _lastLifeStealFxTime = -999f;
     private float _pendingLifeSteal;
     private float AttackRangeWorld =>
@@ -180,7 +182,7 @@ public class Unit : MonoBehaviour, IDamageable
     void TryAttack()
     {
         if (_attackTimer > 0f) return;
-        float cooldown = 1f / Mathf.Max(0.01f, _stats.attackSpeed);
+        float cooldown = 1f / Mathf.Max(0.01f, _stats.attackSpeed * _effects.AttackSpeedMul());
         _attackTimer = cooldown;
         _attackStrategy?.Attack(_attackTarget, cooldown);
     }
@@ -292,12 +294,29 @@ public class Unit : MonoBehaviour, IDamageable
         RestoreSpriteColors();
     }
 
+    // ---- HASTE / FRENZY FEEDBACK ----
+    public void SetBuffFx(BuffType type, bool on)
+    {
+        ref DotFx fx = ref (type == BuffType.Haste ? ref _hasteFx : ref _frenzyFx);
+        if (on == (fx != null)) return;
+        if (BuffFxSpawner.Instance == null) return;
+
+        if (on) fx = BuffFxSpawner.Instance.Attach(type, transform, team == Team.Enemy);
+        else
+        {
+            fx.Release();
+            fx = null;
+        }
+    }
+
     public void Kill(bool dropReward) => Die(dropReward);
     void Die(bool drop = true)
     {
         SetFrozen(false);
         SetDotFx(DotType.Burn, false);
         SetDotFx(DotType.Poison, false);
+        SetBuffFx(BuffType.Haste, false);
+        SetBuffFx(BuffType.Frenzy, false);
         _state = UnitState.Dead;
         _movement.Release();
         if (drop) this.PostEvent(EventID.UNIT_DIED, this);

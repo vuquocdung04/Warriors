@@ -23,6 +23,6 @@ public class SpeedBuffEffect : IStatusEffect, IMoveModifier
         _timer = Mathf.Max(_timer, incoming._timer);
     }
 
-    public void OnApply(Unit unit) { }
-    public void OnRemove(Unit unit) { }
+    public void OnApply(Unit unit) => unit.SetBuffFx(BuffType.Haste, true);
+    public void OnRemove(Unit unit) => unit.SetBuffFx(BuffType.Haste, false);
 }

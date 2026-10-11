@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public interface IControlEffect { }
 public interface IMoveModifier { float MoveMultiplier { get; } }
+public interface IAttackSpeedModifier { float AttackSpeedMultiplier { get; } }
 
 
 public class UnitEffects
@@ -20,6 +21,7 @@ public class UnitEffects
                 if (ex is DotEffectBase dot) dot.Refresh((DotEffectBase)e);
                 else if (ex is FreezeEffect fz) fz.Refresh((FreezeEffect)e);
                 else if (ex is SpeedBuffEffect sp) sp.Refresh((SpeedBuffEffect)e);
+                else if (ex is AttackSpeedBuffEffect asp) asp.Refresh((AttackSpeedBuffEffect)e);
                 return;   
             }
         }
@@ -54,6 +56,14 @@ public class UnitEffects
         float m = 1f;
         foreach (var e in _effects)
             if (e is IMoveModifier mod) m *= mod.MoveMultiplier;
+        return m;
+    }
+
+    public float AttackSpeedMul() // buff nhân tốc độ đánh
+    {
+        float m = 1f;
+        foreach (var e in _effects)
+            if (e is IAttackSpeedModifier mod) m *= mod.AttackSpeedMultiplier;
         return m;
     }
 }
