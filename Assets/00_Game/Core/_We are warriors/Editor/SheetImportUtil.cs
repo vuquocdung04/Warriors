@@ -63,11 +63,16 @@ public static class SheetImportUtil
     public static int PMoney(string s)
     {
         if (string.IsNullOrEmpty(s)) return 0;
+        string raw = s;
         s = s.Trim().ToLower().Replace(",", "");
         float mul = 1f;
         if (s.EndsWith("k")) { mul = 1000f; s = s[..^1]; }
         else if (s.EndsWith("m")) { mul = 1000000f; s = s[..^1]; }
-        return float.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var v) ? Mathf.RoundToInt(v * mul) : 0;
+        if (float.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var v)) return Mathf.RoundToInt(v * mul);
+
+        // ô có chữ nhưng không đọc được số -> báo ra thay vì lặng lẽ ghi 0
+        Debug.LogWarning($"[Sheet] Không đọc được số tiền '{raw}', ghi 0");
+        return 0;
     }
 }
 #endif

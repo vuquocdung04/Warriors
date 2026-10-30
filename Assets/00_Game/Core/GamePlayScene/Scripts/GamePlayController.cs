@@ -58,8 +58,7 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         UniTask.WhenAll(
             SettingGameBox.Preload(),
             QuitLevelBox.Preload(),
-            WinBox.Preload(),
-            LoseBox.Preload()).Forget();
+            ResultBox.Preload()).Forget();
         await UniTask.Delay(500);
     }
 }

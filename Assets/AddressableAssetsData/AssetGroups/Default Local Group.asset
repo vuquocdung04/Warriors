@@ -65,11 +65,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3bd7f65c1ff274b9aa1627535d027076
-    m_Address: LoseBox
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 48ce984b7ec9c164f9d8a0c6fc70d2e9
     m_Address: BoosterUnlockBox
     m_ReadOnly: 0
@@ -126,7 +121,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9fe37d573ffb5f84f99fc75967960531
-    m_Address: WinBox
+    m_Address: ResultBox
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

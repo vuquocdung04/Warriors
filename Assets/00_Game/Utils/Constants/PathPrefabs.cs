@@ -12,16 +12,15 @@ public class PathPrefabs
     public const string GACHA_RESULT_BOX = "GachaResultBox";
     public const string KEEP_PLAYING_BOX = "KeepPlayingBox";
     public const string LOBBY_BOX = "LobbyBox";
-    public const string LOSE_BOX = "LoseBox";
     public const string MORE_LIVES_BOX = "MoreLivesBox";
     public const string NO_ADS_BOX = "NoAdsBox";
     public const string QUIT_LEVEL_BOX = "QuitLevelBox";
     public const string RANK_BOX = "RankBox";
     public const string RATE_RELICS_BOX = "RateRelicsBox";
+    public const string RESULT_BOX = "ResultBox";
     public const string SETTING_GAME_BOX = "SettingGameBox";
     public const string SETTING_LOBBY_BOX = "SettingLobbyBox";
     public const string SHOP_BOX = "ShopBox";
     public const string SKILL_BOX = "SkillBox";
     public const string UPGRADES_BOX = "UpgradesBox";
-    public const string WIN_BOX = "WinBox";
 }
