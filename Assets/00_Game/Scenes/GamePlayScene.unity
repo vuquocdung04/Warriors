@@ -10258,7 +10258,7 @@ Transform:
   m_GameObject: {fileID: 627347610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.33, y: -3.06, z: 0}
+  m_LocalPosition: {x: 1.3299999, y: -2.94, z: 0}
   m_LocalScale: {x: 0.53311795, y: 0.53311795, z: 0.53311795}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14840,7 +14840,7 @@ Transform:
   m_GameObject: {fileID: 899886521}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.33, y: -3.06, z: 0}
+  m_LocalPosition: {x: 1.3299999, y: -2.94, z: 0}
   m_LocalScale: {x: 0.53311795, y: 0.53311795, z: 0.53311795}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15589,7 +15589,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d5e00662ae8e9954a95f29b170c1d73e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32ecc4c4bc0d58f4e949ba7bf0c9841a, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
@@ -17021,7 +17021,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.44}
   m_AnchorMax: {x: 1, y: 0.44}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1689.6094}
+  m_SizeDelta: {x: 0, y: 1126.4062}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1074502551
 MonoBehaviour:
@@ -20688,6 +20688,7 @@ GameObject:
   - component: {fileID: 1316276032}
   - component: {fileID: 1316276033}
   - component: {fileID: 1316276034}
+  - component: {fileID: 1316276035}
   m_Layer: 0
   m_Name: GamePlayController
   m_TagString: Untagged
@@ -20938,6 +20939,41 @@ MonoBehaviour:
   hastePrefab: {fileID: 5220555208057935276, guid: d696db4cfc3b71e4daa3df581b4c07c0, type: 3}
   frenzyPrefab: {fileID: 7296735098260063294, guid: 2efbd8adf37447d4c8ec31bf8d9d1eda, type: 3}
   offset: {x: 0, y: 0.3, z: 0}
+--- !u!114 &1316276035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316276017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12d7cf8ea8849544b5b30603ea73ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EraserRainSpawner
+  cam: {fileID: 721269318}
+  eraserSprites:
+  - {fileID: 21300000, guid: da846c706e1f26e4e9725cd1ec11fc15, type: 3}
+  - {fileID: 21300000, guid: 9eda9995e3df2e84ca32be3f1a9be025, type: 3}
+  - {fileID: 21300000, guid: 4e9dd4348cd011b4dbdf95bac1505c91, type: 3}
+  - {fileID: 21300000, guid: 50ce9b407e5fc7b42a375c9055b1ac43, type: 3}
+  eraserWidth: 2.4
+  sortingLayer: Unit
+  sortingOrder: 30005
+  count: 4
+  startOffset: {x: -9, y: 14}
+  flyDuration: 0.55
+  stagger: 0.18
+  spinDegrees: -540
+  shadowSprite: {fileID: 1665603339, guid: ab824b3c3912bf74d93fd49c52e05a50, type: 3}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.35}
+  impactFxPrefab: {fileID: 2120020304813058198, guid: f869c7a797f04d84ab225f6babcc4693, type: 3}
+  radius: 1.9
+  fxBaseRadius: 1.4
+  shake: 0.18
+  shakeDuration: 0.15
+  launchSound: Firey Swoosh
+  impactSound: punch
 --- !u!1 &1323767704
 GameObject:
   m_ObjectHideFlags: 0
@@ -27599,7 +27635,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d5e00662ae8e9954a95f29b170c1d73e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32ecc4c4bc0d58f4e949ba7bf0c9841a, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
@@ -31315,7 +31351,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.56}
   m_AnchorMax: {x: 1, y: 0.56}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1476.5625}
+  m_SizeDelta: {x: 0, y: 984.375}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1906120824
 MonoBehaviour:

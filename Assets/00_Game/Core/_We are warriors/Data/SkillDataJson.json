@@ -78,5 +78,13 @@
     "baseValue": 10.0,
     "valuePerLevel": 10.0,
     "description": "Increase the attack speed of all your units by {value}% for 8s"
+  },
+  {
+    "id": "11",
+    "name": "Eraser Rain",
+    "levelMax": 10,
+    "baseValue": 20.0,
+    "valuePerLevel": 5.0,
+    "description": "Drop 4 giant erasers along the battlefield, each dealing {value}% of max health to enemies in its blast"
   }
 ]
