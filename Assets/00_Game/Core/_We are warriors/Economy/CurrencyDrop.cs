@@ -16,12 +16,13 @@ public class CurrencyDrop : MonoBehaviour
     {
         if (type == DropType.Coin)
         {
-            UseProfile.Coin.Value += amount;
+            // civ cao (HNUE ~12.8M/kill) cộng dồn dễ vượt int -> chặn trần thay vì tràn âm
+            UseProfile.Coin.Value = (int)System.Math.Min(int.MaxValue, (long)UseProfile.Coin.Value + amount);
             this.PostEvent(EventID.CHANGE_COIN, amount);
         }
         else
         {
-            UseProfile.Gem.Value += amount;
+            UseProfile.Gem.Value = (int)System.Math.Min(int.MaxValue, (long)UseProfile.Gem.Value + amount);
             this.PostEvent(EventID.CHANGE_GEM, amount);
         }
 

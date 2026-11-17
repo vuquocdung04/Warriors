@@ -32,6 +32,9 @@ MonoBehaviour:
   - {fileID: 7555040484924929348, guid: ec17acbf14ba8c940821eaae23a81836, type: 3}
   - {fileID: 7133917050178465214, guid: 15d1c47e8d0f2d34a8b0d1678fa638b9, type: 3}
   - {fileID: 230604564003398437, guid: 499ebe90b54430c47a14debdd5c126b9, type: 3}
+  - {fileID: 8566319285439269675, guid: 570e7cf8ac19e624abaab61ebf2ea370, type: 3}
+  - {fileID: 2582817172891988050, guid: a471893929af35f4e885880ab5c0bfe1, type: 3}
+  - {fileID: 7410129105333371666, guid: 4714a6addc7eb744e84ae40eeeee20da, type: 3}
   displays:
   - {fileID: 7188791310924837477, guid: 7b4b21b0d58dc584488519ec659b177f, type: 3}
   - {fileID: 7503789935674849644, guid: 1c8a4c2e5c5cd1a4c8aa22b1b909b972, type: 3}
@@ -51,6 +54,9 @@ MonoBehaviour:
   - {fileID: 320962329872440312, guid: e4b6131c1b24c4543b66416644dcbbb4, type: 3}
   - {fileID: 3395131183020598716, guid: 029d90c68015cb74f9924608fb24f216, type: 3}
   - {fileID: 8842852288910154525, guid: 35e639636068be3459863d88538160ed, type: 3}
+  - {fileID: 7188791310924837477, guid: 0f6e9c6c6f9786a49b2322f642c448a0, type: 3}
+  - {fileID: 7503789935674849644, guid: b97b39ce073af3841b49d2890ce46e7b, type: 3}
+  - {fileID: 2532379357836849084, guid: ab46925bc0d058844b41061d658b9025, type: 3}
   houseJson: {fileID: 4900000, guid: 2d01f85a0929d4a84b8a0cf482c8adf8, type: 3}
   civIcons:
   - id: stone
@@ -65,3 +71,5 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 2cebd44d54bac8e4a8682648076367f8, type: 3}
   - id: space
     sprite: {fileID: 21300000, guid: 376afec69522b6a499d12151e8ef2fa5, type: 3}
+  - id: hnue
+    sprite: {fileID: 21300000, guid: f8015fab285a77040bc81ad0e13a0133, type: 3}

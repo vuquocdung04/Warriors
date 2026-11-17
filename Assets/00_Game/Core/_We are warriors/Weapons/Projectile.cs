@@ -28,7 +28,8 @@ public class Projectile : MonoBehaviour
             });
     }
 
-    public void LaunchArc(Vector3 target, float speed, float arcHeight, System.Action onHit)
+    // faceDirection: xoay đạn theo tiếp tuyến đường cong (mũi +X), lật Y khi bay sang trái để sprite không bị úp ngược
+    public void LaunchArc(Vector3 target, float speed, float arcHeight, System.Action onHit, bool faceDirection = false)
     {
         transform.DOKill();
 
@@ -36,12 +37,23 @@ public class Projectile : MonoBehaviour
         float distance = Vector3.Distance(start, target);
         float duration = distance / Mathf.Max(0.01f, speed);
         float t = 0f;
+        Vector3 delta = target - start;
+        if (faceDirection)
+        {
+            var s = transform.localScale;
+            transform.localScale = new Vector3(s.x, delta.x < 0f ? -Mathf.Abs(s.y) : Mathf.Abs(s.y), s.z);
+        }
         DOTween.To(() => t, v =>
         {
             t = v;
             Vector3 pos = Vector3.Lerp(start, target, t);
             pos.y += arcHeight * 4f * t * (1f - t);
             transform.position = pos;
+            if (faceDirection)
+            {
+                float dy = delta.y + arcHeight * 4f * (1f - 2f * t);
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dy, delta.x) * Mathf.Rad2Deg);
+            }
         }, 1f, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
             onHit?.Invoke();

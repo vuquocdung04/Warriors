@@ -17,6 +17,9 @@ public static class UseProfile
     public static readonly PrefVar<int> UnlockCivOrder = new(StringHelper.UNLOCK_CIV_ORDER, DefaultUnlockCivOrder);
 
     public static readonly PrefVar<bool> WonFinalCiv = new(StringHelper.WON_FINAL_CIV, false);
+
+    // Cheat: bật thì mọi chi phí coin/gem coi như miễn phí (không kiểm tra, không trừ)
+    public static readonly PrefVar<bool> CheatFreeMode = new("cheat_free_mode", false);
     public static readonly PrefVar<bool> Unit2Unlock = new(StringHelper.UNIT2_UNLOCK, false);
     public static readonly PrefVar<bool> Unit3Unlock = new(StringHelper.UNIT3_UNLOCK, false);
     public static readonly PrefVar<float> FoodRate = new(StringHelper.FOOD_RATE, 0.18f);
