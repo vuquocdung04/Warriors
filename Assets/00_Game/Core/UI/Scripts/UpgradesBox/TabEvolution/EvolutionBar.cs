@@ -100,14 +100,16 @@ public class EvolutionBar : MonoBehaviour
         desText.text = $"Or win battle {next.civName}";
         desText.gameObject.SetActive(!canFree);
 
-        bool enough = UseProfile.Coin.Value >= cost;
+        bool enough = CurrencyManager.Instance.CanAfford(CurrencyType.Coin, cost);
         btnEvolveImage.color = enough ? enoughColor : notEnoughColor;
         costText.color = enough ? Color.white : Color.red;
         btnEvolve.interactable = enough;
     }
     void RefreshMax(int maxOrder)
     {
-        bool won = UseProfile.WonFinalCiv.Value;
+        // cờ cũ có thể bật từ khi civ cuối còn là space -> chỉ tính là đã thắng khi enemy đã tới civ cuối hiện tại
+        int enemyOrder = DataRepo.Instance.unitDatabase.GetCivOrder(UseProfile.EnemyCiv.Value);
+        bool won = UseProfile.WonFinalCiv.Value && enemyOrder >= maxOrder;
 
         winBattleText.text = $"Win Battle {maxOrder}";
         winBattleObject.SetActive(!won);

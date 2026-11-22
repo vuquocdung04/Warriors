@@ -43,13 +43,7 @@ public class FoodProduction : MonoBehaviour
     void OnUpgrade(int times)
     {
         int total = cost * times;
-        if (UseProfile.Coin.Value < total)
-        {
-            Debug.Log("[FoodProduction] không đủ coin");
-            return;
-        }
-
-        UseProfile.Coin.Value -= total;
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Coin, total)) return;   // TrySpend lo cả cheat free mode
         UseProfile.FoodRate.Value += ratePerLevel * times;
 
         Refresh();

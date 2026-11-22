@@ -212,5 +212,39 @@
         ]
       }
     ]
+  },
+  {
+    "civId": "hnue",
+    "houseHp": 1500000,
+    "waves": [
+      {
+        "wave": 1,
+        "delayBetweenWave": 5.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "hnue_1:4"
+          },
+          {
+            "spawnDelay": 4.0,
+            "units": "hnue_2:3"
+          },
+          {
+            "spawnDelay": 5.0,
+            "units": "hnue_3:3, hnue_1:5, hnue_2:3"
+          }
+        ]
+      },
+      {
+        "wave": 2,
+        "delayBetweenWave": 25.0,
+        "spawns": [
+          {
+            "spawnDelay": 2.0,
+            "units": "hnue_3:8"
+          }
+        ]
+      }
+    ]
   }
 ]

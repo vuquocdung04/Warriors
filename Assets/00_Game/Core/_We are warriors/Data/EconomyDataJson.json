@@ -40,5 +40,12 @@
     "coinDropRate": 0.7,
     "gemPerKill": 140,
     "gemDropRate": 0.3
+  },
+  {
+    "civId": "hnue",
+    "coinPerKill": 12800000,
+    "coinDropRate": 0.7,
+    "gemPerKill": 190,
+    "gemDropRate": 0.3
   }
 ]

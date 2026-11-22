@@ -43,14 +43,8 @@ public class BuyBoosterBox : BaseBox<BuyBoosterBox>
 
     private void OnBuyClicked()
     {
-        int coin = UseProfile.Coin.Value;
-        if (coin < pricePerBooster)
-        {
-            ToastManager.Instance.ShowToast("Not enough coin!");
-            return;
-        }
+        if (!CurrencyManager.Instance.TrySpend(CurrencyType.Coin, pricePerBooster)) return;   // toast + cheat free mode nằm trong TrySpend
         AudioManager.Instance.PlaySfx("sfx-RewardGiftbox");
-        UseProfile.Coin.Value = coin - pricePerBooster;
         AddBoosterQuantity(_currentType, amountPerPurchase);
 
         var item = BoosterController.Instance.FindItem(_currentType);

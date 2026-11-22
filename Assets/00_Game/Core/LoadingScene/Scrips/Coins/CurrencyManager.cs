@@ -30,9 +30,12 @@ public class CurrencyManager : MonoBehaviour
 
     public int Get(CurrencyType type) => GetPref(type).Value;
 
+    public static bool IsFreeMode => UseProfile.CheatFreeMode.Value;
+
     public bool TrySpend(CurrencyType type, int amount)
     {
         if (amount <= 0) return true;
+        if (IsFreeMode) return true;          // cheat: không trừ tiền
 
         var pref = GetPref(type);
         if (pref.Value < amount)
@@ -51,13 +54,13 @@ public class CurrencyManager : MonoBehaviour
         if (amount <= 0) return;
 
         var pref = GetPref(type);
-        pref.Value += amount;
+        pref.Value = (int)System.Math.Min(int.MaxValue, (long)pref.Value + amount);   // chặn tràn int
         PostChangeEvent(type);
     }
 
     public bool CanAfford(CurrencyType type, int amount)
     {
-        return GetPref(type).Value >= amount;
+        return IsFreeMode || GetPref(type).Value >= amount;
     }
 
     private PrefVar<int> GetPref(CurrencyType type) => type switch

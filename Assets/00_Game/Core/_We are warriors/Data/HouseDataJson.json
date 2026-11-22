@@ -52,5 +52,14 @@
     "houseHp": 486.0,
     "eraYears": "2100 - 2500",
     "eraDesc": "Exploration beyond Earth. Satellites, laser, and plasma weapons are pivotal. The space race pushes the boundaries of rocketry and surveillance."
+  },
+  {
+    "civId": "hnue",
+    "civName": "HNUE",
+    "order": 7,
+    "unlockCost": 100000000,
+    "houseHp": 1458.0,
+    "eraYears": "1951 - 2026",
+    "eraDesc": "Hanoi National University of Education. Teachers and students armed with pencils, paper planes and correction pens defend knowledge itself."
   }
 ]

@@ -10,7 +10,7 @@ public class GameScene : StaffSingleton<GameScene>
     public Transform popupHolder;
     public Image darkPanel;
 
-    [Header("Map theo civ enemy (index 0..5 theo order)")]
+    [Header("Map theo civ enemy (index = order - 1)")]
     public List<GameObject> civMaps;
     [Header("Coin View")]
     public TextMeshProUGUI txtCoinCollect;

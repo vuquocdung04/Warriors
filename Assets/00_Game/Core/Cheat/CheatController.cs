@@ -23,6 +23,9 @@ public class CheatController : MonoBehaviour
     [SerializeField] private TMP_InputField inputGem;
     [SerializeField] private Button btnApplyGem;
 
+    [Header("Free mode: bỏ qua mọi chi phí coin/gem")]
+    [SerializeField] private Toggle toggleFreeMode;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
@@ -54,6 +57,12 @@ public class CheatController : MonoBehaviour
         if (btnApplyGem != null)
             btnApplyGem.onClick.AddListener(OnClickApplyGem);
 
+        if (toggleFreeMode != null)
+        {
+            toggleFreeMode.SetIsOnWithoutNotify(UseProfile.CheatFreeMode.Value);
+            toggleFreeMode.onValueChanged.AddListener(OnFreeModeChanged);
+        }
+
         SetPopupActive(false);
     }
 
@@ -81,6 +90,19 @@ public class CheatController : MonoBehaviour
 
         if (inputGem != null)
             inputGem.text = UseProfile.Gem.Value.ToString();
+
+        if (toggleFreeMode != null)
+            toggleFreeMode.SetIsOnWithoutNotify(UseProfile.CheatFreeMode.Value);
+    }
+
+    private void OnFreeModeChanged(bool on)
+    {
+        UseProfile.CheatFreeMode.Value = on;
+
+        // cho các UI đang mở tính lại trạng thái đủ/thiếu tiền (nút evolve, giá đỏ...)
+        this.PostEvent(EventID.CHANGE_COIN);
+        this.PostEvent(EventID.CHANGE_GEM);
+        this.PostEvent(EventID.ON_CIV_CHANGED);
     }
 
     private void OnClickApplyCoin()

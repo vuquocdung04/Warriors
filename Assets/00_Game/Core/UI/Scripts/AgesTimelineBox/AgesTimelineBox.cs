@@ -40,6 +40,11 @@ public class AgesTimelineBox : BaseBox<AgesTimelineBox>
         _civs = DataRepo.Instance.unitDatabase.GetCivsByOrder();
         _civCount = _civs.Count;
 
+        // grid trong prefab cố định số cột -> civ mới bị rớt xuống hàng 2; luôn 1 hàng đủ số civ
+        var grid = itemHolder.GetComponent<GridLayoutGroup>();
+        if (grid != null && grid.constraint == GridLayoutGroup.Constraint.FixedColumnCount)
+            grid.constraintCount = Mathf.Max(1, _civCount);
+
         foreach (var it in _items) it.gameObject.SetActive(false);
 
         for (int i = 0; i < _civs.Count; i++)

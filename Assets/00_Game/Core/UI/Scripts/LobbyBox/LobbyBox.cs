@@ -12,10 +12,10 @@ public class LobbyBox : BaseBox<LobbyBox>
     public Button btnPrev;
     public Button btnWheel;
 
-    [Header("6 GameObject civ (index 0..5 theo order)")]
+    [Header("GameObject civ (index = order - 1)")]
     public List<GameObject> civObjects;
 
-    [Header("Ally house theo civ sở hữu (index 0..5)")]
+    [Header("Ally house theo civ sở hữu (index = order - 1)")]
     public List<GameObject> allyHouseObjects;
 
     private List<HouseData> _civs;
