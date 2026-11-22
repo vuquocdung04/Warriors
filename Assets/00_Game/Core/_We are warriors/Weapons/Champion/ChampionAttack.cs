@@ -26,12 +26,17 @@ public class ChampionAttack : AttackStrategyBase
 
         seq.AppendInterval(hold);
 
+        seq.AppendCallback(() => AudioManager.Instance.PlaySfx("whoosh"));      // vung kiếm xuống
         seq.Append(weapon.DOLocalMove(new Vector3(0, 0.17f, 0), p2));
         seq.Join(shoulderArmor.DOLocalRotate(new Vector3(0, 0, 40f), p2));
         seq.Join(shoulderArmor.DOLocalMove(new Vector3(-0.3f, 0.52f, 0), p2));
         seq.Join(helmet.DOLocalRotate(new Vector3(0, 0, 10f), p2));
 
-        seq.AppendCallback(() => onHit?.Invoke());
+        seq.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlaySfx("Heavy Sword");   // kiếm chém trúng
+            onHit?.Invoke();
+        });
 
         seq.Append(weapon.DOLocalMove(BasePos(0), reset));
         seq.Join(shoulderArmor.DOLocalMove(BasePos(2), reset));

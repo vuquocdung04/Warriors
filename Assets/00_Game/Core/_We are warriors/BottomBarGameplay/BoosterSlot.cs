@@ -52,7 +52,22 @@ public class BoosterSlot : MonoBehaviour
     void OnBooster()
     {
         if (_cooldownLeft > 0f || string.IsNullOrEmpty(_skillId)) return;
+        if (SkillCastPresenter.IsPlaying) return;   // đang diễn thẻ skill khác
+        if (BattleManager.Instance != null && (BattleManager.Instance.IsBattleOver || BattleManager.Instance.IsPaused)) return;
 
+        var presenter = SkillCastPresenter.Instance;
+        if (presenter == null) { Cast(); return; }
+
+        // thẻ skill hiện -> giữ nhịp -> tan biến -> resume game rồi mới kích hoạt
+        var db = DataRepo.Instance.skillDatabase;
+        btnBooster.interactable = false;
+        presenter.Play(db.GetSkill(_skillId), db.GetIcon(_skillId), Cast);
+    }
+
+    void Cast()
+    {
+        if (this == null) return;
+        if (BattleManager.Instance != null && BattleManager.Instance.IsBattleOver) { btnBooster.interactable = true; return; }
         SkillController.Instance.Activate(_skillId);
         SetCooldown(_cooldown);
     }

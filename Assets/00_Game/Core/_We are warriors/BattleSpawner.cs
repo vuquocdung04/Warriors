@@ -136,6 +136,23 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
         u.Init(_championData, stats, Team.Ally, cell.Value);
         return u;
     }
+    // Spawn champion ngay tại 1 điểm (chỗ lính tụm lại), tìm ô trống gần nhất
+    public Unit SpawnChampionAt(Unit prefab, UnitStats stats, Vector3 worldPos)
+    {
+        if (prefab == null) { Debug.LogError("[Spawner] thiếu champion prefab"); return null; }
+
+        var grid = BattleGrid.Instance;
+        Vector2Int anchor = grid.WorldToCell(worldPos);
+        anchor.x = Mathf.Clamp(anchor.x, 0, grid.Width - 1);
+        anchor.y = Mathf.Clamp(anchor.y, 0, grid.Height - 1);
+        Vector2Int? cell = FindFreeNear(anchor.x, anchor.y);
+        if (cell == null) return SpawnChampion(prefab, stats);
+
+        Unit u = Instantiate(prefab);
+        u.Init(_championData, stats, Team.Ally, cell.Value);
+        return u;
+    }
+
     public Unit SpawnZombie(Unit prefab, UnitStats stats)
     {
         if (prefab == null) { Debug.LogError("[Spawner] thiếu zombie prefab"); return null; }
