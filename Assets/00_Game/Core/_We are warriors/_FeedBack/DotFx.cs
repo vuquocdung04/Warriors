@@ -16,6 +16,8 @@ public class DotFx : MonoBehaviour
         CancelDespawn();
         transform.SetParent(target, false);
         transform.localPosition = localOffset;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;   // pool dùng chung lính + boss (boss phóng to) -> luôn reset
 
         aura.Clear(true);
         burst.Play(true);

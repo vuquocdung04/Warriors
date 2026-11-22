@@ -57,7 +57,9 @@ public class GameScene : StaffSingleton<GameScene>
     }
     void SetupCivMap()
     {
-        string civId = UseProfile.SelectedEnemyCiv.Value;
+        // Dungeon: không có civ enemy -> dùng map theo civ người chơi
+        bool dungeon = UseProfile.IsDungeon;
+        string civId = dungeon ? UseProfile.CurrentCiv.Value : UseProfile.SelectedEnemyCiv.Value;
         int order = DataRepo.Instance.unitDatabase.GetCivOrder(civId);   // 1-based
         int index = order - 1;
 
@@ -65,7 +67,7 @@ public class GameScene : StaffSingleton<GameScene>
             civMaps[i].SetActive(i == index);
 
         if (txtBattleTitle != null)
-            txtBattleTitle.text = $"Battle {order}";
+            txtBattleTitle.text = dungeon ? "Dungeon" : $"Battle {order}";
     }
     void OnCoinChanged(object param)
     {

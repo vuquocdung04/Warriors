@@ -27,7 +27,7 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
         _enemyStats = BuildStatsDict(UseProfile.SelectedEnemyCiv.Value, withEquipment: false);
 
         InitHouse(allyHouse, Team.Ally);
-        InitHouse(enemyHouse, Team.Enemy);
+        if (!UseProfile.IsDungeon) InitHouse(enemyHouse, Team.Enemy);   // dungeon: không có nhà enemy
     }
 
     Dictionary<string, UnitStats> BuildStatsDict(string civId, bool withEquipment)

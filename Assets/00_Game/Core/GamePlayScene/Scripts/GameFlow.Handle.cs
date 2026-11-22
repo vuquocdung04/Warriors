@@ -64,6 +64,13 @@ public partial class GameFlow
     // Trả về house vừa được mở nhờ trận thắng này, null nếu đánh lại civ cũ hoặc đã hết civ
     HouseData HandleWin()
     {
+        // Dungeon: không mở civ mới, chỉ nhận thưởng theo tốc độ tiền của civ người chơi
+        if (UseProfile.IsDungeon)
+        {
+            DungeonController.GrantWinReward();
+            return null;
+        }
+
         string selected = UseProfile.SelectedEnemyCiv.Value;
         string currentEnemy = UseProfile.EnemyCiv.Value;
 

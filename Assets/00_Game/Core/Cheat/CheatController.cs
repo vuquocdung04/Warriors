@@ -26,6 +26,9 @@ public class CheatController : MonoBehaviour
     [Header("Free mode: bỏ qua mọi chi phí coin/gem")]
     [SerializeField] private Toggle toggleFreeMode;
 
+    [Header("Unlock all: mở hết civ enemy + civ hiện tại lên civ cuối")]
+    [SerializeField] private Button btnUnlockAll;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
@@ -62,6 +65,9 @@ public class CheatController : MonoBehaviour
             toggleFreeMode.SetIsOnWithoutNotify(UseProfile.CheatFreeMode.Value);
             toggleFreeMode.onValueChanged.AddListener(OnFreeModeChanged);
         }
+
+        if (btnUnlockAll != null)
+            btnUnlockAll.onClick.AddListener(OnClickUnlockAll);
 
         SetPopupActive(false);
     }
@@ -123,6 +129,38 @@ public class CheatController : MonoBehaviour
         UseProfile.Gem.Value = gem;
 
         this.PostEvent(EventID.CHANGE_GEM);
+    }
+
+    // Mở hết: civ enemy = civ cuối (đánh được mọi màn), civ người chơi = civ cuối, mở unit 2/3. Giữ nguyên coin/gem.
+    private void OnClickUnlockAll()
+    {
+        var repo = DataRepo.Instance;
+        if (repo == null || repo.unitDatabase == null)
+            return;
+
+        var civs = repo.unitDatabase.GetCivsByOrder();
+        if (civs.Count == 0)
+            return;
+
+        string last = civs[civs.Count - 1].civId;
+        UseProfile.EnemyCiv.Value = last;
+        UseProfile.SelectedEnemyCiv.Value = last;
+        UseProfile.CurrentCiv.Value = last;
+        UseProfile.Unit2Unlock.Value = true;
+        UseProfile.Unit3Unlock.Value = true;
+
+        SetPopupActive(false);
+
+        // Đang ở lobby: load lại để mọi box (map, nhà, upgrade, evolution...) dựng theo civ mới
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == SceneName.LOBBY_SCENE && FXManager.Instance != null)
+        {
+            FXManager.Instance.LoadScene(SceneName.LOBBY_SCENE);
+            return;
+        }
+
+        this.PostEvent(EventID.ON_CIV_CHANGED);
+        this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
+        this.PostEvent(EventID.ON_FOOD_UI_CHANGED);
     }
 
     private static bool TryParse(TMP_InputField input, out int value)

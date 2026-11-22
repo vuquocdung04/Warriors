@@ -29,7 +29,8 @@ public class LobbyBox : BaseBox<LobbyBox>
         btnPlay.OnClicked(delegate
         {
             string civId = _civs[_viewIndex].civId;          
-            UseProfile.SelectedEnemyCiv.Value = civId;     
+            UseProfile.SelectedEnemyCiv.Value = civId;
+            UseProfile.GameMode = GameMode.Battle;
             FXManager.Instance.LoadScene(SceneName.GAME_PLAY);
         });
 

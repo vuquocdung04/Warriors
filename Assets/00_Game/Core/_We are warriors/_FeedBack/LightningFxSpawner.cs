@@ -56,6 +56,36 @@ public class LightningFxSpawner : StaffSingleton<LightningFxSpawner>
         catch (System.OperationCanceledException) { }
     }
 
+    // Đánh sét vào 1 điểm bất kỳ (vd thân boss), onHit gọi lúc tia chạm. index = thứ tự tia để đánh lệch nhịp
+    public void StrikePoint(Vector3 point, int index, System.Action onHit)
+    {
+        StrikePointRoutine(point, index, onHit, this.GetCancellationTokenOnDestroy()).Forget();
+    }
+
+    async UniTaskVoid StrikePointRoutine(Vector3 point, int index, System.Action onHit, CancellationToken token)
+    {
+        try
+        {
+            float wait = strikeDelay + index * strikeStagger;
+            if (wait > 0f) await UniTask.Delay(System.TimeSpan.FromSeconds(wait), cancellationToken: token);
+            if (BattleManager.Instance != null && BattleManager.Instance.IsBattleOver) return;
+
+            if (prefab != null)
+            {
+                var fx = SimplePool2.Spawn(prefab, point, Quaternion.identity);
+                fx.transform.localScale = Vector3.one * scale;
+                PlaceBolt(fx, GetScreenTop() - fx.transform.position.y + topPadding);
+                fx.PlayPooled();
+            }
+            if (!string.IsNullOrEmpty(sound)) AudioManager.Instance.PlaySfx(sound);
+
+            if (hitDelay > 0f) await UniTask.Delay(System.TimeSpan.FromSeconds(hitDelay), cancellationToken: token);
+            ShakeCamera();
+            onHit?.Invoke();
+        }
+        catch (System.OperationCanceledException) { }
+    }
+
     float GetStagger(int count)
     {
         if (strikeWindow <= 0f || count <= 2) return strikeStagger;

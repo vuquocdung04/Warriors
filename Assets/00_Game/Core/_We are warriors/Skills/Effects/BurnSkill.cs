@@ -10,5 +10,6 @@ public class BurnSkill : ISkillEffect
         for (int i = 0; i < enemies.Count; i++)
             if (enemies[i] != null && enemies[i].IsAlive)
                 enemies[i].AddEffect(new BurnEffect(PERCENT, duration));
+        DungeonBoss.Active?.AddDot(DotType.Burn, PERCENT, duration);
     }
 }

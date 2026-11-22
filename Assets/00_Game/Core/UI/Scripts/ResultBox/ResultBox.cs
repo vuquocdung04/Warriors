@@ -185,6 +185,9 @@ public class ResultBox : BaseBox<ResultBox>
 
     static int Count(Transform[] list) => list != null ? list.Length : 0;
 
+    // Rút gọn số lớn: 20800000 -> 20.8M (dùng chung NumberFormatter với coin/gem view)
+    static string Fmt(double value) => NumberFormatter.Format(value);
+
     void ResetState()
     {
         if (banner != null)
@@ -277,7 +280,7 @@ public class ResultBox : BaseBox<ResultBox>
         int count = source != null && target != null ? Mathf.Clamp(value, 0, flyMax) : 0;
         if (count <= 0)
         {
-            _sequence.AppendCallback(() => total.text = value.ToString());
+            _sequence.AppendCallback(() => total.text = Fmt(value));
             return;
         }
 
@@ -285,7 +288,7 @@ public class ResultBox : BaseBox<ResultBox>
         _flightEnd = Mathf.Max(_flightEnd, _sequence.Duration(false) + flight);
         _sequence.AppendCallback(() => SpawnFly(source, target, count, arrived =>
         {
-            total.text = (value * arrived / count).ToString();
+            total.text = Fmt((long)value * arrived / count);
             Hit(total.transform);
             Hit(target);
             Tick();
@@ -354,8 +357,8 @@ public class ResultBox : BaseBox<ResultBox>
         _sequence.Join(DOTween.To(() => t, x =>
         {
             t = x;
-            if (totalCoin != null) totalCoin.text = Mathf.RoundToInt(Mathf.Lerp(coinFrom, coinTo, x)).ToString();
-            if (totalGem != null) totalGem.text = Mathf.RoundToInt(Mathf.Lerp(gemFrom, gemTo, x)).ToString();
+            if (totalCoin != null) totalCoin.text = Fmt(Mathf.Lerp(coinFrom, coinTo, x));
+            if (totalGem != null) totalGem.text = Fmt(Mathf.Lerp(gemFrom, gemTo, x));
             Tick();
         }, 1f, totalCountDuration).SetEase(Ease.OutCubic));
         _sequence.Append(root.DOScale(1f, 0.25f).SetEase(Ease.OutBack));
@@ -363,8 +366,8 @@ public class ResultBox : BaseBox<ResultBox>
 
     void CelebrateTotal(int coin, int gem)
     {
-        if (totalCoin != null) totalCoin.text = coin.ToString();
-        if (totalGem != null) totalGem.text = gem.ToString();
+        if (totalCoin != null) totalCoin.text = Fmt(coin);
+        if (totalGem != null) totalGem.text = Fmt(gem);
         if (coin + gem > 0) PlaySfx(soundCount);
         if (totalRoot == null) return;
         totalRoot.transform.DOKill(true);
@@ -466,12 +469,12 @@ public class ResultBox : BaseBox<ResultBox>
         {
             if (x == shown) return;
             shown = x;
-            text.text = prefix + x + suffix;
+            text.text = prefix + Fmt(x) + suffix;
             Pulse(row.icon);
         }, to, to != from ? countDuration : 0f).SetEase(Ease.OutCubic));
         _sequence.AppendCallback(() =>
         {
-            text.text = prefix + to + suffix;
+            text.text = prefix + Fmt(to) + suffix;
             Hit(text.transform);
             if (to > 0) PlaySfx(soundCount);
         });

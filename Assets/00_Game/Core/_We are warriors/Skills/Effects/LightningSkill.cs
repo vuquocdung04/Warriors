@@ -9,6 +9,10 @@ public class LightningSkill : ISkillEffect
         int count = Mathf.RoundToInt(data.ValueAt(level));
         if (count <= 0) return;
 
+        // dungeon: không có lính địch -> toàn bộ tia sét đánh vào boss (mỗi tia trừ % máu, không giết ngay)
+        var boss = DungeonBoss.Active;
+        if (boss != null && boss.IsAlive) { boss.StrikeLightning(count); return; }
+
         var targets = new List<Unit>();
         foreach (var u in BattleManager.Instance.Enemies)
             if (u != null && u.IsAlive) targets.Add(u);

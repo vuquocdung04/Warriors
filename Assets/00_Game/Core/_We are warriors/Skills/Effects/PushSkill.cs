@@ -23,6 +23,7 @@ public class PushSkill : ISkillEffect
             u.PushBack(pushCells, slideSpeed);
             u.TakeDamage(dmg);
         }
+        DungeonBoss.Active?.PushBack(dmg);
     }
 
     float GetUnit1Atk()

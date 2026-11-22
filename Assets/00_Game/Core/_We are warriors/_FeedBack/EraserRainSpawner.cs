@@ -126,6 +126,10 @@ public class EraserRainSpawner : StaffSingleton<EraserRainSpawner>
             if (d.sqrMagnitude > r2) continue;
             u.TakeDamage(u.MaxHp * percent);
         }
+
+        // boss dungeon: cục tẩy rơi trúng thân boss (bức tường từ mép trước trở ra sau)
+        var boss = DungeonBoss.Active;
+        if (boss != null && boss.IsAlive && boss.SqrDistanceTo(point) <= r2) boss.TakePercentDamage(percent);
     }
 
     // fallback khi scene chưa có spawner: gây damage ngay tại các điểm, không hiệu ứng

@@ -23,6 +23,9 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
     public EnemyWaveUI enemyWaveUI;
     public DropController dropController;
 
+    [Header("Dungeon")]
+    public DungeonController dungeon;
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -39,8 +42,19 @@ public class GamePlayController : LeaderSingleton<GamePlayController>
         grid.Init();
         battle.Init();
         spawner.Init(db);
-        enemyAI.Init(spawner);
-        enemyWaveUI.Init();
+        bool isDungeon = UseProfile.IsDungeon && dungeon != null;
+        if (isDungeon)
+        {
+            // Dungeon: không có nhà/lính enemy, thay bằng boss khủng long
+            dungeon.Init(spawner.enemyHouse, cameraGameplay);
+            if (enemyWaveUI.group != null) enemyWaveUI.group.gameObject.SetActive(false);   // không có wave
+        }
+        else
+        {
+            if (dungeon != null && dungeon.hpBar != null) dungeon.hpBar.gameObject.SetActive(false);
+            enemyAI.Init(spawner);
+            enemyWaveUI.Init();
+        }
         var allyUnits = db.GetCivUnits(UseProfile.CurrentCiv.Value);
         int startFood = allyUnits.Count > 0 ? Mathf.Max(0, allyUnits[0].foodCost - 2) : 0;
 

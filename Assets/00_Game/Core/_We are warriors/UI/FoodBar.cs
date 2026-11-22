@@ -10,9 +10,15 @@ public class FoodBar : MonoBehaviour
     public TMP_Text foodText;
     public Image fillProgress;
 
+    [Header("Continuous (food rate >= 1/s)")]
+    [Tooltip("Material dùng shader UI/ScrollPattern: thay cho thanh fill khi hồi >= 1 food/giây")]
+    public Material continuousMaterial;
+    public const float CONTINUOUS_RATE = 1f;   // food/giây
+
     private float _refillRate;
     private int _food;
     private Tween _fillTween;
+    private float _progress;   // tiến độ 0..1 của 1 food (chạy ngầm khi ở chế độ continuous)
 
     public int Food => _food;
 
@@ -37,9 +43,19 @@ public class FoodBar : MonoBehaviour
         if (fillProgress == null || _refillRate <= 0f) return;
 
         float secondsPerFood = 1f / _refillRate;
-        fillProgress.fillAmount = 0f;
-        _fillTween = DOTween.To(() => fillProgress.fillAmount,
-                                v => fillProgress.fillAmount = v,
+
+        // Hồi >= 1 food/giây: thanh fill chạy quá nhanh -> thay bằng pattern shine cuộn liên tục, phủ kín ô
+        bool continuous = _refillRate >= CONTINUOUS_RATE && continuousMaterial != null;
+        fillProgress.material = continuous ? continuousMaterial : null;
+        fillProgress.fillAmount = continuous ? 1f : 0f;
+
+        _progress = 0f;
+        _fillTween = DOTween.To(() => _progress,
+                                v =>
+                                {
+                                    _progress = v;
+                                    if (!continuous) fillProgress.fillAmount = v;
+                                },
                                 1f, secondsPerFood)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart)

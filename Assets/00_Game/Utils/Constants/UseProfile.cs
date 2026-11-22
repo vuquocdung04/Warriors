@@ -13,6 +13,15 @@ public static class UseProfile
     public static readonly PrefVar<string> EnemyCiv = new(StringHelper.ENEMY_CIV, "stone");
     public static readonly PrefVar<string> SelectedEnemyCiv = new("selected_enemy_civ", "stone");
 
+    // Chế độ vào GamePlay: lobby Play -> Battle, DungeonsBox Play -> Dungeon (Replay giữ nguyên chế độ)
+    public static readonly PrefVar<int> GameModeValue = new("game_mode", (int)global::GameMode.Battle);
+    public static GameMode GameMode
+    {
+        get => (GameMode)GameModeValue.Value;
+        set => GameModeValue.Value = (int)value;
+    }
+    public static bool IsDungeon => GameMode == GameMode.Dungeon;
+
     public static readonly PrefVar<int> ShowCivOrder = new(StringHelper.SHOW_CIV_ORDER, DefaultShowCivOrder);
     public static readonly PrefVar<int> UnlockCivOrder = new(StringHelper.UNLOCK_CIV_ORDER, DefaultUnlockCivOrder);
 

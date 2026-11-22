@@ -14,6 +14,7 @@ public class BattleManager : StaffSingleton<BattleManager>
     public bool IsBattleOver { get; private set; }
     private bool _paused;
     public void SetPause(bool p) => _paused = p;
+    public bool IsPaused => _paused;
 
     public override void Init()
     {
@@ -59,6 +60,29 @@ public class BattleManager : StaffSingleton<BattleManager>
     public void RegisterHouse(House h)
     {
         (h.team == Team.Ally ? _allyTargets : _enemyTargets).Add(h);
+    }
+
+    // Mục tiêu không phải Unit/House (vd boss dungeon) - lính phe kia sẽ tự tìm & đánh
+    public void RegisterTarget(IDamageable t)
+    {
+        (t.Team == Team.Ally ? _allyTargets : _enemyTargets).Add(t);
+    }
+
+    // Mục tiêu (unit + house) mà phe attackerTeam được phép đánh
+    public IReadOnlyList<IDamageable> TargetsFor(Team attackerTeam) => TargetsOf(attackerTeam);
+
+    // AOE: mọi mục tiêu của phe attackerTeam có khoảng cách tới center <= radius
+    public void FindTargetsInRadius(Team attackerTeam, Vector3 center, float radius, List<IDamageable> results)
+    {
+        results.Clear();
+        var targets = TargetsOf(attackerTeam);
+        float rSqr = radius * radius;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            var t = targets[i];
+            if (t == null || (t is Object o && o == null) || !t.IsAlive) continue;
+            if (t.SqrDistanceTo(center) <= rSqr) results.Add(t);
+        }
     }
     public void EndBattle()
     {

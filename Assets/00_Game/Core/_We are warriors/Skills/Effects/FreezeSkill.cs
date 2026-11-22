@@ -7,5 +7,6 @@ public class FreezeSkill : ISkillEffect
         for (int i = 0; i < enemies.Count; i++)
             if (enemies[i] != null && enemies[i].IsAlive)
                 enemies[i].AddEffect(new FreezeEffect(duration));
+        DungeonBoss.Active?.Freeze(duration);   // dungeon: boss đứng im (ngắn hơn lính)
     }
 }
