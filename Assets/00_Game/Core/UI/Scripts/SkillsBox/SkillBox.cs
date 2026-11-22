@@ -16,7 +16,7 @@ public class SkillBox : BaseBox<SkillBox>
 
     [Header("Holders")]
     public Transform skillHolder;          // list skill đã sở hữu
-    public List<Transform> selectedHolders; // ô skill đang đeo (tạm 1, list cho mở rộng)
+    public List<Transform> selectedHolders; // ô skill đang đeo (SkillSave.MaxEquipped = 3)
 
     private readonly List<SkillItem> _owned = new();
     private readonly List<SkillItem> _selected = new();

@@ -11,16 +11,14 @@ public class NavButton : MonoBehaviour
 
     [SerializeField] private Sprite sprUnSelected;
     [SerializeField] private Image imgMain;
-    [SerializeField] private RectTransform rectMain;
 
     public void Init()
     {
         UIUtils.FitToTargetHeight(icon.GetComponent<Image>(), 130f);
     }
 
-    public void HandleSelected(bool isSelected, Sprite sprSelected, Vector2 size)
+    public void HandleSelected(bool isSelected, Sprite sprSelected)
     {
-        rectMain.sizeDelta = size; // mọi nav cùng size
         imgMain.SetSprite(isSelected ? sprSelected : sprUnSelected);
 
         if (isSelected)
@@ -42,7 +40,6 @@ public class NavButton : MonoBehaviour
 
     public void InitSetup()
     {
-        rectMain = GetComponent<RectTransform>();
         btnMain = GetComponent<Button>();
         icon = transform.GetComponentInChildren<RectTransform>();
         imgMain = GetComponent<Image>();

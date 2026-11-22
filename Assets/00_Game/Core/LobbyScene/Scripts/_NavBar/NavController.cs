@@ -8,7 +8,6 @@ public class NavController : MonoBehaviour
     public static NavController Instance { get; private set; }
     [SerializeField] private Sprite sprSelected;
     public List<NavButton> navButtons;
-    private Vector2 navSize;
     private NavButton currentNavSelected;
 
     public void Init()
@@ -35,17 +34,6 @@ public class NavController : MonoBehaviour
         InitNavButtonStateWith(ENavType.nav2);
     }
 
-    private void InitSize()
-    {
-        int countNavBar = navButtons.Count;
-        if (countNavBar == 0) return;
-
-        float totalWidth = GetComponent<RectTransform>().rect.width;
-        float height = 250;
-        float width = totalWidth / countNavBar;
-        navSize = new Vector2(width, height);
-    }
-
     public void NavigateTo(ENavType type)
     {
         var target = navButtons.Find(n => n.navType == type);
@@ -55,12 +43,11 @@ public class NavController : MonoBehaviour
 
     private void InitNavButtonStateWith(ENavType type)
     {
-        InitSize();
         foreach (var t in navButtons)
         {
             bool isSelected = t.navType == type;
             if (isSelected) currentNavSelected = t;
-            t.HandleSelected(isSelected, sprSelected, navSize);
+            t.HandleSelected(isSelected, sprSelected);
         }
     }
 
@@ -70,11 +57,11 @@ public class NavController : MonoBehaviour
 
         foreach (var t in navButtons)
         {
-            t.HandleSelected(false, sprSelected, navSize);
+            t.HandleSelected(false, sprSelected);
         }
 
         currentNavSelected = navButton;
-        navButton.HandleSelected(true, sprSelected, navSize);
+        navButton.HandleSelected(true, sprSelected);
     }
 
     private void HandleScreenSliding(NavButton clicked)

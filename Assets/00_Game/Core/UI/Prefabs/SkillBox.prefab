@@ -154,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &947357444805568646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -229,7 +229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2765719147458495873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -323,8 +323,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.4, y: 40.023}
-  m_SizeDelta: {x: 132.91, y: 133.1}
+  m_AnchoredPosition: {x: -0.4, y: 18.46}
+  m_SizeDelta: {x: 176.51, y: 176.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4611549655605161113
 CanvasRenderer:
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2627451, g: 0.28627452, b: 0.34901962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -457,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1077698407976553618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1533,7 +1533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &552756594735651606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1937,8 +1937,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 241.9, y: 40.023}
-  m_SizeDelta: {x: 132.91, y: 133.1}
+  m_AnchoredPosition: {x: 241.9, y: 18.46}
+  m_SizeDelta: {x: 176.51, y: 176.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7819196065419217447
 CanvasRenderer:
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2627451, g: 0.28627452, b: 0.34901962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2232,6 +2232,8 @@ MonoBehaviour:
   skillHolder: {fileID: 7619144695858920167}
   selectedHolders:
   - {fileID: 4967094696325361829}
+  - {fileID: 4732269260098090581}
+  - {fileID: 6961564217725054863}
 --- !u!1 &8490517147426423244
 GameObject:
   m_ObjectHideFlags: 0

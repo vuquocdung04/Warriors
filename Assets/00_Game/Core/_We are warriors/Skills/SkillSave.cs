@@ -9,11 +9,12 @@ public class SkillState
     public int card = 0;
     public bool owned = false;
     public bool equipped = false;
+    public long equipOrder = 0; // thứ tự đeo -> quyết định vị trí slot, skill đeo trước đứng trước
 }
 
 public static class SkillSave
 {
-    public const int MaxEquipped = 1;
+    public const int MaxEquipped = 3;
     const string SAVE_KEY = "SKILL_SAVE";
     private static Dictionary<string, SkillState> _cache;
 
@@ -37,22 +38,27 @@ public static class SkillSave
         var list = new List<SkillState>();
         foreach (var s in _cache.Values)
             if (s.equipped) list.Add(s);
+        list.Sort((a, b) => a.equipOrder.CompareTo(b.equipOrder));
         return list;
     }
+
+    // Đeo skill; nếu đã đủ MaxEquipped slot thì tháo skill đeo lâu nhất
     public static void Equip(string id)
     {
         Load();
+        var state = Get(id);
+        if (state.equipped) return;
+
         var equipped = GetEquipped();
-
-        if (Get(id).equipped) return;
-
         while (equipped.Count >= MaxEquipped && equipped.Count > 0)
         {
             equipped[0].equipped = false;
             equipped.RemoveAt(0);
         }
 
-        Get(id).equipped = true;
+        long nextOrder = equipped.Count > 0 ? equipped[equipped.Count - 1].equipOrder + 1 : 0;
+        state.equipped = true;
+        state.equipOrder = nextOrder;
         Save();
     }
     public static void Unequip(string id)
