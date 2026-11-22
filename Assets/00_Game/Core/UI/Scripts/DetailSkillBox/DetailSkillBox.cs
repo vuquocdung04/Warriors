@@ -71,7 +71,23 @@ public class DetailSkillBox : BaseBox<DetailSkillBox>
         }
         SkillUpgrade.TryUpgrade(_data);
         Refresh();
+        PlayUpgradeFx();
         this.PostEvent(EventID.ON_SKILL_CHANGED);
+    }
+
+    [Header("Hiệu ứng nâng cấp")]
+    public UpgradeFx upgradeFx;
+    public Color upgradeColor = new Color(0.65f, 0.45f, 1f, 1f);   // skill: tím
+
+    void PlayUpgradeFx()
+    {
+        if (upgradeFx == null) upgradeFx = GetComponent<UpgradeFx>();
+        if (upgradeFx == null || _item == null) return;
+
+        Image shape = _item.bg != null && _item.bg.gameObject.activeInHierarchy ? _item.bg : _item.imageIcon;
+        float newFill = _item.fillProgress != null ? _item.fillProgress.fillAmount : 0f;
+        var lines = txtDes != null ? new System.Collections.Generic.List<Transform> { txtDes.transform } : null;
+        upgradeFx.Play((RectTransform)_item.transform, shape, upgradeColor, _item.fillProgress, newFill, _item.levelText, lines);
     }
 
     void OnEquip()

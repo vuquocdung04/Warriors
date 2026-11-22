@@ -1209,6 +1209,7 @@ GameObject:
   - component: {fileID: 8531753198898389241}
   - component: {fileID: 1197489487187017146}
   - component: {fileID: 5993969976730950299}
+  - component: {fileID: 4593154827416496301}
   m_Layer: 5
   m_Name: DetailEquipBox
   m_TagString: Untagged
@@ -1314,6 +1315,37 @@ MonoBehaviour:
   statItemPrefab: {fileID: 7896178341805683258, guid: 30576bdee04e0452b9949b3b4173b7a7, type: 3}
   txtName: {fileID: 988684468072881670}
   txtRank: {fileID: 7706566610396444864}
+  upgradeFx: {fileID: 4593154827416496301}
+--- !u!114 &4593154827416496301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297093543987465117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf6ba8ef63b884459acf7ab8c37b2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeFx
+  layer: {fileID: 8609931748512188164}
+  ringSprite: {fileID: 21300000, guid: fba5d0e0320b3ee44bd0e10d6353d13f, type: 3}
+  glowSprite: {fileID: 21300000, guid: 0614f0e0385f34691a36d73e8968f916, type: 3}
+  sparkSprite: {fileID: 21300000, guid: c4d6b2f9f43d78842b1382f764fa3bf4, type: 3}
+  shardSprite: {fileID: 21300000, guid: a19d97b05b490384c8abaa7f42dcbada, type: 3}
+  font: {fileID: 11400000, guid: 42c84900f4e5d1b4086413a26abc7642, type: 2}
+  fontMaterial: {fileID: 2100000, guid: d3f6fb9cf36004946ab7561fda7f23c3, type: 2}
+  levelUpText: LEVEL UP!
+  levelUpSize: 70
+  levelUpColor: {r: 1, g: 0.93, b: 0.4, a: 1}
+  chargeTime: 0.18
+  burstTime: 0.3
+  textTime: 0.8
+  sparkCount: 10
+  shardCount: 6
+  pieceDistance: {x: 150, y: 330}
+  pieceSize: {x: 28, y: 60}
+  sfx: Evolve
 --- !u!1 &6568842526852310923
 GameObject:
   m_ObjectHideFlags: 0

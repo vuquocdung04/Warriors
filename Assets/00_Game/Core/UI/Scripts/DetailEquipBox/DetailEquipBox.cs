@@ -98,7 +98,25 @@ public class DetailEquipBox : BaseBox<DetailEquipBox>
         }
         EquipmentUpgrade.TryUpgrade(_type, _data);
         Refresh();
+        PlayUpgradeFx();
         this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
+    }
+
+    [Header("Hiệu ứng nâng cấp")]
+    public UpgradeFx upgradeFx;
+
+    void PlayUpgradeFx()
+    {
+        if (upgradeFx == null) upgradeFx = GetComponent<UpgradeFx>();
+        if (upgradeFx == null || _item == null) return;
+
+        var stats = new List<Transform>();
+        foreach (var s in _stats) if (s != null && s.gameObject.activeSelf) stats.Add(s.transform);
+
+        Image shape = _item.bgCard != null && _item.bgCard.gameObject.activeInHierarchy ? _item.bgCard : _item.imageIcon;
+        float newFill = _item.fillProgress != null ? _item.fillProgress.fillAmount : 0f;
+        Color color = DataRepo.Instance.equipmentDatabase.GetRankColor(_data.rank);
+        upgradeFx.Play((RectTransform)_item.transform, shape, color, _item.fillProgress, newFill, _item.levelText, stats);
     }
 
     void OnEquip()

@@ -149,6 +149,8 @@ public class CheatController : MonoBehaviour
         UseProfile.Unit2Unlock.Value = true;
         UseProfile.Unit3Unlock.Value = true;
 
+        GrantAllEquipment(repo, EquipmentCardsPerItem);
+
         SetPopupActive(false);
 
         // Đang ở lobby: load lại để mọi box (map, nhà, upgrade, evolution...) dựng theo civ mới
@@ -161,6 +163,34 @@ public class CheatController : MonoBehaviour
         this.PostEvent(EventID.ON_CIV_CHANGED);
         this.PostEvent(EventID.ON_EQUIPMENT_CHANGED);
         this.PostEvent(EventID.ON_FOOD_UI_CHANGED);
+    }
+
+    private const int EquipmentCardsPerItem = 100;
+
+    // Mọi trang bị (Melee/Range/Shield): mở khoá + cộng card để nâng cấp luôn
+    private static void GrantAllEquipment(DataRepo repo, int cards)
+    {
+        var db = repo.equipmentDatabase;
+        if (db == null)
+            return;
+
+        void Grant(EquipType type, System.Collections.Generic.List<EquipmentData> list)
+        {
+            foreach (var equip in list)
+            {
+                if (equip == null || string.IsNullOrEmpty(equip.id))
+                    continue;
+
+                var state = EquipmentSave.Get(type, equip.id);
+                state.owned = true;
+                state.card += cards;
+            }
+        }
+
+        Grant(EquipType.Melee, db.AllMelee());
+        Grant(EquipType.Range, db.AllRange());
+        Grant(EquipType.Shield, db.AllShield());
+        EquipmentSave.Save();
     }
 
     private static bool TryParse(TMP_InputField input, out int value)
