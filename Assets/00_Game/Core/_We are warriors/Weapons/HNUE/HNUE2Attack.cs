@@ -2,8 +2,35 @@ using UnityEngine;
 using DG.Tweening;
 
 // Máy bay giấy: kéo ra sau lấy đà -> phóng tới, máy bay trên tay ẩn đi và đạn bay ra -> máy bay mới hiện lại
-public class HNUE2Attack : AttackStrategyBase
+public class HNUE2Attack : AttackStrategyBase, ITierAware
 {
+    [System.Serializable]
+    public class TierShot
+    {
+        [Tooltip("Sprite đạn của bậc này (null = giữ sprite gốc của planePrefab)")]
+        public Sprite sprite;
+        [Tooltip("Số máy bay bắn ra mỗi lần: chiếc giữa vào mục tiêu chính, các chiếc khác vào địch gần nhất khác")]
+        public int count = 1;
+        [Tooltip("Sát thương của máy bay bắn vào mục tiêu phụ (so với 1 phát thường)")]
+        [Range(0f, 1f)] public float sideDamage = 0.5f;
+        [Tooltip("Thiếu mục tiêu phụ: máy bay thừa đáp lệch trên/dưới mục tiêu chính bao nhiêu (không gây dame)")]
+        public float scatter = 0.45f;
+        [Tooltip("Chênh độ cao vòng cung giữa các máy bay")]
+        public float arcSpread = 0.6f;
+        [Tooltip("Bắn lệch nhau theo thời gian (giây)")]
+        public float stagger = 0.05f;
+    }
+
+    [Header("Đạn theo bậc ([0] = bậc 1, [1] = bậc 2)")]
+    public TierShot[] tierShots;
+
+    private TierShot _shot;
+    private Sprite _baseSprite;
+    private bool _baseCached;
+
+    public void ApplyTier(int tier) =>
+        _shot = tier > 0 && tierShots != null && tier <= tierShots.Length ? tierShots[tier - 1] : null;
+
     [Header("Tay ném")]
     public Transform weapon;
     [Tooltip("Sprite máy bay đang cầm, ẩn lúc ném")]
@@ -90,11 +117,69 @@ public class HNUE2Attack : AttackStrategyBase
         if (target == null) return;
 
         Vector3 from = firePoint != null ? firePoint.position : weapon.position;
-        var p = SimplePool2.Spawn(planePrefab);
-        p.transform.position = from;
-        p.LaunchArc(target.AimPoint, planeSpeed, arcHeight, () =>
+        int count = _shot != null ? Mathf.Max(1, _shot.count) : 1;
+        if (count == 1) { LaunchPlane(from, target, Vector3.zero, arcHeight, 1f); return; }
+
+        // mục tiêu phụ: địch gần nhất khác trong tầm
+        _sideTargets.Clear();
+        if (BattleManager.Instance != null)
         {
-            if (target != null && target.IsAlive) owner.DealDamage(target);
+            BattleManager.Instance.FindTargetsInRadius(owner.team, owner.transform.position, owner.AttackRange * 1.15f, _nearby);
+            Vector3 me = owner.transform.position;
+            _nearby.Remove(target);
+            _nearby.Sort((a, b) => a.SqrDistanceTo(me).CompareTo(b.SqrDistanceTo(me)));
+            for (int k = 0; k < _nearby.Count && _sideTargets.Count < count - 1; k++) _sideTargets.Add(_nearby[k]);
+        }
+
+        int mid = count / 2, side = 0, scatterIdx = 0;
+        for (int i = 0; i < count; i++)
+        {
+            float arc = arcHeight + (i - mid) * _shot.arcSpread;
+            if (i == mid) { LaunchPlane(from, target, Vector3.zero, arc, 1f); continue; }
+
+            IDamageable t; Vector3 offset; float mul;
+            if (side < _sideTargets.Count) { t = _sideTargets[side++]; offset = Vector3.zero; mul = _shot.sideDamage; }
+            else   // thiếu địch -> đáp rải quanh mục tiêu chính, chỉ là hiệu ứng
+            {
+                t = target; mul = 0f;
+                offset = Vector3.up * (scatterIdx++ % 2 == 0 ? _shot.scatter : -_shot.scatter);
+            }
+            float delay = Mathf.Abs(i - mid) * _shot.stagger;
+            DG.Tweening.DOVirtual.DelayedCall(delay, () =>
+            {
+                if (t != null && !(t is Object o && o == null) && t.IsAlive) LaunchPlane(from, t, offset, arc, mul);
+            }).SetLink(gameObject);
+        }
+    }
+
+    private readonly System.Collections.Generic.List<IDamageable> _nearby = new();
+    private readonly System.Collections.Generic.List<IDamageable> _sideTargets = new();
+
+    // damageMul = 0 -> chỉ hiệu ứng, không gây sát thương
+    void LaunchPlane(Vector3 from, IDamageable target, Vector3 offset, float arc, float damageMul)
+    {
+        var p = SimplePool2.Spawn(planePrefab);
+        // đạn dùng chung pool giữa các unit -> luôn gán lại sprite (bậc 0 trả về sprite gốc)
+        var sr = p.GetComponentInChildren<SpriteRenderer>(true);
+        if (sr != null)
+        {
+            if (!_baseCached)
+            {
+                var prefSr = planePrefab.GetComponentInChildren<SpriteRenderer>(true);
+                _baseSprite = prefSr != null ? prefSr.sprite : sr.sprite;
+                _baseCached = true;
+            }
+            sr.sprite = _shot != null && _shot.sprite != null ? _shot.sprite : _baseSprite;
+        }
+        p.transform.position = from;
+        TierAttackFx.SetupProjectile(p.gameObject, fx);   // trail theo bậc (bậc 0 tắt)
+        p.LaunchArc(target.AimPoint + offset, planeSpeed, arc, () =>
+        {
+            if (damageMul > 0f && target != null && !(target is Object o && o == null) && target.IsAlive)
+            {
+                owner.DealDamage(target, damageMul);
+                fx?.OnHit(target);
+            }
         }, true);
     }
 

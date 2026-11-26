@@ -187,11 +187,14 @@ public class Unit : MonoBehaviour, IDamageable
         _attackStrategy?.Attack(_attackTarget, cooldown);
     }
 
-    public void DealDamage(IDamageable target)
+    // Tầm đánh (world) để vũ khí đa mục tiêu tìm địch xung quanh
+    public float AttackRange => AttackRangeWorld;
+
+    public void DealDamage(IDamageable target, float damageMul = 1f)
     {
         if (target == null || !target.IsAlive) return;
 
-        float dmg = _stats.atk;
+        float dmg = _stats.atk * damageMul;
         bool crit = Random.value < _stats.criticalChance;
         if (crit) dmg *= 2f;
 
@@ -241,6 +244,15 @@ public class Unit : MonoBehaviour, IDamageable
         _hpBar?.Set(_stats.hp / _stats.maxHp);
         if (_stats.hp <= 0f) { Die(); return; }
         PlayHitFeedback();
+    }
+
+    // Trúng đòn nặng (unit bậc cao): visual nảy nhẹ, không chồng tween khi bị đánh liên tục
+    private Tween _punchTween;
+    public void PunchHit(float strength = 0.15f)
+    {
+        if (_state == UnitState.Dead || visual == null) return;
+        _punchTween?.Complete();
+        _punchTween = visual.DOPunchScale(Vector3.one * strength, 0.16f, 6, 0.5f).SetLink(gameObject);
     }
 
     // Phản hồi khi trúng đòn: nháy sáng sprite rồi trả về màu gốc (DOTween tự huỷ khi destroy nhờ SetLink).

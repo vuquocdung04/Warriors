@@ -25,7 +25,8 @@ public class UnitCardBar : MonoBehaviour
             if (i < units.Count && IsUnitUnlocked(i))   // thêm check unlock
             {
                 cards[i].gameObject.SetActive(true);
-                cards[i].Setup(i, units[i], OnCardClicked);
+                bool upgradable = _spawner.CanUpgradeAlly(i);
+                cards[i].Setup(i, units[i], OnCardClicked, upgradable ? OnUpgradeClicked : null, _spawner.GetAllyTier(i));
             }
             else cards[i].gameObject.SetActive(false);
         }
@@ -41,5 +42,18 @@ public class UnitCardBar : MonoBehaviour
     void OnCardClicked(int index)
     {
         _spawner.SpawnAlly(index);
+    }
+
+    void OnUpgradeClicked(int index)
+    {
+        if (!_spawner.TryUpgradeAlly(index)) return;
+
+        var card = cards[index];
+        int tier = _spawner.GetAllyTier(index);
+        card.SetTier(tier);
+
+        // Màn ăn mừng: unit cũ ▶ unit mới (popup -> trận tự tạm dừng tới khi đóng)
+        Sprite oldSp = card.GetPortrait(tier - 1), newSp = card.GetPortrait(tier);
+        _ = EvolveBox.Setup(GameScene.GetPopupHolder(), box => box.SetupAndShow(oldSp, newSp, tier));
     }
 }

@@ -6,14 +6,20 @@ public abstract class AttackStrategyBase : MonoBehaviour, IAttackStrategy
 {
     protected Unit owner;
     protected Sequence seq;
+    protected TierAttackFx fx;   // FX theo bậc (null nếu unit không có)
     private bool _playing;
 
-    public virtual void Init(Unit owner) => this.owner = owner;
+    public virtual void Init(Unit owner)
+    {
+        this.owner = owner;
+        fx = owner != null ? owner.GetComponent<TierAttackFx>() : null;
+    }
 
     public void Attack(IDamageable target, float duration)
     {
         if (_playing) return;
         _playing = true;
+        fx?.SetTrail(true);
         PlayAnim2(target, duration, () => Hit(target));
     }
 
@@ -28,12 +34,18 @@ public abstract class AttackStrategyBase : MonoBehaviour, IAttackStrategy
 
     public virtual void ResetToIdle() { }
 
-    protected void OnAnimDone() => _playing = false;
+    protected void OnAnimDone()
+    {
+        _playing = false;
+        fx?.SetTrail(false);
+    }
 
     protected virtual void Hit(IDamageable target)
     {
         target = ResolveTarget(target);
-        if (target != null) owner.DealDamage(target);
+        if (target == null) return;
+        owner.DealDamage(target);
+        fx?.OnHit(target);
     }
 
     // Mục tiêu chết giữa lúc đang ngắm -> đánh sang mục tiêu hiện tại của unit thay vì bỏ phí đòn

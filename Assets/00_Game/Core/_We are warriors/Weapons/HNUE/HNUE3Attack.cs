@@ -43,6 +43,10 @@ public class HNUE3Attack : AttackStrategyBase
             AudioManager.Instance.PlaySfx("punch");
             onHit?.Invoke();
         });
+        // hit-stop (bậc cao): khựng đúng lúc chạm, vũ khí rung nhẹ -> cảm giác nặng
+        float hitStop = fx != null ? fx.HitStop : 0f;
+        if (hitStop > 0f)
+            seq.Append(weapon.DOShakePosition(hitStop, 0.05f, 30, 90f, false, false));
         seq.AppendInterval(impact);
         // rút về
         seq.Append(DOTween.To(getZ, setZ, baseZ, ret).SetEase(Ease.OutQuad));

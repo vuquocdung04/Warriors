@@ -19,9 +19,14 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
     private readonly Queue<SpawnModifier> _pendingAllyMods = new();
     private readonly UnitData _championData = new UnitData { id = "champion" };
     private readonly UnitData _zombieData = new UnitData { id = "zombie" };
+
+    // Bậc của từng thẻ ally trong trận hiện tại (reset mỗi lần Init = mỗi trận)
+    private int[] _allyTiers = new int[0];
+
     public void Init(UnitDatabase db)
     {
         _db = db;
+        _allyTiers = new int[_db.GetCivUnits(UseProfile.CurrentCiv.Value).Count];
 
         _allyStats = BuildStatsDict(UseProfile.CurrentCiv.Value, withEquipment: true);
         _enemyStats = BuildStatsDict(UseProfile.SelectedEnemyCiv.Value, withEquipment: false);
@@ -76,12 +81,46 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
         }
 
         SpawnModifier mod = _pendingAllyMods.Count > 0 ? _pendingAllyMods.Dequeue() : null;
-        Unit u = SpawnUnit(Team.Ally, data, mod);
+        Unit u = SpawnUnit(Team.Ally, data, mod, GetAllyTier(index));
         if (u != null && food != null) food.Spend(data.foodCost);
     }
     public void EnqueueNextAllyModifier(SpawnModifier mod) => _pendingAllyMods.Enqueue(mod);
 
-    Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null)
+    // ---- NÂNG BẬC UNIT TRONG TRẬN ----
+    public int GetAllyTier(int index) => index >= 0 && index < _allyTiers.Length ? _allyTiers[index] : 0;
+
+    // Chỉ unit có art tiến hóa (UnitTierVisual có dữ liệu bậc) mới được nâng; unit khác giữ nguyên như cũ
+    public bool CanUpgradeAlly(int index)
+    {
+        if (_db == null) return false;
+        var units = _db.GetCivUnits(UseProfile.CurrentCiv.Value);
+        if (index < 0 || index >= units.Count) return false;
+        Unit prefab = _db.GetUnitById(units[index].id);
+        return prefab != null && prefab.TryGetComponent(out UnitTierVisual tv) && tv.tiers.Count >= UnitTier.MaxTier;
+    }
+
+    // Trả về true nếu nâng thành công (đủ thịt, chưa max). Chỉ unit spawn sau đó mới mang bậc mới.
+    public bool TryUpgradeAlly(int index)
+    {
+        if (BattleManager.Instance != null && BattleManager.Instance.IsBattleOver) return false;
+        if (_db == null || index < 0 || index >= _allyTiers.Length) return false;
+        if (_allyTiers[index] >= UnitTier.MaxTier || !CanUpgradeAlly(index)) return false;
+
+        UnitData data = _db.GetCivUnits(UseProfile.CurrentCiv.Value)[index];
+        int cost = UnitTier.UpgradeCost(data.foodCost, _allyTiers[index]);
+        var food = BottomBar.Instance.foodBar;
+        if (!food.CanAfford(cost))
+        {
+            ToastManager.Instance.ShowToast("Not Enough Food");
+            return false;
+        }
+
+        _allyTiers[index]++;
+        food.Spend(cost);
+        return true;
+    }
+
+    Unit SpawnUnit(Team team, UnitData data, SpawnModifier mod = null, int tier = 0)
     {
         Unit prefab = _db.GetUnitById(data.id);
         if (prefab == null) { Debug.LogError($"[Spawner] thiếu prefab '{data.id}'"); return null; }
@@ -95,9 +134,11 @@ public class BattleSpawner : StaffSingleton<BattleSpawner>
         if (cell == null) return null;
 
         var stats = template.Clone();
+        UnitTier.ApplyStats(stats, tier);
         mod?.ModifyStats?.Invoke(stats);
 
         Unit u = Instantiate(prefab);
+        if (tier > 0 && u.TryGetComponent(out UnitTierVisual tv)) tv.Apply(tier);   // đổi art trước Init (Init cache sprite/màu)
         u.Init(data, stats, team, cell.Value);
         mod?.AfterSpawn?.Invoke(u);
         return u;
